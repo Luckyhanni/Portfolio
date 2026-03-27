@@ -1,57 +1,44 @@
+import Link from "next/link";
 import Image from "next/image";
-
-type Project = {
-  title: string;
-  period?: string;
-  desc: string;
-  tags: string[];
-  link?: string;
-  linkLabel?: string;
-};
+import type { IconType } from "react-icons";
+import { DiVisualstudio } from "react-icons/di";
+import {
+  FaDatabase,
+  FaFileExcel,
+  FaListCheck,
+  FaMicrosoft,
+  FaWindows,
+  FaWpforms,
+} from "react-icons/fa6";
+import {
+  SiBlender,
+  SiCplusplus,
+  SiDotnet,
+  SiGit,
+  SiGithub,
+  SiPython,
+  SiReact,
+  SiRender,
+  SiUnity,
+  SiUnrealengine,
+} from "react-icons/si";
+import { TbBrandCSharp, TbBrandVscode } from "react-icons/tb";
+import { GAME_PROJECTS, Project, SOFTWARE_PROJECTS } from "../data/projects";
 
 export default function Home() {
-  const projects: Project[] = [
-    {
-      title: "Honorarrechner (C#/.NET)",
-      period: "SFS (intern)",
-      desc: "Interne Desktop-App zur Honorar-/Beratungskalkulation (WinForms/WPF), wartbar & tabellengetrieben.",
-      tags: ["C#", ".NET", "WinForms", "WPF"],
-      // link: "https://github.com/...",
-      // linkLabel: "GitHub",
-    },
-    {
-      title: "Neumandats-Übersicht (Web)",
-      period: "SFS (intern)",
-      desc: "Webanwendung für strukturierte Mandatsübersicht und Workflow-Verbesserung.",
-      tags: ["Web", "CRUD", "UI"],
-    },
-    {
-      title: "Abrechnung / Rechnungen Tool",
-      period: "SFS (intern)",
-      desc: "Tooling für Abrechnungs-/Rechnungsprozesse (interne Software).",
-      tags: ["Tooling", "Business", "Automation"],
-    },
-    {
-      title: "Vacation Invasion (Unreal Multiplayer)",
-      period: "Uni-Projekt",
-      desc: "Multiplayer-Party-Game: Team-Selection, Replication/PlayerState, UI-Flow, Packaging.",
-      tags: ["Unreal", "C++", "Blueprints", "Multiplayer"],
-      // link: "https://itch.io/...",
-      // linkLabel: "itch.io",
-    },
-    {
-      title: "KI-NPC-Dialoge (Bachelorarbeit)",
-      period: "laufend",
-      desc: "LLM-gestützte NPC-Dialoge – praxisnahes Systemdesign und Evaluation.",
-      tags: ["KI", "LLM", "Game AI"],
-    },
-  ];
-
   const skills = [
-    { group: "Sprachen", items: ["C#", "C++ (Unreal)", "TypeScript/JavaScript"] },
-    { group: "Engines", items: ["Unity (C#)", "Unreal (C++/Blueprints)"] },
-    { group: "Frameworks", items: [".NET (WinForms/WPF)", "Web Apps", "Next.js"] },
-    { group: "Interessen", items: ["KI", "Tooling", "3D-Druck", "Prototyping"] },
+    { name: "C#", icon: TbBrandCSharp, color: "#9b4f96" },
+    { name: ".NET", icon: SiDotnet, color: "#7c65d1" },
+    { name: "Unity", icon: SiUnity, color: "#d9e0ec" },
+    { name: "Unreal", icon: SiUnrealengine, color: "#f3f7ff" },
+    { name: "Blender", icon: SiBlender, color: "#ff8a00" },
+    { name: "Python", icon: SiPython, color: "#f2c14e" },
+    { name: "React", icon: SiReact, color: "#5bd3ff" },
+    { name: "Git", icon: SiGit, color: "#f05033" },
+    { name: "VS Code", icon: TbBrandVscode, color: "#2f8fff" },
+    { name: "Visual Studio", icon: DiVisualstudio, color: "#9b6dff" },
+    { name: "C++", icon: SiCplusplus, color: "#4f90d9" },
+    { name: "Power Automate", icon: FaMicrosoft, color: "#3d8bff" },
   ];
 
   return (
@@ -76,9 +63,9 @@ export default function Home() {
               </div>
 
               <div style={styles.statsRow}>
-                <Stat title="Business Tooling" value="SFS Apps + Web" />
-                <Stat title="Games" value="5 Uni-Projekte" />
-                <Stat title="Fokus" value="KI + Engineering" />
+                <Stat title="Games" value={`${GAME_PROJECTS.length} Projekte`} />
+                <Stat title="Software" value={`${SOFTWARE_PROJECTS.length} Projekte`} />
+                <Stat title="Fokus" value="Games + Engineering" />
               </div>
             </div>
 
@@ -100,10 +87,17 @@ export default function Home() {
 
       {/* PROJECTS */}
       <Section id="projects" title="Projects">
-        <div style={{ ...styles.container, display: "grid", gap: 14 }}>
-          {projects.map((p) => (
-            <ProjectRow key={p.title} p={p} />
-          ))}
+        <div style={{ ...styles.container, display: "grid", gap: 28 }}>
+          <CategoryBlock
+            title="Games"
+            subtitle="Gameplay, Atmosphäre, Multiplayer und experimentelle Konzepte."
+            projects={GAME_PROJECTS}
+          />
+          <CategoryBlock
+            title="Software"
+            subtitle="Desktop-Apps, Webanwendungen, Automatisierung und interne Business-Tools."
+            projects={SOFTWARE_PROJECTS}
+          />
         </div>
       </Section>
 
@@ -122,17 +116,12 @@ export default function Home() {
 
       {/* SKILLS */}
       <Section id="skills" title="Skills">
-        <div style={{ ...styles.container, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14 }}>
-          {skills.map((s) => (
-            <div key={s.group} style={styles.card}>
-              <h3 style={styles.h3}>{s.group}</h3>
-              <ul style={styles.ul}>
-                {s.items.map((it) => (
-                  <li key={it}>{it}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <div style={styles.container}>
+          <div style={styles.skillsGrid}>
+            {skills.map((skill) => (
+              <SkillLogoItem key={skill.name} skill={skill} />
+            ))}
+          </div>
         </div>
       </Section>
 
@@ -165,6 +154,7 @@ export default function Home() {
           © {new Date().getFullYear()} Johannes Blank
         </div>
       </footer>
+
     </main>
   );
 }
@@ -176,8 +166,8 @@ function Header() {
         <a href="#top" style={styles.brand}>JOHANNES BLANK</a>
 
         <nav style={{ display: "flex", gap: 18, fontSize: 14 }}>
-          <a href="#projects" style={styles.navLink}>PORTFOLIO</a>
-          <a href="#about" style={styles.navLink}>ABOUT ME</a>
+          <a href="#projects" className="navLink" style={styles.navLink}>PORTFOLIO</a>
+          <a href="#about" className="navLink" style={styles.navLink}>ABOUT ME</a>
         </nav>
       </div>
     </header>
@@ -204,52 +194,215 @@ function Stat({ title, value }: { title: string; value: string }) {
   );
 }
 
-function ProjectRow({ p }: { p: Project }) {
+function CategoryBlock({
+  title,
+  subtitle,
+  projects,
+  emptyText,
+}: {
+  title: string;
+  subtitle: string;
+  projects: Project[];
+  emptyText?: string;
+}) {
   return (
-    <div style={styles.projectRow}>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-        <h3 style={{ ...styles.h3, margin: 0 }}>
-          {p.link ? (
-            <a href={p.link} target="_blank" rel="noreferrer" style={styles.linkStrong}>
-              {p.title}
-            </a>
-          ) : (
-            p.title
-          )}
-        </h3>
-        {p.period ? <span style={styles.period}>{p.period}</span> : null}
+    <div style={{ display: "grid", gap: 12 }}>
+      <div>
+        <h3 style={styles.categoryTitle}>{title}</h3>
+        <p style={{ ...styles.p, marginTop: 6 }}>{subtitle}</p>
       </div>
 
-      <p style={{ ...styles.p, marginTop: 10 }}>{p.desc}</p>
-
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 10 }}>
-        {p.tags.map((t) => (
-          <span key={t} style={styles.tag}>{t}</span>
-        ))}
-      </div>
-
-      {p.link ? (
-        <div style={{ marginTop: 12 }}>
-          <a href={p.link} target="_blank" rel="noreferrer" style={styles.learnMore}>
-            Learn more →
-          </a>
+      {projects.length > 0 ? (
+        <div style={{ display: "grid", gap: 14 }}>
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
         </div>
-      ) : null}
+      ) : (
+        <div style={styles.placeholderCard}>
+          <p style={styles.p}>{emptyText ?? "Noch keine Projekte vorhanden."}</p>
+        </div>
+      )}
     </div>
   );
 }
 
-/** ===== Styling (Beige Theme) ===== */
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <Link
+      href={`/projects/${project.slug}`}
+      style={{ textDecoration: "none" }}
+      className="projectLink"
+    >
+      <div className="projectRow" style={styles.projectRow}>
+        <div style={styles.projectContentRow}>
+          <div style={styles.projectMainColumn}>
+            <div className="projectHeading" style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
+              <h3 className="projectTitle" style={{ ...styles.h3, margin: 0, color: stylesVars.text }}>{project.title}</h3>
+              {project.period ? <span className="projectPeriod" style={styles.period}>{project.period}</span> : null}
+            </div>
+
+            <p className="projectSummary" style={{ ...styles.p, marginTop: 10 }}>{project.short}</p>
+
+            <div style={styles.projectMetaRow}>
+              {project.techIcons?.length ? (
+                <div style={styles.projectTechRow}>
+                  {project.techIcons.map((tech) => (
+                    <ProjectTechIcon key={tech} tech={tech} />
+                  ))}
+                </div>
+              ) : null}
+
+              <div className="projectTags" style={styles.projectTagsRow}>
+                {project.tags.map((tag) => (
+                  <span key={tag} style={styles.tag}>{tag}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="projectFooter" style={{ marginTop: 12 }}>
+              <span className="learnMore" style={styles.learnMore}>Learn more →</span>
+            </div>
+          </div>
+
+          {project.heroImage ? (
+            <div style={styles.projectImageColumn}>
+              <div style={styles.projectImageWrap}>
+                <Image
+                  src={project.heroImage}
+                  alt={`${project.title} Vorschau`}
+                  width={280}
+                  height={160}
+                  style={styles.projectImage}
+                />
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function ProjectTechIcon({ tech }: { tech: string }) {
+  const config = projectTechIconMap[tech];
+
+  if (!config) {
+    return null;
+  }
+
+  const Icon = config.icon;
+
+  return (
+    <div
+      title={config.label}
+      aria-label={config.label}
+      style={styles.projectTechIconWrap}
+    >
+      <Icon size={26} color={config.color} aria-hidden="true" />
+    </div>
+  );
+}
+
+function SkillLogoItem({
+  skill,
+}: {
+  skill: { name: string; icon: IconType; color: string };
+}) {
+  const Icon = skill.icon;
+
+  return (
+    <div className="skillLogoItem" style={styles.skillLogoItem}>
+      <div className="skillLogoIconWrap" style={styles.skillLogoIconWrap}>
+        <Icon size={44} color={skill.color} aria-hidden="true" />
+      </div>
+      <span style={styles.skillLogoLabel}>{skill.name}</span>
+    </div>
+  );
+}
+
+/** ===== Styling (Navy Theme) ===== */
 
 const stylesVars = {
-  pageBg: "#121010",
-  headerBg: "#2a2420",
-  cardBg: "#1b1715",
-  cardBorder: "rgba(255, 240, 220, 0.12)",
-  text: "#f3ede6",
-  textMuted: "rgba(243, 237, 230, 0.75)",
-  accent: "#d8c6b3", // beige accent
-  accent2: "#bfa892",
+  pageBg: "#0b1017",
+  headerBg: "#16202b",
+  cardBg: "#101720",
+  cardBorder: "rgba(122, 145, 177, 0.2)",
+  text: "#edf4ff",
+  textMuted: "rgba(223, 233, 248, 0.74)",
+  accent: "#6f87a8",
+  accentStrong: "#8fa8cb",
+};
+
+const projectTechIconMap: Record<
+  string,
+  { icon: IconType; color: string; label: string }
+> = {
+  csharp: {
+    icon: TbBrandCSharp,
+    color: "#9b4f96",
+    label: "C#",
+  },
+  dotnet: {
+    icon: SiDotnet,
+    color: "#7c65d1",
+    label: ".NET",
+  },
+  unity: {
+    icon: SiUnity,
+    color: "#d9e0ec",
+    label: "Unity",
+  },
+  unreal: {
+    icon: SiUnrealengine,
+    color: "#f3f7ff",
+    label: "Unreal Engine",
+  },
+  excel: {
+    icon: FaFileExcel,
+    color: "#2f8f56",
+    label: "Excel",
+  },
+  database: {
+    icon: FaDatabase,
+    color: "#7bb7ff",
+    label: "Datenbank",
+  },
+  windows: {
+    icon: FaWindows,
+    color: "#4aa2ff",
+    label: "Windows / WinForms",
+  },
+  render: {
+    icon: SiRender,
+    color: "#9ea9ff",
+    label: "Render",
+  },
+  github: {
+    icon: SiGithub,
+    color: "#edf4ff",
+    label: "GitHub",
+  },
+  microsoft: {
+    icon: FaMicrosoft,
+    color: "#5aa6ff",
+    label: "Microsoft",
+  },
+  "power-automate": {
+    icon: FaMicrosoft,
+    color: "#3d8bff",
+    label: "Power Automate",
+  },
+  forms: {
+    icon: FaWpforms,
+    color: "#65b5ff",
+    label: "Forms",
+  },
+  planner: {
+    icon: FaListCheck,
+    color: "#88c5ff",
+    label: "Planner",
+  },
 };
 
 const styles: Record<string, React.CSSProperties> = {
@@ -304,13 +457,14 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: 14,
     overflow: "hidden",
     border: `1px solid ${stylesVars.cardBorder}`,
-    background: "#0f0d0c",
+    background: "#0d141d",
   },
   photo: {
     display: "block",
     width: 240,
     height: 240,
     objectFit: "cover",
+    objectPosition: "center 18%",
   },
 
   h1: { margin: 0, fontSize: 34, letterSpacing: -0.6 },
@@ -327,10 +481,11 @@ const styles: Record<string, React.CSSProperties> = {
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 14,
     padding: 14,
-    background: "rgba(255,255,255,0.03)",
+    background: "rgba(143, 168, 203, 0.06)",
   },
 
   h2: { margin: 0, fontSize: 26, letterSpacing: -0.3 },
+  categoryTitle: { margin: 0, fontSize: 20, fontWeight: 800, letterSpacing: -0.2 },
   h3: { margin: 0, fontSize: 16, fontWeight: 800 },
   p: { margin: 0, color: stylesVars.textMuted, lineHeight: 1.7, fontSize: 14 },
 
@@ -341,27 +496,140 @@ const styles: Record<string, React.CSSProperties> = {
     background: stylesVars.cardBg,
   },
 
+  placeholderCard: {
+    border: `1px dashed ${stylesVars.cardBorder}`,
+    borderRadius: 18,
+    padding: 18,
+    background: "rgba(143, 168, 203, 0.04)",
+  },
+  skillsGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
+    gap: 18,
+    alignItems: "start",
+  },
+  skillLogoItem: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    padding: "12px 8px",
+    borderRadius: 18,
+    border: `1px solid rgba(122, 145, 177, 0.14)`,
+    background: "rgba(16, 23, 32, 0.56)",
+    textAlign: "center",
+    transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
+  },
+  skillLogoIconWrap: {
+    width: 64,
+    height: 64,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 18,
+    background: "linear-gradient(180deg, rgba(143, 168, 203, 0.09), rgba(111, 135, 168, 0.02))",
+    boxShadow: "inset 0 1px 0 rgba(237, 244, 255, 0.04)",
+  },
+  skillLogoLabel: {
+    fontSize: 14,
+    fontWeight: 700,
+    color: stylesVars.text,
+    lineHeight: 1.25,
+  },
+
   projectRow: {
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 18,
     padding: 18,
     background: stylesVars.cardBg,
+    boxShadow: "0 12px 30px rgba(0,0,0,0.22)",
+    cursor: "pointer",
   },
+  projectContentRow: {
+    display: "flex",
+    gap: 18,
+    alignItems: "stretch",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+  },
+  projectMainColumn: {
+    flex: "1 1 420px",
+    minWidth: 280,
+  },
+  projectImageColumn: {
+    width: 280,
+    flex: "0 0 280px",
+    display: "flex",
+    alignItems: "stretch",
+  },
+  projectImageWrap: {
+    width: "100%",
+    overflow: "hidden",
+    borderRadius: 16,
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "#0d141d",
+  },
+  projectImage: {
+    display: "block",
+    width: "100%",
+    height: "100%",
+    minHeight: 160,
+    objectFit: "cover",
+  },
+  projectTechRow: {
+    display: "flex",
+    gap: 10,
+    flexWrap: "wrap",
+    alignItems: "center",
+  },
+  projectMetaRow: {
+    display: "flex",
+    gap: 12,
+    flexWrap: "wrap",
+    alignItems: "center",
+    marginTop: 14,
+  },
+  projectTagsRow: {
+    display: "flex",
+    gap: 8,
+    flexWrap: "wrap",
+    alignItems: "center",
+  },
+  projectTechIconWrap: {
+    width: 42,
+    height: 42,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 12,
+    border: `1px solid rgba(143, 168, 203, 0.22)`,
+    background: "rgba(143, 168, 203, 0.06)",
+    boxShadow: "inset 0 1px 0 rgba(237, 244, 255, 0.04)",
+  },
+
   period: {
     fontSize: 12,
     color: stylesVars.textMuted,
     padding: "4px 10px",
     borderRadius: 999,
     border: `1px solid ${stylesVars.cardBorder}`,
-    background: "rgba(255,255,255,0.03)",
+    background: "rgba(143, 168, 203, 0.06)",
   },
+
   tag: {
     fontSize: 12,
     padding: "6px 10px",
     borderRadius: 999,
-    background: "rgba(216, 198, 179, 0.12)",
-    border: `1px solid rgba(216, 198, 179, 0.22)`,
+    background: "rgba(111, 135, 168, 0.14)",
+    border: `1px solid rgba(143, 168, 203, 0.24)`,
     color: stylesVars.text,
+  },
+
+  learnMore: {
+    color: "rgba(243, 237, 230, 0.80)",
+    fontWeight: 800,
+    fontSize: 14,
   },
 
   primaryBtn: {
@@ -371,10 +639,11 @@ const styles: Record<string, React.CSSProperties> = {
     padding: "10px 14px",
     borderRadius: 12,
     textDecoration: "none",
-    background: stylesVars.accent,
-    color: "#1a1412",
+    background: stylesVars.accentStrong,
+    color: "#0f1722",
     fontSize: 14,
     fontWeight: 800,
+    boxShadow: "0 10px 24px rgba(20, 30, 44, 0.24)",
   },
   secondaryBtn: {
     display: "inline-flex",
@@ -383,16 +652,14 @@ const styles: Record<string, React.CSSProperties> = {
     padding: "10px 14px",
     borderRadius: 12,
     textDecoration: "none",
-    border: `1px solid rgba(216, 198, 179, 0.35)`,
+    border: `1px solid rgba(143, 168, 203, 0.28)`,
     color: stylesVars.text,
     fontSize: 14,
     fontWeight: 800,
-    background: "rgba(255,255,255,0.03)",
+    background: "rgba(143, 168, 203, 0.06)",
   },
 
-  link: { color: stylesVars.accent, textDecoration: "none", fontWeight: 700 },
-  linkStrong: { color: stylesVars.text, textDecoration: "none" },
-  learnMore: { color: stylesVars.accent, textDecoration: "none", fontWeight: 800, fontSize: 14 },
+  link: { color: stylesVars.accent, textDecoration: "none", fontWeight: 800 },
 
   ul: { margin: "10px 0 0", paddingLeft: 16, color: stylesVars.textMuted, lineHeight: 1.7, fontSize: 14 },
 
@@ -400,6 +667,6 @@ const styles: Record<string, React.CSSProperties> = {
     borderTop: `1px solid ${stylesVars.cardBorder}`,
     padding: "26px 0",
     marginTop: 20,
-    background: "rgba(0,0,0,0.12)",
+    background: "rgba(7, 12, 18, 0.65)",
   },
 };
