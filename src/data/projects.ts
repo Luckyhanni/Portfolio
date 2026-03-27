@@ -108,6 +108,7 @@ export const PROJECTS: Project[] = [
     category: "software",
     title: "Honorar Rechner",
     period: "Steuerkanzlei",
+    logoImage: "/Honorar%20Rechner%20Logo.png",
     short: "Tool zur schnellen und genauen Honorarkalkulation für Unternehmen und private Mandanten.",
     description: [
       "Der Honorar Rechner wurde für eine Steuerkanzlei entwickelt, um mit wenigen Eingaben sehr schnell ein präzises Honorar zu berechnen.",
@@ -127,6 +128,7 @@ export const PROJECTS: Project[] = [
     category: "software",
     title: "Neumandats- und Abgänge-Übersicht",
     period: "Steuerkanzlei",
+    logoImage: "/Mandats%C3%9Cbersicht%20Logo.png",
     short: "Auswertungstool für Honorare von Neumandaten und Abgängen in frei wählbaren Zeitfenstern.",
     description: [
       "Dieses Tool wurde für eine Steuerkanzlei entwickelt, um Neumandate und Abgänge übersichtlich auszuwerten.",
@@ -147,6 +149,7 @@ export const PROJECTS: Project[] = [
     category: "software",
     title: "Lager- und Sortier-Tool",
     period: "Metzgerei",
+    logoImage: "/Sorty%20Logo.png",
     short: "System zur strukturierten Lagerung, Verfolgung und schnellen Ausgabe von Bestellungen.",
     description: [
       "Für ein Einzelhandelsgeschäft beziehungsweise eine Metzgerei wurde ein Lager- und Sortier-Tool entwickelt, mit dem Bestellungen erfasst und organisiert gelagert werden können.",
@@ -167,6 +170,7 @@ export const PROJECTS: Project[] = [
     category: "software",
     title: "Zeiterfassung WebApp",
     period: "Metzgerei",
+    logoImage: "/Timely%20Logo.png",
     short: "Webbasierte Zeiterfassung mit Login, Einstempeln und Excel-Export für Admins.",
     description: [
       "Diese WebApp wurde als Zeiterfassungslösung entwickelt, damit Mitarbeitende sich anmelden und ihre Arbeitszeit unkompliziert einstempeln können.",
@@ -186,6 +190,7 @@ export const PROJECTS: Project[] = [
     category: "software",
     title: "Ticket-System mit Power Automate",
     period: "Steuerkanzlei",
+    logoImage: "/Ticket%20System%20Logo.png",
     short: "Internes Ticket-System auf Basis von Microsoft Power Automate, Forms und Planner.",
     description: [
       "Für die Kanzlei wurde ein Ticket-System mit Microsoft Power Automate umgesetzt und mit Microsoft Forms sowie Microsoft Planner integriert.",

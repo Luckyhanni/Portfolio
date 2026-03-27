@@ -45,9 +45,11 @@ export default function Home() {
     alt: `${project.title} Logo`,
     href: `/projects/${project.slug}`,
   })).filter((logo): logo is { src: string; alt: string; href: string } => Boolean(logo.src));
-  const softwareStatIcons = SOFTWARE_PROJECTS.map((project) => project.techIcons?.[0]).filter(
-    (icon): icon is string => Boolean(icon),
-  );
+  const softwareStatLogos = SOFTWARE_PROJECTS.map((project) => ({
+    src: project.logoImage,
+    alt: `${project.title} Logo`,
+    href: `/projects/${project.slug}`,
+  })).filter((logo): logo is { src: string; alt: string; href: string } => Boolean(logo.src));
 
   return (
     <main style={styles.page}>
@@ -57,7 +59,7 @@ export default function Home() {
       <section id="top" style={{ padding: "56px 0 22px" }}>
         <div style={styles.container}>
           <div style={styles.heroCard}>
-            <div style={{ flex: 1, minWidth: 260 }}>
+            <div style={styles.heroMain}>
               <h1 style={styles.h1}>Johannes Blank</h1>
               <p style={styles.subline}>B.Sc. Game Design · Programmierung · KI</p>
               <p style={styles.heroText}>
@@ -68,20 +70,6 @@ export default function Home() {
               <div style={{ display: "flex", gap: 12, marginTop: 16, flexWrap: "wrap" }}>
                 <a href="#projects" style={styles.primaryBtn}>Portfolio</a>
                 <a href="#about" style={styles.secondaryBtn}>About Me</a>
-              </div>
-
-              <div style={styles.statsRow}>
-                <Stat
-                  title="Games"
-                  value={`${GAME_PROJECTS.length} Projekte`}
-                  logos={gameStatLogos}
-                />
-                <Stat
-                  title="Software"
-                  value={`${SOFTWARE_PROJECTS.length} Projekte`}
-                  icons={softwareStatIcons}
-                />
-                <Stat title="Fokus" value="Games + Engineering" />
               </div>
             </div>
 
@@ -96,6 +84,18 @@ export default function Home() {
                   priority
                 />
               </div>
+            </div>
+
+            <div style={styles.statsRow}>
+              <Stat
+                title="Games"
+                logos={gameStatLogos}
+              />
+              <Stat
+                title="Software"
+                logos={softwareStatLogos}
+              />
+              <Stat title="Fokus" value="Games + Engineering" />
             </div>
           </div>
         </div>
@@ -208,29 +208,32 @@ function Stat({
   logos,
 }: {
   title: string;
-  value: string;
+  value?: string;
   icons?: string[];
   logos?: { src: string; alt: string; href: string }[];
 }) {
   return (
     <div style={styles.statCard}>
       <div style={{ fontSize: 12, color: stylesVars.textMuted }}>{title}</div>
-      <div style={{ marginTop: 8, fontSize: 18, fontWeight: 700, color: stylesVars.text }}>{value}</div>
+      {value ? (
+        <div style={{ marginTop: 8, fontSize: 18, fontWeight: 700, color: stylesVars.text }}>{value}</div>
+      ) : null}
       {logos?.length ? (
-        <div style={styles.statLogoRow}>
+        <div style={{ ...styles.statLogoRow, marginTop: value ? 12 : 10 }}>
           {logos.map((logo) => (
             <Link
               key={logo.src}
               href={logo.href}
               aria-label={logo.alt}
               title={logo.alt}
+              className="statLogoLink"
               style={styles.statLogoLink}
             >
               <Image
                 src={logo.src}
                 alt={logo.alt}
-                width={40}
-                height={40}
+                width={68}
+                height={68}
                 unoptimized
                 style={styles.statLogoImage}
               />
@@ -283,6 +286,10 @@ function CategoryBlock({
 }
 
 function ProjectCard({ project }: { project: Project }) {
+  const projectUsesLogoPanel = !project.heroImage && Boolean(project.logoImage);
+  const projectVisualSrc = project.heroImage ?? project.logoImage;
+  const projectVisualFit = project.heroImage ? "cover" : "contain";
+
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -300,6 +307,19 @@ function ProjectCard({ project }: { project: Project }) {
             <p className="projectSummary" style={{ ...styles.p, marginTop: 10 }}>{project.short}</p>
 
             <div style={styles.projectMetaRow}>
+              {project.logoImage ? (
+                <div style={styles.projectInlineLogoWrap}>
+                  <Image
+                    src={project.logoImage}
+                    alt={`${project.title} Logo`}
+                    width={44}
+                    height={44}
+                    unoptimized
+                    style={styles.projectInlineLogoImage}
+                  />
+                </div>
+              ) : null}
+
               {project.techIcons?.length ? (
                 <div style={styles.projectTechRow}>
                   {project.techIcons.map((tech) => (
@@ -320,15 +340,33 @@ function ProjectCard({ project }: { project: Project }) {
             </div>
           </div>
 
-          {project.heroImage ? (
-            <div style={styles.projectImageColumn}>
-              <div style={styles.projectImageWrap}>
+          {projectVisualSrc ? (
+            <div
+              style={
+                projectUsesLogoPanel
+                  ? styles.projectImageColumnCompact
+                  : styles.projectImageColumn
+              }
+            >
+              <div
+                style={
+                  projectUsesLogoPanel
+                    ? styles.projectImageWrapCompact
+                    : styles.projectImageWrap
+                }
+              >
                 <Image
-                  src={project.heroImage}
+                  src={projectVisualSrc}
                   alt={`${project.title} Vorschau`}
-                  width={280}
-                  height={160}
-                  style={styles.projectImage}
+                  width={projectUsesLogoPanel ? 200 : 280}
+                  height={projectUsesLogoPanel ? 112 : 160}
+                  unoptimized={!project.heroImage}
+                  style={{
+                    ...styles.projectImage,
+                    objectFit: projectVisualFit,
+                    minHeight: projectUsesLogoPanel ? 112 : 160,
+                    padding: project.heroImage ? 0 : 12,
+                  }}
                 />
               </div>
             </div>
@@ -497,22 +535,24 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   heroCard: {
-    display: "flex",
+    display: "grid",
+    gridTemplateColumns: "minmax(0, 1fr) auto",
     gap: 18,
-    alignItems: "stretch",
-    justifyContent: "space-between",
+    alignItems: "start",
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 18,
     background: stylesVars.cardBg,
     padding: 18,
     boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
-    flexWrap: "wrap",
+  },
+  heroMain: {
+    minWidth: 0,
   },
   heroRight: {
     width: 260,
     display: "flex",
     justifyContent: "flex-end",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   photoWrap: {
     borderRadius: 14,
@@ -534,9 +574,10 @@ const styles: Record<string, React.CSSProperties> = {
 
   statsRow: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+    gridColumn: "1 / -1",
+    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
     gap: 12,
-    marginTop: 18,
+    marginTop: 2,
   },
   statCard: {
     border: `1px solid ${stylesVars.cardBorder}`,
@@ -557,22 +598,24 @@ const styles: Record<string, React.CSSProperties> = {
     marginTop: 12,
   },
   statLogoLink: {
-    width: 42,
-    height: 42,
+    width: 76,
+    height: 76,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    borderRadius: 10,
-    border: `1px solid rgba(143, 168, 203, 0.18)`,
-    background: "rgba(143, 168, 203, 0.05)",
-    padding: 4,
+    borderRadius: 14,
+    border: `1px solid rgba(143, 168, 203, 0.2)`,
+    background: "rgba(143, 168, 203, 0.06)",
+    padding: 8,
     textDecoration: "none",
+    transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
   },
   statLogoImage: {
     width: "100%",
     height: "100%",
     objectFit: "contain",
+    objectPosition: "center",
   },
 
   h2: { margin: 0, fontSize: 26, letterSpacing: -0.3 },
@@ -640,7 +683,7 @@ const styles: Record<string, React.CSSProperties> = {
   projectContentRow: {
     display: "flex",
     gap: 18,
-    alignItems: "stretch",
+    alignItems: "flex-start",
     justifyContent: "space-between",
     flexWrap: "wrap",
   },
@@ -652,9 +695,22 @@ const styles: Record<string, React.CSSProperties> = {
     width: 280,
     flex: "0 0 280px",
     display: "flex",
-    alignItems: "stretch",
+    alignItems: "flex-start",
+  },
+  projectImageColumnCompact: {
+    width: 200,
+    flex: "0 0 200px",
+    display: "flex",
+    alignItems: "flex-start",
   },
   projectImageWrap: {
+    width: "100%",
+    overflow: "hidden",
+    borderRadius: 16,
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "#0d141d",
+  },
+  projectImageWrapCompact: {
     width: "100%",
     overflow: "hidden",
     borderRadius: 16,
@@ -680,6 +736,24 @@ const styles: Record<string, React.CSSProperties> = {
     flexWrap: "wrap",
     alignItems: "center",
     marginTop: 14,
+  },
+  projectInlineLogoWrap: {
+    width: 44,
+    height: 44,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    borderRadius: 12,
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "rgba(143, 168, 203, 0.05)",
+    padding: 4,
+    flex: "0 0 auto",
+  },
+  projectInlineLogoImage: {
+    width: "100%",
+    height: "100%",
+    objectFit: "contain",
   },
   projectTagsRow: {
     display: "flex",
