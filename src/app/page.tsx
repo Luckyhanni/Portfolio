@@ -56,7 +56,7 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-      <section id="top" style={{ padding: "56px 0 22px" }}>
+      <section id="top" style={{ padding: "0 0 22px" }}>
         <div style={styles.container}>
           <div style={styles.heroCard}>
             <div style={styles.heroMain}>
@@ -102,7 +102,7 @@ export default function Home() {
       </section>
 
       {/* PROJECTS */}
-      <Section id="projects" title="Projects">
+      <Section id="projects" title="Projects" titleStyle={styles.projectsSectionTitle}>
         <div style={{ ...styles.container, display: "grid", gap: 28 }}>
           <CategoryBlock
             title="Games"
@@ -190,11 +190,21 @@ function Header() {
   );
 }
 
-function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
+function Section({
+  id,
+  title,
+  children,
+  titleStyle,
+}: {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+  titleStyle?: React.CSSProperties;
+}) {
   return (
     <section id={id} style={{ padding: "34px 0" }}>
       <div style={styles.container}>
-        <h2 style={styles.h2}>{title}</h2>
+        <h2 style={{ ...styles.h2, ...titleStyle }}>{title}</h2>
       </div>
       <div style={{ marginTop: 14 }}>{children}</div>
     </section>
@@ -606,6 +616,13 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   h2: { margin: 0, fontSize: 26, letterSpacing: -0.3 },
+  projectsSectionTitle: {
+    fontSize: 56,
+    lineHeight: 0.96,
+    letterSpacing: -1.8,
+    fontWeight: 900,
+    textAlign: "center",
+  },
   categoryTitle: { margin: 0, fontSize: 20, fontWeight: 800, letterSpacing: -0.2 },
   h3: { margin: 0, fontSize: 16, fontWeight: 800 },
   p: { margin: 0, color: stylesVars.textMuted, lineHeight: 1.7, fontSize: 14 },
