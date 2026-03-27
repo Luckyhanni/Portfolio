@@ -40,6 +40,14 @@ export default function Home() {
     { name: "C++", icon: SiCplusplus, color: "#4f90d9" },
     { name: "Power Automate", icon: FaMicrosoft, color: "#3d8bff" },
   ];
+  const gameStatLogos = GAME_PROJECTS.map((project) => ({
+    src: project.logoImage,
+    alt: `${project.title} Logo`,
+    href: `/projects/${project.slug}`,
+  })).filter((logo): logo is { src: string; alt: string; href: string } => Boolean(logo.src));
+  const softwareStatIcons = SOFTWARE_PROJECTS.map((project) => project.techIcons?.[0]).filter(
+    (icon): icon is string => Boolean(icon),
+  );
 
   return (
     <main style={styles.page}>
@@ -63,8 +71,16 @@ export default function Home() {
               </div>
 
               <div style={styles.statsRow}>
-                <Stat title="Games" value={`${GAME_PROJECTS.length} Projekte`} />
-                <Stat title="Software" value={`${SOFTWARE_PROJECTS.length} Projekte`} />
+                <Stat
+                  title="Games"
+                  value={`${GAME_PROJECTS.length} Projekte`}
+                  logos={gameStatLogos}
+                />
+                <Stat
+                  title="Software"
+                  value={`${SOFTWARE_PROJECTS.length} Projekte`}
+                  icons={softwareStatIcons}
+                />
                 <Stat title="Fokus" value="Games + Engineering" />
               </div>
             </div>
@@ -185,11 +201,50 @@ function Section({ id, title, children }: { id: string; title: string; children:
   );
 }
 
-function Stat({ title, value }: { title: string; value: string }) {
+function Stat({
+  title,
+  value,
+  icons,
+  logos,
+}: {
+  title: string;
+  value: string;
+  icons?: string[];
+  logos?: { src: string; alt: string; href: string }[];
+}) {
   return (
     <div style={styles.statCard}>
       <div style={{ fontSize: 12, color: stylesVars.textMuted }}>{title}</div>
       <div style={{ marginTop: 8, fontSize: 18, fontWeight: 700, color: stylesVars.text }}>{value}</div>
+      {logos?.length ? (
+        <div style={styles.statLogoRow}>
+          {logos.map((logo) => (
+            <Link
+              key={logo.src}
+              href={logo.href}
+              aria-label={logo.alt}
+              title={logo.alt}
+              style={styles.statLogoLink}
+            >
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={40}
+                height={40}
+                unoptimized
+                style={styles.statLogoImage}
+              />
+            </Link>
+          ))}
+        </div>
+      ) : null}
+      {icons?.length ? (
+        <div style={styles.statIconRow}>
+          {icons.map((icon, index) => (
+            <ProjectTechIcon key={`${title}-${icon}-${index}`} tech={icon} compact />
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -284,7 +339,13 @@ function ProjectCard({ project }: { project: Project }) {
   );
 }
 
-function ProjectTechIcon({ tech }: { tech: string }) {
+function ProjectTechIcon({
+  tech,
+  compact = false,
+}: {
+  tech: string;
+  compact?: boolean;
+}) {
   const config = projectTechIconMap[tech];
 
   if (!config) {
@@ -297,9 +358,9 @@ function ProjectTechIcon({ tech }: { tech: string }) {
     <div
       title={config.label}
       aria-label={config.label}
-      style={styles.projectTechIconWrap}
+      style={compact ? styles.projectTechIconWrapCompact : styles.projectTechIconWrap}
     >
-      <Icon size={26} color={config.color} aria-hidden="true" />
+      <Icon size={compact ? 18 : 26} color={config.color} aria-hidden="true" />
     </div>
   );
 }
@@ -483,6 +544,36 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 14,
     background: "rgba(143, 168, 203, 0.06)",
   },
+  statIconRow: {
+    display: "flex",
+    gap: 8,
+    flexWrap: "wrap",
+    marginTop: 12,
+  },
+  statLogoRow: {
+    display: "flex",
+    gap: 8,
+    flexWrap: "wrap",
+    marginTop: 12,
+  },
+  statLogoLink: {
+    width: 42,
+    height: 42,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    borderRadius: 10,
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "rgba(143, 168, 203, 0.05)",
+    padding: 4,
+    textDecoration: "none",
+  },
+  statLogoImage: {
+    width: "100%",
+    height: "100%",
+    objectFit: "contain",
+  },
 
   h2: { margin: 0, fontSize: 26, letterSpacing: -0.3 },
   categoryTitle: { margin: 0, fontSize: 20, fontWeight: 800, letterSpacing: -0.2 },
@@ -606,6 +697,17 @@ const styles: Record<string, React.CSSProperties> = {
     border: `1px solid rgba(143, 168, 203, 0.22)`,
     background: "rgba(143, 168, 203, 0.06)",
     boxShadow: "inset 0 1px 0 rgba(237, 244, 255, 0.04)",
+  },
+  projectTechIconWrapCompact: {
+    width: 30,
+    height: 30,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "rgba(143, 168, 203, 0.05)",
+    boxShadow: "inset 0 1px 0 rgba(237, 244, 255, 0.03)",
   },
 
   period: {

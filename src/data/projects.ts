@@ -10,6 +10,7 @@ export type Project = {
   tags: string[];
   techIcons?: string[];
   heroImage?: string;
+  logoImage?: string;
   links?: { label: string; href: string }[];
   highlights?: string[];
 };
@@ -25,6 +26,7 @@ export const PROJECTS: Project[] = [
     title: "Vacation Invasion",
     period: "Uni-Projekt",
     heroImage: publicGameImage("Vacation Invasion"),
+    logoImage: "/Vacation%20Invasion%20Logo.png",
     short: "3D-Multiplayer-Hide-and-Seek / Prop Hunt auf einer südlichen Ferieninsel.",
     description: [
       "Vacation Invasion ist ein 3D-Multiplayer-Hide-and-Seek beziehungsweise Prop-Hunt auf einer idyllischen südlichen Ferieninsel.",
@@ -41,6 +43,7 @@ export const PROJECTS: Project[] = [
     category: "games",
     title: "Grow Gently",
     heroImage: publicGameImage("Grow Gently"),
+    logoImage: "/Grow%20Genrly%20Logo.png",
     short: "Cozy 3D-Gardening-Produktivitätstool, das Fokuszeit mit emotionalem Fortschritt verbindet.",
     description: [
       "Grow Gently verbindet einen Fokustimer mit emotionaler Belohnung und richtet sich an Menschen, die Produktivität mit einer freundlicheren, weicheren Erfahrung verbinden möchten.",
@@ -57,6 +60,7 @@ export const PROJECTS: Project[] = [
     category: "games",
     title: "Island Journey",
     heroImage: publicGameImage("Island Journey"),
+    logoImage: "/Island%20Journey%20Logo.png",
     short: "Atmosphärisches 3D-Puzzle-Abenteuer mit Rotation, Rätseln und vierseitiger Weltstruktur.",
     description: [
       "Island Journey ist ein Puzzle-Abenteuer in einer atmosphärischen 3D-Welt, in der Rotation und Perspektive den Schlüssel zum Fortschritt bilden.",
@@ -74,6 +78,7 @@ export const PROJECTS: Project[] = [
     category: "games",
     title: "GrimCute",
     heroImage: publicGameImage("GrimCute"),
+    logoImage: "/GrimCuteLogo.jpg",
     short: "Stylized game project with trailer showcase.",
     description: [
       "GrimCute ist eines deiner Game-Projekte und wird aktuell über den Trailer vorgestellt.",
@@ -88,6 +93,7 @@ export const PROJECTS: Project[] = [
     category: "games",
     title: "Tiefwurtz",
     heroImage: publicGameImage("Tiefwurtz"),
+    logoImage: "/Tiefwurtz%20Logo.png",
     short: "Dunkles Action-Erlebnis rund um Licht, Kampf und Ressourcenmanagement.",
     description: [
       "In Tiefwurtz kämpfst du dich durch eine unterirdische Dunkelwelt, die nur von der Lumen Essenz erleuchtet wird.",
