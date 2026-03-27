@@ -307,19 +307,6 @@ function ProjectCard({ project }: { project: Project }) {
             <p className="projectSummary" style={{ ...styles.p, marginTop: 10 }}>{project.short}</p>
 
             <div style={styles.projectMetaRow}>
-              {project.logoImage ? (
-                <div style={styles.projectInlineLogoWrap}>
-                  <Image
-                    src={project.logoImage}
-                    alt={`${project.title} Logo`}
-                    width={44}
-                    height={44}
-                    unoptimized
-                    style={styles.projectInlineLogoImage}
-                  />
-                </div>
-              ) : null}
-
               {project.techIcons?.length ? (
                 <div style={styles.projectTechRow}>
                   {project.techIcons.map((tech) => (
@@ -736,24 +723,6 @@ const styles: Record<string, React.CSSProperties> = {
     flexWrap: "wrap",
     alignItems: "center",
     marginTop: 14,
-  },
-  projectInlineLogoWrap: {
-    width: 44,
-    height: 44,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-    borderRadius: 12,
-    border: `1px solid rgba(143, 168, 203, 0.18)`,
-    background: "rgba(143, 168, 203, 0.05)",
-    padding: 4,
-    flex: "0 0 auto",
-  },
-  projectInlineLogoImage: {
-    width: "100%",
-    height: "100%",
-    objectFit: "contain",
   },
   projectTagsRow: {
     display: "flex",
