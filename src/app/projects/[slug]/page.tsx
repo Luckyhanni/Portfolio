@@ -1,86 +1,196 @@
-import Link from "next/link";
 import Image from "next/image";
-import { getProject, PROJECTS } from "../../../data/projects";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { IconType } from "react-icons";
+import { DiVisualstudio } from "react-icons/di";
+import {
+  FaDatabase,
+  FaFileExcel,
+  FaListCheck,
+  FaMicrosoft,
+  FaWindows,
+  FaWpforms,
+} from "react-icons/fa6";
+import { IoLogoGithub } from "react-icons/io5";
+import {
+  SiBlender,
+  SiCplusplus,
+  SiDotnet,
+  SiGit,
+  SiRender,
+  SiUnity,
+  SiUnrealengine,
+} from "react-icons/si";
+import { TbBrandCSharp } from "react-icons/tb";
+import {
+  getProject,
+  PROJECTS,
+  type Project,
+  type ProjectDetailSection,
+  type ProjectMedia,
+} from "../../../data/projects";
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = getProject(params.slug);
+type ProjectPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = await params;
+  const project = getProject(slug);
 
   if (!project) {
-    return (
-      <main style={styles.page}>
-        <div style={styles.container}>
-          <h1 style={styles.h1}>Projekt nicht gefunden</h1>
-          <Link href="/" style={styles.link}>← Zurück</Link>
-        </div>
-      </main>
-    );
+    notFound();
   }
 
   return (
     <main style={styles.page}>
-      <header style={styles.header}>
-        <div style={{ ...styles.container, height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Link href="/" style={styles.brand}>JOHANNES BLANK</Link>
-          <nav style={{ display: "flex", gap: 18, fontSize: 14 }}>
-            <Link href="/#projects" style={styles.navLink}>PORTFOLIO</Link>
-            <Link href="/#about" style={styles.navLink}>ABOUT ME</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
-      <section style={{ padding: "40px 0 18px" }}>
+      <section style={styles.section}>
         <div style={styles.container}>
-          <Link href="/#projects" style={styles.backBtn}>← Back</Link>
+          <Link href="/#projects" style={styles.backBtn}>← Zurueck zu Projects</Link>
 
-          {project.heroImage ? (
-            <div style={styles.heroImageWrap}>
-              <Image
-                src={project.heroImage}
-                alt={project.title}
-                width={980}
-                height={420}
-                style={styles.heroImage}
-                priority
-              />
+          <div style={styles.heroCard}>
+            <ProjectVisual
+              media={{
+                src: project.heroImage ?? project.logoImage ?? "/window.svg",
+                alt: `${project.title} Hero`,
+                width: 1600,
+                height: 900,
+                fit: project.heroImage ? "cover" : "contain",
+              }}
+              priority
+              style={styles.heroVisual}
+              frameStyle={styles.heroVisualWrap}
+            />
+
+            <div style={styles.heroBody}>
+              <div style={styles.eyebrowRow}>
+                <span style={styles.categoryPill}>
+                  {project.category === "games" ? "Game Project" : "Software Project"}
+                </span>
+                {project.period ? <span style={styles.periodPill}>{project.period}</span> : null}
+              </div>
+
+              <h1 style={styles.h1}>{project.title}</h1>
+              <p style={styles.lead}>{project.short}</p>
+
+              <div style={styles.tagRow}>
+                {project.tags.map((tag) => (
+                  <span key={tag} style={styles.tag}>{tag}</span>
+                ))}
+              </div>
             </div>
-          ) : null}
-
-          <h1 style={styles.h1}>{project.title}</h1>
-          {project.period ? <p style={styles.period}>{project.period}</p> : null}
-
-          <div style={styles.tagRow}>
-            {project.tags.map((t) => (
-              <span key={t} style={styles.tag}>{t}</span>
-            ))}
           </div>
 
-          <div style={styles.card}>
-            {project.description.map((p, i) => (
-              <p key={i} style={{ ...styles.p, marginTop: i === 0 ? 0 : 10 }}>{p}</p>
-            ))}
+          <div style={styles.topGrid}>
+            <article style={styles.card}>
+              <div style={styles.sectionHeadingRow}>
+                <span style={styles.sectionIndex}>01</span>
+                <h2 style={styles.h2}>Overview</h2>
+              </div>
 
-            {project.highlights?.length ? (
-              <>
-                <h3 style={{ ...styles.h3, marginTop: 16 }}>Highlights</h3>
-                <ul style={styles.ul}>
-                  {project.highlights.map((h) => <li key={h}>{h}</li>)}
-                </ul>
-              </>
-            ) : null}
+              <div style={{ display: "grid", gap: 12 }}>
+                {project.description.map((paragraph) => (
+                  <p key={paragraph} style={styles.p}>{paragraph}</p>
+                ))}
+              </div>
 
-            {project.links?.length ? (
-              <>
-                <h3 style={{ ...styles.h3, marginTop: 16 }}>Links</h3>
-                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                  {project.links.map((l) => (
-                    <a key={l.href} href={l.href} target="_blank" rel="noreferrer" style={styles.primaryBtn}>
-                      {l.label}
-                    </a>
+              {project.highlights?.length ? (
+                <div style={styles.highlightBlock}>
+                  <h3 style={styles.h3}>Highlights</h3>
+                  <ul style={styles.ul}>
+                    {project.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </article>
+
+            <aside style={styles.sideCard}>
+              <div style={styles.sectionHeadingRow}>
+                <span style={styles.sectionIndex}>02</span>
+                <h2 style={styles.h2}>Skills Applied</h2>
+              </div>
+
+              {project.techIcons?.length ? (
+                <div style={styles.skillGrid}>
+                  {project.techIcons.map((tech) => (
+                    <TechBadge key={tech} tech={tech} />
                   ))}
                 </div>
-              </>
-            ) : null}
+              ) : (
+                <p style={styles.p}>Hier kannst du spaeter konkrete Tools und Technologien pro Projekt eintragen.</p>
+              )}
+
+              {project.links?.length ? (
+                <div style={styles.linksBlock}>
+                  <h3 style={styles.h3}>Links</h3>
+                  <div style={styles.linkRow}>
+                    {project.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={styles.primaryBtn}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </aside>
           </div>
+
+          <div style={styles.sectionStack}>
+            {project.detailSections?.map((detailSection, index) => (
+              <DetailSection
+                key={`${project.slug}-${detailSection.title}`}
+                section={detailSection}
+                index={index}
+              />
+            ))}
+          </div>
+
+          <section style={styles.videoSection}>
+            <div style={styles.sectionHeadingRow}>
+              <span style={styles.sectionIndex}>
+                {`${(project.detailSections?.length ?? 0) + 3}`.padStart(2, "0")}
+              </span>
+              <h2 style={styles.h2}>{project.detailVideo?.title ?? "YouTube Video"}</h2>
+            </div>
+
+            <div style={styles.videoCard}>
+              {project.detailVideo?.embedUrl ? (
+                <div style={styles.videoFrame}>
+                  <iframe
+                    src={project.detailVideo.embedUrl}
+                    title={`${project.title} YouTube Video`}
+                    style={styles.videoEmbed}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              ) : (
+                <div style={styles.videoPlaceholder}>
+                  <p style={styles.videoPlaceholderTitle}>YouTube Embed folgt hier</p>
+                  <p style={styles.p}>
+                    Trage spaeter einfach einen YouTube-Link in den Projektdaten ein. Die Seite erzeugt daraus automatisch den eingebetteten Player.
+                  </p>
+                </div>
+              )}
+
+              <p style={styles.videoDescription}>
+                {project.detailVideo?.description ??
+                  "Hier kannst du spaeter Trailer, Gameplay, GIF-Alternativen oder eine kurze Demo ergaenzen."}
+              </p>
+            </div>
+          </section>
         </div>
       </section>
 
@@ -93,9 +203,118 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   );
 }
 
-// Optional: für Static Generation
+function Header() {
+  return (
+    <header style={styles.header}>
+      <div style={{ ...styles.container, height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <Link href="/" style={styles.brand}>JOHANNES BLANK</Link>
+
+        <nav style={{ display: "flex", gap: 18, fontSize: 14 }}>
+          <Link href="/#projects" style={styles.navLink}>PORTFOLIO</Link>
+          <Link href="/#about" style={styles.navLink}>ABOUT ME</Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function DetailSection({
+  section,
+  index,
+}: {
+  section: ProjectDetailSection;
+  index: number;
+}) {
+  const mediaLeft = section.mediaSide === "left";
+
+  return (
+    <article style={styles.detailCard}>
+      <div
+        style={{
+          ...styles.detailTextColumn,
+          order: mediaLeft ? 2 : 1,
+        }}
+      >
+        <div style={styles.sectionHeadingRow}>
+          <span style={styles.sectionIndex}>{`${index + 3}`.padStart(2, "0")}</span>
+          <h2 style={styles.h2}>{section.title}</h2>
+        </div>
+
+        <div style={{ display: "grid", gap: 12 }}>
+          {section.body.map((paragraph) => (
+            <p key={paragraph} style={styles.p}>{paragraph}</p>
+          ))}
+        </div>
+      </div>
+
+      <ProjectVisual
+        media={section.media}
+        style={{
+          ...styles.detailVisual,
+          order: mediaLeft ? 1 : 2,
+        }}
+        frameStyle={styles.detailVisualWrap}
+      />
+    </article>
+  );
+}
+
+function ProjectVisual({
+  media,
+  priority = false,
+  style,
+  frameStyle,
+}: {
+  media: ProjectMedia;
+  priority?: boolean;
+  style?: React.CSSProperties;
+  frameStyle?: React.CSSProperties;
+}) {
+  const isGif = media.type === "gif" || media.src.toLowerCase().endsWith(".gif");
+
+  return (
+    <div style={frameStyle}>
+      <Image
+        src={media.src}
+        alt={media.alt}
+        width={media.width ?? 1600}
+        height={media.height ?? 900}
+        priority={priority}
+        unoptimized={isGif}
+        style={{
+          ...style,
+          objectFit: media.fit ?? "cover",
+        }}
+      />
+    </div>
+  );
+}
+
+function TechBadge({ tech }: { tech: string }) {
+  const config = techIconMap[tech];
+
+  if (!config) {
+    return (
+      <div style={styles.techBadgeFallback}>
+        <span style={styles.techBadgeFallbackText}>{tech}</span>
+      </div>
+    );
+  }
+
+  const Icon = config.icon;
+
+  return (
+    <div title={config.label} aria-label={config.label} style={styles.techBadge}>
+      <div style={styles.techBadgeIconWrap}>
+        <Icon size={28} color={config.color} aria-hidden="true" />
+      </div>
+      <span style={styles.techBadgeLabel}>{config.label}</span>
+    </div>
+  );
+}
+
 export function generateStaticParams() {
-  return PROJECTS.map((p) => ({ slug: p.slug }));
+  return PROJECTS.map((project) => ({ slug: project.slug }));
 }
 
 const stylesVars = {
@@ -109,6 +328,26 @@ const stylesVars = {
   accentStrong: "#8fa8cb",
 };
 
+const techIconMap: Record<string, { icon: IconType; color: string; label: string }> = {
+  csharp: { icon: TbBrandCSharp, color: "#9b4f96", label: "C#" },
+  dotnet: { icon: SiDotnet, color: "#7c65d1", label: ".NET" },
+  unity: { icon: SiUnity, color: "#d9e0ec", label: "Unity" },
+  unreal: { icon: SiUnrealengine, color: "#f3f7ff", label: "Unreal Engine" },
+  excel: { icon: FaFileExcel, color: "#2f8f56", label: "Excel" },
+  database: { icon: FaDatabase, color: "#7bb7ff", label: "Datenbank" },
+  windows: { icon: FaWindows, color: "#4aa2ff", label: "WinForms" },
+  render: { icon: SiRender, color: "#9ea9ff", label: "Render" },
+  github: { icon: IoLogoGithub, color: "#edf4ff", label: "GitHub" },
+  git: { icon: SiGit, color: "#f05033", label: "Git" },
+  microsoft: { icon: FaMicrosoft, color: "#5aa6ff", label: "Microsoft" },
+  "power-automate": { icon: FaMicrosoft, color: "#3d8bff", label: "Power Automate" },
+  forms: { icon: FaWpforms, color: "#65b5ff", label: "Forms" },
+  planner: { icon: FaListCheck, color: "#88c5ff", label: "Planner" },
+  blender: { icon: SiBlender, color: "#ff8a00", label: "Blender" },
+  vscode: { icon: DiVisualstudio, color: "#9b6dff", label: "Visual Studio" },
+  cplusplus: { icon: SiCplusplus, color: "#4f90d9", label: "C++" },
+};
+
 const styles: Record<string, React.CSSProperties> = {
   page: {
     fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial",
@@ -116,7 +355,10 @@ const styles: Record<string, React.CSSProperties> = {
     color: stylesVars.text,
     minHeight: "100vh",
   },
-  container: { maxWidth: 980, padding: "0 18px", margin: "0 auto" },
+  container: { maxWidth: 1160, padding: "0 24px", margin: "0 auto" },
+  section: {
+    padding: "34px 0 80px",
+  },
 
   header: {
     position: "sticky",
@@ -140,52 +382,220 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   backBtn: {
-    display: "inline-block",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 8,
     textDecoration: "none",
     color: stylesVars.text,
     fontWeight: 800,
-    marginBottom: 14,
+    marginBottom: 18,
   },
 
-  heroImageWrap: {
-    borderRadius: 18,
-    overflow: "hidden",
+  heroCard: {
+    display: "grid",
+    gap: 18,
     border: `1px solid ${stylesVars.cardBorder}`,
-    background: "#0d141d",
-    marginBottom: 16,
+    borderRadius: 24,
+    padding: 18,
+    background: stylesVars.cardBg,
+    boxShadow: "0 20px 44px rgba(0, 0, 0, 0.22)",
   },
-  heroImage: {
+  heroVisualWrap: {
+    borderRadius: 20,
+    overflow: "hidden",
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "#0d141d",
+  },
+  heroVisual: {
     width: "100%",
     height: "auto",
+    minHeight: 320,
     display: "block",
-    objectFit: "cover",
+  },
+  heroBody: {
+    display: "grid",
+    gap: 14,
+    padding: "4px 2px 2px",
+  },
+  eyebrowRow: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 10,
+    alignItems: "center",
+  },
+  categoryPill: {
+    display: "inline-flex",
+    alignItems: "center",
+    borderRadius: 999,
+    padding: "6px 10px",
+    background: "rgba(143, 168, 203, 0.14)",
+    border: `1px solid rgba(143, 168, 203, 0.24)`,
+    fontSize: 12,
+    fontWeight: 700,
+    color: stylesVars.text,
+  },
+  periodPill: {
+    display: "inline-flex",
+    alignItems: "center",
+    borderRadius: 999,
+    padding: "6px 10px",
+    background: "rgba(143, 168, 203, 0.06)",
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    fontSize: 12,
+    fontWeight: 700,
+    color: stylesVars.textMuted,
+  },
+  h1: {
+    margin: 0,
+    fontSize: 42,
+    lineHeight: 1.02,
+    letterSpacing: -1,
+  },
+  h2: {
+    margin: 0,
+    fontSize: 28,
+    lineHeight: 1.05,
+    letterSpacing: -0.5,
+  },
+  h3: {
+    margin: 0,
+    fontSize: 17,
+    fontWeight: 800,
+  },
+  lead: {
+    margin: 0,
+    fontSize: 18,
+    lineHeight: 1.65,
+    color: stylesVars.textMuted,
+    maxWidth: 820,
   },
 
-  h1: { margin: "8px 0 0", fontSize: 34, letterSpacing: -0.6 },
-  h3: { margin: 0, fontSize: 16, fontWeight: 800 },
-  period: { margin: "8px 0 0", color: stylesVars.textMuted, fontWeight: 600 },
-
-  tagRow: { display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 },
+  tagRow: {
+    display: "flex",
+    gap: 10,
+    flexWrap: "wrap",
+  },
   tag: {
     fontSize: 12,
-    padding: "6px 10px",
+    padding: "7px 11px",
     borderRadius: 999,
     background: "rgba(111, 135, 168, 0.14)",
     border: `1px solid rgba(143, 168, 203, 0.24)`,
     color: stylesVars.text,
   },
 
-  card: {
-    border: `1px solid ${stylesVars.cardBorder}`,
-    borderRadius: 18,
-    padding: 18,
-    background: stylesVars.cardBg,
-    marginTop: 16,
+  topGrid: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 18,
+    marginTop: 20,
   },
-  p: { margin: 0, color: stylesVars.textMuted, lineHeight: 1.7, fontSize: 14 },
+  card: {
+    flex: "1 1 540px",
+    border: `1px solid ${stylesVars.cardBorder}`,
+    borderRadius: 22,
+    padding: 22,
+    background: stylesVars.cardBg,
+    display: "grid",
+    gap: 16,
+  },
+  sideCard: {
+    flex: "1 1 320px",
+    border: `1px solid ${stylesVars.cardBorder}`,
+    borderRadius: 22,
+    padding: 22,
+    background: "linear-gradient(180deg, rgba(16, 23, 32, 0.98), rgba(13, 20, 29, 0.92))",
+    display: "grid",
+    gap: 18,
+    alignContent: "start",
+  },
+  highlightBlock: {
+    display: "grid",
+    gap: 10,
+    paddingTop: 4,
+  },
+  p: {
+    margin: 0,
+    color: stylesVars.textMuted,
+    lineHeight: 1.75,
+    fontSize: 15,
+  },
+  ul: {
+    margin: 0,
+    paddingLeft: 18,
+    color: stylesVars.textMuted,
+    lineHeight: 1.8,
+    fontSize: 15,
+  },
+  sectionHeadingRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    flexWrap: "wrap",
+  },
+  sectionIndex: {
+    fontSize: 12,
+    fontWeight: 800,
+    letterSpacing: 1,
+    color: stylesVars.accentStrong,
+  },
 
-  ul: { margin: "10px 0 0", paddingLeft: 18, color: stylesVars.textMuted, lineHeight: 1.7, fontSize: 14 },
+  skillGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
+    gap: 12,
+  },
+  techBadge: {
+    display: "grid",
+    justifyItems: "center",
+    gap: 10,
+    textAlign: "center",
+    padding: "14px 10px",
+    borderRadius: 18,
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "rgba(143, 168, 203, 0.06)",
+  },
+  techBadgeIconWrap: {
+    width: 58,
+    height: 58,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 16,
+    background: "rgba(13, 20, 29, 0.92)",
+    border: `1px solid rgba(143, 168, 203, 0.16)`,
+  },
+  techBadgeLabel: {
+    fontSize: 13,
+    lineHeight: 1.35,
+    fontWeight: 700,
+    color: stylesVars.text,
+  },
+  techBadgeFallback: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 58,
+    padding: "12px 14px",
+    borderRadius: 16,
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "rgba(143, 168, 203, 0.06)",
+  },
+  techBadgeFallbackText: {
+    fontSize: 13,
+    fontWeight: 700,
+    color: stylesVars.text,
+  },
 
+  linksBlock: {
+    display: "grid",
+    gap: 10,
+  },
+  linkRow: {
+    display: "flex",
+    gap: 10,
+    flexWrap: "wrap",
+  },
   primaryBtn: {
     display: "inline-flex",
     alignItems: "center",
@@ -200,7 +610,94 @@ const styles: Record<string, React.CSSProperties> = {
     boxShadow: "0 10px 24px rgba(20, 30, 44, 0.24)",
   },
 
-  link: { color: stylesVars.accent, textDecoration: "none", fontWeight: 800 },
+  sectionStack: {
+    display: "grid",
+    gap: 18,
+    marginTop: 18,
+  },
+  detailCard: {
+    display: "flex",
+    gap: 18,
+    flexWrap: "wrap",
+    border: `1px solid ${stylesVars.cardBorder}`,
+    borderRadius: 22,
+    padding: 18,
+    background: stylesVars.cardBg,
+  },
+  detailTextColumn: {
+    flex: "1 1 360px",
+    minWidth: 280,
+    display: "grid",
+    gap: 14,
+    alignContent: "start",
+  },
+  detailVisualWrap: {
+    flex: "1 1 320px",
+    minWidth: 280,
+    borderRadius: 18,
+    overflow: "hidden",
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "#0d141d",
+    display: "flex",
+  },
+  detailVisual: {
+    width: "100%",
+    height: "100%",
+    minHeight: 280,
+    display: "block",
+  },
+
+  videoSection: {
+    marginTop: 18,
+    display: "grid",
+    gap: 14,
+  },
+  videoCard: {
+    border: `1px solid ${stylesVars.cardBorder}`,
+    borderRadius: 22,
+    padding: 18,
+    background: stylesVars.cardBg,
+    display: "grid",
+    gap: 14,
+  },
+  videoFrame: {
+    position: "relative",
+    width: "100%",
+    aspectRatio: "16 / 9",
+    borderRadius: 18,
+    overflow: "hidden",
+    border: `1px solid rgba(143, 168, 203, 0.18)`,
+    background: "#081018",
+  },
+  videoEmbed: {
+    border: 0,
+    width: "100%",
+    height: "100%",
+  },
+  videoPlaceholder: {
+    minHeight: 320,
+    borderRadius: 18,
+    border: `1px dashed rgba(143, 168, 203, 0.22)`,
+    background: "linear-gradient(135deg, rgba(13, 20, 29, 0.96), rgba(16, 23, 32, 0.85))",
+    display: "grid",
+    placeItems: "center",
+    textAlign: "center",
+    padding: 28,
+    gap: 10,
+  },
+  videoPlaceholderTitle: {
+    margin: 0,
+    fontSize: 24,
+    fontWeight: 800,
+    letterSpacing: -0.4,
+    color: stylesVars.text,
+  },
+  videoDescription: {
+    margin: 0,
+    fontSize: 15,
+    lineHeight: 1.75,
+    color: stylesVars.textMuted,
+  },
 
   footer: {
     borderTop: `1px solid ${stylesVars.cardBorder}`,
