@@ -66,11 +66,6 @@ export default function Home() {
                 Ich entwickle Desktop-Apps (C#/.NET), Webanwendungen und Games (Unity/Unreal).
                 Aktuell: Bachelorarbeit zu KI-gestützten NPC-Dialogen.
               </p>
-
-              <div style={{ display: "flex", gap: 12, marginTop: 16, flexWrap: "wrap" }}>
-                <a href="#projects" style={styles.primaryBtn}>Portfolio</a>
-                <a href="#about" style={styles.secondaryBtn}>About Me</a>
-              </div>
             </div>
 
             <div style={styles.heroRight}>
@@ -78,8 +73,8 @@ export default function Home() {
                 <Image
                   src="/profile.jpg"
                   alt="Profilbild Johannes Blank"
-                  width={220}
-                  height={220}
+                  width={184}
+                  height={184}
                   style={styles.photo}
                   priority
                 />
@@ -552,8 +547,8 @@ const styles: Record<string, React.CSSProperties> = {
     minWidth: 0,
   },
   heroRight: {
-    flex: "0 1 220px",
-    width: "min(100%, 220px)",
+    flex: "0 1 184px",
+    width: "min(100%, 184px)",
     marginLeft: "auto",
     display: "flex",
     justifyContent: "flex-end",
@@ -803,33 +798,6 @@ const styles: Record<string, React.CSSProperties> = {
     color: "rgba(243, 237, 230, 0.80)",
     fontWeight: 800,
     fontSize: 14,
-  },
-
-  primaryBtn: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "10px 14px",
-    borderRadius: 12,
-    textDecoration: "none",
-    background: stylesVars.accentStrong,
-    color: "#0f1722",
-    fontSize: 14,
-    fontWeight: 800,
-    boxShadow: "0 10px 24px rgba(20, 30, 44, 0.24)",
-  },
-  secondaryBtn: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "10px 14px",
-    borderRadius: 12,
-    textDecoration: "none",
-    border: `1px solid rgba(143, 168, 203, 0.28)`,
-    color: stylesVars.text,
-    fontSize: 14,
-    fontWeight: 800,
-    background: "rgba(143, 168, 203, 0.06)",
   },
 
   link: { color: stylesVars.accent, textDecoration: "none", fontWeight: 800 },
