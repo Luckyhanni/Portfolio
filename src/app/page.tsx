@@ -56,7 +56,7 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-      <section id="top" style={{ padding: "0 0 22px" }}>
+      <section id="top" style={{ padding: "28px 0 18px" }}>
         <div style={styles.container}>
           <div style={styles.heroCard}>
             <div style={styles.heroMain}>
@@ -78,8 +78,8 @@ export default function Home() {
                 <Image
                   src="/profile.jpg"
                   alt="Profilbild Johannes Blank"
-                  width={240}
-                  height={240}
+                  width={220}
+                  height={220}
                   style={styles.photo}
                   priority
                 />
@@ -95,7 +95,6 @@ export default function Home() {
                 title="Software"
                 logos={softwareStatLogos}
               />
-              <Stat title="Fokus" value="Games + Engineering" />
             </div>
           </div>
         </div>
@@ -229,7 +228,13 @@ function Stat({
         <div style={{ marginTop: 8, fontSize: 18, fontWeight: 700, color: stylesVars.text }}>{value}</div>
       ) : null}
       {logos?.length ? (
-        <div style={{ ...styles.statLogoRow, marginTop: value ? 12 : 10 }}>
+        <div
+          style={{
+            ...styles.statLogoRow,
+            gridTemplateColumns: `repeat(${logos.length}, minmax(0, 1fr))`,
+            marginTop: value ? 12 : 10,
+          }}
+        >
           {logos.map((logo) => (
             <Link
               key={logo.src}
@@ -242,8 +247,8 @@ function Stat({
               <Image
                 src={logo.src}
                 alt={logo.alt}
-                width={68}
-                height={68}
+                width={56}
+                height={56}
                 unoptimized
                 style={styles.statLogoImage}
               />
@@ -508,7 +513,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: stylesVars.text,
     minHeight: "100vh",
   },
-  container: { maxWidth: 980, padding: "0 18px", margin: "0 auto" },
+  container: { maxWidth: 1160, padding: "0 24px", margin: "0 auto" },
 
   header: {
     position: "sticky",
@@ -532,26 +537,30 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   heroCard: {
-    display: "grid",
-    gridTemplateColumns: "minmax(0, 1fr) auto",
-    gap: 18,
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 20,
     alignItems: "start",
     border: `1px solid ${stylesVars.cardBorder}`,
-    borderRadius: 18,
+    borderRadius: 22,
     background: stylesVars.cardBg,
-    padding: 18,
+    padding: 20,
     boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
   },
   heroMain: {
+    flex: "1 1 540px",
     minWidth: 0,
   },
   heroRight: {
-    width: 260,
+    flex: "0 1 220px",
+    width: "min(100%, 220px)",
+    marginLeft: "auto",
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "flex-start",
   },
   photoWrap: {
+    width: "100%",
     borderRadius: 14,
     overflow: "hidden",
     border: `1px solid ${stylesVars.cardBorder}`,
@@ -559,27 +568,29 @@ const styles: Record<string, React.CSSProperties> = {
   },
   photo: {
     display: "block",
-    width: 240,
-    height: 240,
+    width: "100%",
+    height: "auto",
+    aspectRatio: "1 / 1",
     objectFit: "cover",
     objectPosition: "center 18%",
   },
 
-  h1: { margin: 0, fontSize: 34, letterSpacing: -0.6 },
+  h1: { margin: 0, fontSize: 40, lineHeight: 1.02, letterSpacing: -0.8 },
   subline: { margin: "8px 0 0", color: stylesVars.textMuted, fontWeight: 600 },
-  heroText: { marginTop: 12, color: stylesVars.textMuted, lineHeight: 1.6, maxWidth: 640 },
+  heroText: { marginTop: 12, color: stylesVars.textMuted, lineHeight: 1.65, maxWidth: 620 },
 
   statsRow: {
+    flex: "1 0 100%",
     display: "grid",
-    gridColumn: "1 / -1",
-    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-    gap: 12,
-    marginTop: 2,
+    gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
+    gap: 14,
+    alignItems: "start",
+    marginTop: 4,
   },
   statCard: {
     border: `1px solid ${stylesVars.cardBorder}`,
-    borderRadius: 14,
-    padding: 14,
+    borderRadius: 16,
+    padding: 16,
     background: "rgba(143, 168, 203, 0.06)",
   },
   statIconRow: {
@@ -589,14 +600,14 @@ const styles: Record<string, React.CSSProperties> = {
     marginTop: 12,
   },
   statLogoRow: {
-    display: "flex",
+    display: "grid",
     gap: 8,
-    flexWrap: "wrap",
     marginTop: 12,
   },
   statLogoLink: {
-    width: 76,
-    height: 76,
+    width: "100%",
+    height: "auto",
+    aspectRatio: "1 / 1",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -604,7 +615,7 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: 14,
     border: `1px solid rgba(143, 168, 203, 0.2)`,
     background: "rgba(143, 168, 203, 0.06)",
-    padding: 8,
+    padding: 6,
     textDecoration: "none",
     transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
   },
