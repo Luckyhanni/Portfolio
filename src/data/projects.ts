@@ -217,7 +217,7 @@ const baseProjects: Project[] = [
     slug: "vacation-invasion",
     category: "games",
     title: "Vacation Invasion",
-    period: "Uni-Projekt",
+    period: "Uni-Projekt", 
     heroImage: publicGameImage("Vacation Invasion"),
     logoImage: "/Vacation%20Invasion%20Logo.png",
     short: "3D-Multiplayer-Hide-and-Seek / Prop Hunt auf einer südlichen Ferieninsel.",
@@ -225,8 +225,8 @@ const baseProjects: Project[] = [
       "Vacation Invasion ist ein 3D-Multiplayer-Prop-Hunt auf einer südlichen Ferieninsel, bei dem sich Tourist:innen als Objekte tarnen und von den Einheimischen gejagt werden.",
       "Ich habe das Projekt als Solo- und Lead-Programmer technisch geleitet und mich dabei intensiv mit Multiplayer in Unreal beschäftigt: Client-Server-Logik, Sessions und Lobbies, Actor Replication, RepNotify, Ownership sowie Server- und NetMulticast-RPCs.",
     ],
-    tags: ["Game", "Unreal", "C++", "Blueprints", "Multiplayer"],
-    techIcons: ["unreal", "cplusplus", "github"],
+    tags: ["Unreal", "C++", "Blueprints", "Multiplayer"],
+    techIcons: ["unreal", "cplusplus", "github", "vscode"],
     links: [{ label: "Trailer", href: "https://www.youtube.com/watch?v=ZfP31Po8edI" }],
     detailSections: [
       {
@@ -248,7 +248,7 @@ const baseProjects: Project[] = [
           "Dafür habe ich replicated properties beziehungsweise RepNotify und RPCs genutzt, sodass relevante Zustände, Effekte, Animationen und Cooldowns zuverlässig über alle Clients synchronisiert werden.",
         ],
         media: createProjectMedia(
-          "/Vacation%20Invasion%20Logo.png",
+          "/HiderAbility.gif",
           "Vacation Invasion Hider Ability Platzhalter",
         ),
         mediaSide: "left",
@@ -272,7 +272,7 @@ const baseProjects: Project[] = [
           "Dadurch ließen sich Events, Parameter und Übergänge klar strukturieren und später gezielt an Spielsituationen wie Verfolgung, Spannung oder erfolgreiche Aktionen koppeln.",
         ],
         media: createProjectMedia(
-          "/Vacation%20Invasion%20Logo.png",
+          "/Fmod Logo.png",
           "Vacation Invasion FMOD Integration Platzhalter",
         ),
         mediaSide: "left",
@@ -280,7 +280,7 @@ const baseProjects: Project[] = [
     ],
     detailVideo: {
       title: "Trailer",
-      description: "Trailer zu Vacation Invasion mit Einblick in Setting, Rollenverteilung und Multiplayer-Gameplay.",
+      description: "",
       embedUrl: toYouTubeEmbedUrl("https://www.youtube.com/watch?v=ZfP31Po8edI"),
     },
   },
