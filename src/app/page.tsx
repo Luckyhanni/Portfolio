@@ -100,12 +100,12 @@ export default function Home() {
         <div style={{ ...styles.container, display: "grid", gap: 28 }}>
           <CategoryBlock
             title="Games"
-            subtitle="Gameplay, Atmosphäre, Multiplayer und experimentelle Konzepte."
+            subtitle=""
             projects={GAME_PROJECTS}
           />
           <CategoryBlock
             title="Software"
-            subtitle="Desktop-Apps, Webanwendungen, Automatisierung und interne Business-Tools."
+            subtitle=""
             projects={SOFTWARE_PROJECTS}
           />
         </div>
