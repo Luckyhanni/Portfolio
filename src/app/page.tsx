@@ -596,7 +596,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   statLogoRow: {
     display: "grid",
-    gap: 8,
+    gap: 6,
     marginTop: 12,
   },
   statLogoLink: {
@@ -609,15 +609,14 @@ const styles: Record<string, React.CSSProperties> = {
     overflow: "hidden",
     borderRadius: 14,
     border: `1px solid rgba(143, 168, 203, 0.2)`,
-    background: "rgba(143, 168, 203, 0.06)",
-    padding: 6,
+    background: "transparent",
     textDecoration: "none",
     transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
   },
   statLogoImage: {
-    width: "100%",
-    height: "100%",
-    objectFit: "contain",
+    width: "112%",
+    height: "112%",
+    objectFit: "cover",
     objectPosition: "center",
   },
 

@@ -479,21 +479,6 @@ const baseProjects: Project[] = [
     ],
   },
   {
-    slug: "tiefwurz",
-    category: "games",
-    title: "Tiefwurtz",
-    heroImage: publicGameImage("Tiefwurtz"),
-    logoImage: "/Tiefwurtz%20Logo.png",
-    short: "Dunkles Action-Erlebnis rund um Licht, Kampf und Ressourcenmanagement.",
-    description: [
-      "In Tiefwurtz kaempfst du dich durch eine unterirdische Dunkelwelt, die nur von der Lumen Essenz erleuchtet wird.",
-      "Diese Ressource erhaeltst du durch Gluehwuermchen und das Besiegen von Gegnern. Sie spendet nicht nur Licht, sondern repraesentiert zugleich deine Lebenspunkte.",
-      "Das Management der Lumen Essenz steht dadurch im Mittelpunkt des Spiels und bestimmt, wie sicher und aggressiv du dich durch die Welt bewegen kannst.",
-    ],
-    tags: ["Game", "Action", "Resource Management", "Atmospheric"],
-    techIcons: ["unity", "csharp"],
-  },
-  {
     slug: "honorar-rechner",
     category: "software",
     title: "Honorar Rechner",
