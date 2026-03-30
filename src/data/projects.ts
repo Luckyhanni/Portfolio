@@ -542,14 +542,15 @@ const baseProjects: Project[] = [
   {
     slug: "neumandats-abgaenge-uebersicht",
     category: "software",
-    title: "Neumandats- und Abgänge-Übersicht",
+    title: "FeePro",
     period: "Steuerkanzlei",
+    heroImage: "/FeePro Banner.png",
     logoImage: "/Mandats%C3%9Cbersicht%20Logo.png",
-    short: "Auswertungstool für Honorare von Neumandaten und Abgängen in frei wählbaren Zeitfenstern.",
+    short: "Tool zum Eintragen und Auswerten von Neumandaten, Abgangsmandaten und ihren Honoraren.",
     description: [
-      "Das Tool wertet Neumandate und Abgänge übersichtlich aus.",
-      "Honorare lassen sich für Zeitfenster oder ganze Jahre schnell zusammenfassen.",
-      "So werden Entwicklungen und Kennzahlen deutlich schneller sichtbar.",
+      "FeePro erfasst Neumandate, Abgangsmandate und die zugehörigen Honorare in einer zentralen Datenbasis.",
+      "Die Daten können anschließend gezielt ausgewertet werden, zum Beispiel für einen bestimmten Monat oder für das gesamte Jahr.",
+      "So verbindet das Tool Datenerfassung, Datenpflege und Reporting in einem kompakten Kanzlei-Workflow.",
     ],
     tags: ["Software", "C#", "WDF", "Datenbanken", "Reporting"],
     techIcons: ["csharp", "dotnet", "database"],
@@ -557,6 +558,56 @@ const baseProjects: Project[] = [
       "Zeitfensterbasierte Auswertung",
       "Jahresübersichten für Honorare",
       "Bessere Transparenz für Kanzlei-Workflows",
+    ],
+    detailSections: [
+      {
+        title: "Home & Workflow-Einstieg",
+        body: [
+          "Die Startseite bündelt die wichtigsten Bereiche und dient als klarer Einstieg in den Workflow.",
+          "So wird Datenerfassung und Auswertung direkt aus einer zentralen Oberfläche erreichbar.",
+        ],
+        media: createProjectMedia(
+          "/FeePro Home.png",
+          "FeePro Startseite",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Mandate & Honorare eintragen",
+        body: [
+          "Neumandate und Abgangsmandate können strukturiert inklusive Honorarwerten erfasst werden.",
+          "Dadurch entsteht eine saubere Datengrundlage für spätere Auswertungen und Kennzahlen.",
+        ],
+        media: createProjectMedia(
+          "/FeePro Eintragen.png",
+          "FeePro Eintragen",
+        ),
+        mediaSide: "left",
+      },
+      {
+        title: "Datenbankpflege & Bestandsdaten",
+        body: [
+          "Bestehende Einträge lassen sich direkt in der Datenbankansicht prüfen und bearbeiten.",
+          "Das macht den Datenbestand wartbar und hält die fachliche Grundlage für Reports aktuell.",
+        ],
+        media: createProjectMedia(
+          "/FeePro Datenbank.png",
+          "FeePro Datenbank",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Monats- und Jahresauswertung",
+        body: [
+          "Die Auswertung kann für einzelne Monate oder für das gesamte Jahr erfolgen.",
+          "So werden Honorarentwicklungen, Zu- und Abgänge sowie relevante Kennzahlen schnell sichtbar.",
+        ],
+        media: createProjectMedia(
+          "/FeePro Auswertung.png",
+          "FeePro Auswertung",
+        ),
+        mediaSide: "left",
+      },
     ],
   },
   {
