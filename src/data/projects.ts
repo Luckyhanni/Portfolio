@@ -125,8 +125,8 @@ function softwarePlaceholderSections(project: Project): ProjectDetailSection[] {
     {
       title: "Ausgangslage und Ziel",
       body: [
-        `Hier kannst du spaeter das konkrete Problem beschreiben, das ${project.title} loesen sollte, inklusive Ausgangssituation, Zielgruppe und Anforderungen aus dem echten Einsatz.`,
-        `Das ist der richtige Platz fuer Kontext: Wer nutzt das Tool, welcher Prozess war vorher umstaendlich und warum war eine eigene Softwareloesung sinnvoll.`,
+        `${project.title} löst ein konkretes Problem im Arbeitsalltag und übersetzt einen manuellen Ablauf in einen klaren digitalen Prozess.`,
+        `Hier geht es vor allem um Zielgruppe, Ausgangslage und den praktischen Nutzen im Einsatz.`,
       ],
       media: mediaPool[0],
       mediaSide: "right",
@@ -134,8 +134,8 @@ function softwarePlaceholderSections(project: Project): ProjectDetailSection[] {
     {
       title: "Workflow und Interface",
       body: [
-        `In diesem Abschnitt kannst du spaeter UI, Eingabefluss, Datenlogik oder Automatisierungen erklaeren. Falls du GIFs von Formularen, Dashboards oder Interaktionen zeigen willst, passt das hier gut rein.`,
-        `Die Seite unterstuetzt bereits Bild- und GIF-Medien, damit du Bedienablaeufe spaeter anschaulich praesentieren kannst.`,
+        `Dieser Abschnitt zeigt den Eingabefluss, wichtige Ansichten und die eigentliche Bedienlogik des Tools.`,
+        `So wird schnell verständlich, wie Nutzende mit der Anwendung arbeiten.`,
       ],
       media: mediaPool[1] ?? mediaPool[0],
       mediaSide: "left",
@@ -143,8 +143,8 @@ function softwarePlaceholderSections(project: Project): ProjectDetailSection[] {
     {
       title: "Ergebnis und Mehrwert",
       body: [
-        `Hier kannst du spaeter messbare Verbesserungen, Qualitaetsgewinne oder praktische Auswirkungen beschreiben, zum Beispiel Zeitersparnis, weniger Fehler oder bessere Transparenz.`,
-        `So wird aus der Projektseite nicht nur eine Galerie, sondern eine nachvollziehbare Case Study fuer deine Software-Arbeit.`,
+        `Hier stehen die wichtigsten Effekte: Zeitersparnis, weniger Fehler und bessere Übersicht.`,
+        `So wird aus dem Projekt eine kurze, greifbare Case Study.`,
       ],
       media: mediaPool[2] ?? mediaPool[0],
       mediaSide: "right",
@@ -187,7 +187,11 @@ function toYouTubeEmbedUrl(url: string): string | undefined {
   return undefined;
 }
 
-function buildDefaultVideo(project: Project): ProjectVideo {
+function buildDefaultVideo(project: Project): ProjectVideo | undefined {
+  if (project.category !== "games") {
+    return undefined;
+  }
+
   const youtubeLink = project.links?.find((link) =>
     link.href.includes("youtube.com") || link.href.includes("youtu.be"),
   );
@@ -195,9 +199,7 @@ function buildDefaultVideo(project: Project): ProjectVideo {
   return {
     title: "YouTube Video",
     description:
-      project.category === "games"
-        ? "Hier kannst du spaeter Gameplay, Trailer oder Devlog-Videos einbetten. Falls noch kein Video existiert, bleibt dieser Bereich als Platzhalter fuer die finale Version bestehen."
-        : "Hier kannst du spaeter eine kurze Produktdemo, einen Workflow-Mitschnitt oder ein Erklaervideo fuer das Tool einbetten.",
+      "Hier kannst du später Gameplay, Trailer oder eine kurze Demo einbetten.",
     embedUrl: youtubeLink ? toYouTubeEmbedUrl(youtubeLink.href) : undefined,
   };
 }
@@ -483,40 +485,78 @@ const baseProjects: Project[] = [
     category: "software",
     title: "Honorar Rechner",
     period: "Steuerkanzlei",
+    heroImage: "/Honorarrechner banner.png",
     logoImage: "/Honorar%20Rechner%20Logo.png",
-    short: "Tool zur schnellen und genauen Honorarkalkulation fuer Unternehmen und private Mandanten.",
+    short: "Tool zur schnellen Honorarkalkulation für Unternehmen und Privatmandanten.",
     description: [
-      "Der Honorar Rechner wurde fuer eine Steuerkanzlei entwickelt, um mit wenigen Eingaben sehr schnell ein praezises Honorar zu berechnen.",
-      "Das Tool deckt sowohl Unternehmen als auch private Mandanten ab und reduziert manuellen Aufwand bei der Angebotserstellung und Einschaetzung.",
-      "Technisch basiert das Projekt auf C#, WDF, Excel-Anbindung und Datenbanklogik.",
+      "Der Honorar Rechner berechnet mit nur vier Eingabewerten sehr schnell ein passendes Honorar.",
+      "Ein Vorgang, der früher oft 15 Minuten gedauert hat, ist damit in etwa 2 Minuten erledigt.",
+      "Änderungen an Sätzen und Beträgen können zentral über Excel gepflegt werden.",
     ],
     tags: ["Software", "C#", "WDF", "Excel", "Datenbanken"],
     techIcons: ["csharp", "dotnet", "excel", "database"],
     highlights: [
       "Schnelle Kalkulation mit wenig Eingabedaten",
-      "Unterstuetzung fuer Unternehmen und Privatmandate",
+      "Unterstützung für Unternehmen und Privatmandate",
       "Praktischer Einsatz im Kanzleialltag",
+    ],
+    detailSections: [
+      {
+        title: "Mandantenwahl & Einstieg in den Rechenworkflow",
+        body: [
+          "Auf der Startseite wird direkt zwischen Unternehmen und Privatmandanten gewählt.",
+          "So sehen Nutzende sofort nur die Leistungen, die fachlich wirklich zu ihrem Fall passen.",
+        ],
+        media: createProjectMedia(
+          "/Honorar Rechner Home.png",
+          "Honorar Rechner Startseite",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Minimale Eingabedaten, maximale Rechenwirkung",
+        body: [
+          "Für die Berechnung reichen vier zentrale Eingabewerte.",
+          "Im Hintergrund verarbeitet das Tool daraus automatisch die nötige Mathematik und spart so viel manuelle Rechenarbeit.",
+        ],
+        media: createProjectMedia(
+          "/Honorarrechner Daten.png",
+          "Honorar Rechner Eingabedaten",
+        ),
+        mediaSide: "left",
+      },
+      {
+        title: "Leistungsauswahl, Kalkulationslogik & Excel-Wartbarkeit",
+        body: [
+          "Die gewünschten Leistungen lassen sich danach direkt auswählen und sofort berechnen.",
+          "Wenn sich Sätze oder Beträge ändern, kann alles zentral in Excel angepasst werden, ohne den Code anzufassen.",
+        ],
+        media: createProjectMedia(
+          "/Honorarrechner leistungen.png",
+          "Honorar Rechner Leistungen",
+        ),
+        mediaSide: "right",
+      },
     ],
   },
   {
     slug: "neumandats-abgaenge-uebersicht",
     category: "software",
-    title: "Neumandats- und Abgaenge-Uebersicht",
+    title: "Neumandats- und Abgänge-Übersicht",
     period: "Steuerkanzlei",
     logoImage: "/Mandats%C3%9Cbersicht%20Logo.png",
-    short: "Auswertungstool fuer Honorare von Neumandaten und Abgaengen in frei waehlbaren Zeitfenstern.",
+    short: "Auswertungstool für Honorare von Neumandaten und Abgängen in frei wählbaren Zeitfenstern.",
     description: [
-      "Dieses Tool wurde fuer eine Steuerkanzlei entwickelt, um Neumandate und Abgaenge uebersichtlich auszuwerten.",
-      "Es ermoeglicht, Honorare fuer bestimmte Zeitfenster oder fuer ein komplettes Jahr gesammelt anzuzeigen.",
-      "Dadurch lassen sich Entwicklungen, Veraenderungen und relevante Kennzahlen deutlich schneller nachvollziehen.",
-      "Technisch basiert das Projekt auf WDF, C# und Datenbanken.",
+      "Das Tool wertet Neumandate und Abgänge übersichtlich aus.",
+      "Honorare lassen sich für Zeitfenster oder ganze Jahre schnell zusammenfassen.",
+      "So werden Entwicklungen und Kennzahlen deutlich schneller sichtbar.",
     ],
     tags: ["Software", "C#", "WDF", "Datenbanken", "Reporting"],
     techIcons: ["csharp", "dotnet", "database"],
     highlights: [
       "Zeitfensterbasierte Auswertung",
-      "Jahresuebersichten fuer Honorare",
-      "Bessere Transparenz fuer Kanzlei-Workflows",
+      "Jahresübersichten für Honorare",
+      "Bessere Transparenz für Kanzlei-Workflows",
     ],
   },
   {
@@ -527,17 +567,16 @@ const baseProjects: Project[] = [
     logoImage: "/Sorty%20Logo.png",
     short: "System zur strukturierten Lagerung, Verfolgung und schnellen Ausgabe von Bestellungen.",
     description: [
-      "Fuer ein Einzelhandelsgeschaeft beziehungsweise eine Metzgerei wurde ein Lager- und Sortier-Tool entwickelt, mit dem Bestellungen erfasst und organisiert gelagert werden koennen.",
-      "Beim Abholen einer Bestellung zeigt das System genau an, wo sich die Ware befindet, damit sie schnell gefunden und ausgegeben werden kann.",
-      "Zusaetzlich unterstuetzt eine namensbasierte Suchlogik die schnellere und treffsichere Zuordnung der Bestellungen.",
-      "Technisch wurde das Projekt mit C#, WinForms, Excel und Datenbanken umgesetzt.",
+      "Das Tool organisiert Bestellungen strukturiert im Lager.",
+      "Beim Abholen zeigt es direkt, wo sich die Ware befindet.",
+      "Zusätzlich hilft eine Namenssuche bei der schnellen Zuordnung.",
     ],
     tags: ["Software", "C#", "WinForms", "Excel", "Datenbanken"],
     techIcons: ["csharp", "windows", "excel", "database"],
     highlights: [
       "Strukturierte Lager- und Bestellorganisation",
       "Schnelle Ausgabe an Kundschaft",
-      "Namenssuche fuer bessere Auffindbarkeit",
+      "Namenssuche für bessere Auffindbarkeit",
     ],
   },
   {
@@ -546,18 +585,18 @@ const baseProjects: Project[] = [
     title: "Zeiterfassung WebApp",
     period: "Metzgerei",
     logoImage: "/Timely%20Logo.png",
-    short: "Webbasierte Zeiterfassung mit Login, Einstempeln und Excel-Export fuer Admins.",
+    short: "Webbasierte Zeiterfassung mit Login, Einstempeln und Excel-Export für Admins.",
     description: [
-      "Diese WebApp wurde als Zeiterfassungsloesung entwickelt, damit Mitarbeitende sich anmelden und ihre Arbeitszeit unkompliziert einstempeln koennen.",
-      "Administrierende koennen alle relevanten Daten zentral einsehen und strukturiert als Excel-Datei exportieren.",
-      "Das Projekt wurde mit C#, Datenbanken, Render, GitHub-Deployment und einer eigenen URL umgesetzt.",
+      "Die WebApp ermöglicht Login und einfaches Einstempeln für Mitarbeitende.",
+      "Admins können alle Daten zentral einsehen und nach Excel exportieren.",
+      "Das Projekt wurde mit C#, Datenbanken und Render umgesetzt.",
     ],
     tags: ["Software", "WebApp", "C#", "Datenbanken", "Render"],
     techIcons: ["csharp", "database", "render", "github"],
     highlights: [
-      "Login und Einstempeln fuer Mitarbeitende",
-      "Admin-Uebersicht mit Excel-Export",
-      "Deployment ueber Render und GitHub",
+      "Login und Einstempeln für Mitarbeitende",
+      "Admin-Übersicht mit Excel-Export",
+      "Deployment über Render und GitHub",
     ],
   },
   {
@@ -568,16 +607,16 @@ const baseProjects: Project[] = [
     logoImage: "/Ticket%20System%20Logo.png",
     short: "Internes Ticket-System auf Basis von Microsoft Power Automate, Forms und Planner.",
     description: [
-      "Fuer die Kanzlei wurde ein Ticket-System mit Microsoft Power Automate umgesetzt und mit Microsoft Forms sowie Microsoft Planner integriert.",
-      "Dadurch lassen sich Anfragen strukturiert erfassen, automatisiert weiterleiten und in bestehende Microsoft-Workflows einbinden.",
-      "Das Projekt zeigt den Einsatz von Low-Code-Automatisierung zur Verbesserung interner Prozesse.",
+      "Für die Kanzlei wurde ein Ticket-System mit Power Automate, Forms und Planner aufgebaut.",
+      "Anfragen lassen sich damit strukturiert erfassen und automatisch weiterleiten.",
+      "So wurden interne Abläufe mit wenig manuellem Aufwand verbessert.",
     ],
     tags: ["Software", "Power Automate", "Microsoft Forms", "Microsoft Planner"],
     techIcons: ["microsoft", "power-automate", "forms", "planner"],
     highlights: [
       "Automatisierte Ticket-Erstellung",
       "Integration in bestehende Microsoft-Tools",
-      "Verbesserung interner Prozessablaeufe",
+      "Verbesserung interner Prozessabläufe",
     ],
   },
 ];

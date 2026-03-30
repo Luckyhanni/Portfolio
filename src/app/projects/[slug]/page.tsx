@@ -52,7 +52,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div style={styles.container}>
           <Link href="/#projects" style={styles.backBtn}>← Zurueck zu Projects</Link>
 
-          {embedPlacement === "top" ? <ProjectEmbedSection project={project} /> : null}
+          {project.detailVideo && embedPlacement === "top" ? (
+            <ProjectEmbedSection project={project} />
+          ) : null}
 
           <div style={styles.heroCard}>
             <ProjectVisual
@@ -159,7 +161,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             ))}
           </div>
 
-          {embedPlacement !== "top" ? <ProjectEmbedSection project={project} /> : null}
+          {project.detailVideo && embedPlacement !== "top" ? (
+            <ProjectEmbedSection project={project} />
+          ) : null}
         </div>
       </section>
 
