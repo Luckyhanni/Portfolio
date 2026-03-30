@@ -282,8 +282,12 @@ function CategoryBlock({
 
       {projects.length > 0 ? (
         <div style={{ display: "grid", gap: 14 }}>
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              priority={index === 0}
+            />
           ))}
         </div>
       ) : (
@@ -295,7 +299,13 @@ function CategoryBlock({
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({
+  project,
+  priority = false,
+}: {
+  project: Project;
+  priority?: boolean;
+}) {
   const projectUsesLogoPanel = !project.heroImage && Boolean(project.logoImage);
   const projectVisualSrc = project.heroImage ?? project.logoImage;
   const projectVisualFit = project.heroImage ? "cover" : "contain";
@@ -357,6 +367,8 @@ function ProjectCard({ project }: { project: Project }) {
                   alt={`${project.title} Vorschau`}
                   width={projectUsesLogoPanel ? 200 : 280}
                   height={projectUsesLogoPanel ? 112 : 160}
+                  priority={priority}
+                  loading={priority ? "eager" : undefined}
                   unoptimized={!project.heroImage}
                   style={{
                     ...styles.projectImage,
