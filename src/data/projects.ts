@@ -25,6 +25,8 @@ export type ProjectVideo = {
   title: string;
   description: string;
   embedUrl?: string;
+  embedAspectRatio?: string;
+  placement?: "top" | "bottom";
 };
 
 export type Project = {
@@ -336,7 +338,7 @@ const baseProjects: Project[] = [
           "Gerade fuer Cozy- und Progression-Systeme ist dieser Economy-Loop wichtig, weil er Ziele, Belohnungen und Entscheidungen miteinander verbindet. Dadurch bekommt das Projekt neben dem entspannten Look auch eine klare Systemtiefe aus Ressourcenverwaltung, Kauflogik und dauerhaftem Fortschritt.",
         ],
         media: createProjectMedia(
-          "/GGShop.png",
+          publicGameImage("Grow Gently"),
           "Grow Gently Shop und Money System",
         ),
         mediaSide: "right",
@@ -355,26 +357,82 @@ const baseProjects: Project[] = [
       "Du steuerst einen Charakter durch eine vierseitige Dimension, bei der immer nur eine Seite gleichzeitig sichtbar ist. Jede Drehung offenbart neue Hinweise, Herausforderungen und tierische Begleiter.",
       "Die Welt besteht aus rotierbaren Plattformen, die ueber farblich zugeordnete Hebel in die richtige Position gebracht werden muessen.",
       "Dabei wird dein Gedaechtnis gefordert, weil du Informationen von den anderen Seiten behalten musst, um die Raetsel erfolgreich zu loesen.",
-      "Beruhigende Musik und eine starke Atmosphaere tragen die Erfahrung und machen das Spiel zu einem Puzzle-Projekt mit klarer Stimmung und Identitaet.",
+      "Wir waren ein sehr kleines Team aus vier Personen, und ich habe das Projekt als Solo- und Lead-Programmer technisch umgesetzt. Mein Fokus lag dabei auf Character Control, Kamera-Logik, Shadern sowie der technischen Umsetzung von UI- und Gameplay-Systemen.",
     ],
-    tags: ["Game", "3D", "Puzzle", "Atmospheric"],
-    techIcons: ["unreal", "blender"],
+    tags: ["Unreal", "Lead Developer", "Gameplay", "Puzzle", "Atmospheric"],
+    techIcons: ["unity", "csharp", "vscode", "git"],
     links: [{ label: "Trailer", href: "https://www.youtube.com/watch?v=w4ZLKdRwZGw" }],
+    detailSections: [
+      {
+        title: "Character Animation, Movement & Player Input",
+        body: [
+          "Ein zentraler Teil meiner Arbeit war die technische Verbindung von Player Input, Character Movement und Animation. Obwohl das Bewegungsset bewusst kompakt gehalten war, mussten Idle-, Lauf- und Interaktionsanimationen sauber an den Bewegungszustand des Characters gekoppelt werden, damit Steuerung und visuelles Feedback praezise zusammenarbeiten.",
+          "Gerade bei Interaktionen wie dem Betaetigen von Schaltern war wichtig, dass Input-Verarbeitung, Character-Orientierung und Animation State Transitions konsistent ineinandergreifen. So entsteht trotz einfacher Animationen ein kontrolliertes und lesbares Character-Feeling mit klarer Responsiveness.",
+        ],
+        media: createProjectMedia(
+          "/IslandJouneyAnimtions.gif",
+          "Island Journey Character Animation und Player Input",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Stylized Low-Poly Water Shader",
+        body: [
+          "Fuer die Umgebung habe ich einen einfachen, stilisierten Water Shader umgesetzt, der sich visuell in den Low-Poly-Look des Projekts einfuegt. Ziel war kein physikalisch komplexes Wassersystem, sondern ein kontrolliertes Material-Setup mit klarer Formensprache und einer sauberen stylized surface animation.",
+          "Durch animierte Shader-Parameter und ein bewusst reduziertes Materialverhalten bekommt das Wasser trotzdem ausreichend Bewegung und Tiefe, ohne die ruhige Gesamtwirkung der Szene zu verlieren. So traegt der Shader technisch wie visuell zur Atmosphaere bei, ohne den Artstyle zu ueberladen.",
+        ],
+        media: createProjectMedia(
+          "/IslandJouneyWaterShader.gif",
+          "Island Journey Water Shader",
+        ),
+        mediaSide: "left",
+      },
+      {
+        title: "Camera Rotation & Corner Transition",
+        body: [
+          "Eine der wichtigsten technischen Aufgaben war die Kamera-Logik beim Laufen ueber die Ecken der Welt. Sobald der Character eine Kante ueberschreitet, muss sich die Kamera mitdrehen, damit Raumorientierung, Perspektive und Kontrolle fuer Spieler:innen erhalten bleiben.",
+          "Dafuer habe ich eine weiche Rotations- und Uebergangslogik umgesetzt, bei der sich die Kamera nicht abrupt umstellt, sondern ueber eine smooth interpolated transition in die neue Ausrichtung blendet. Dadurch fuehlt sich der Perspektivwechsel kontrolliert und hochwertig an, obwohl im Hintergrund ein klarer technischer State Change stattfindet.",
+        ],
+        media: createProjectMedia(
+          "/IslandJouneyKameraMovement.gif",
+          "Island Journey Kamera Movement",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Main Menu, UI Animation & Level Thumbnail",
+        body: [
+          "Auch das Main Menu wurde von mir technisch mit aufgebaut und sollte nicht nur funktional sein, sondern das Projekt bereits vor Spielstart hochwertig praesentieren. Deshalb lag der Fokus auf einer sauberen Menu-Struktur, klaren UI-Transitions und einer insgesamt stimmigen Presentation Layer.",
+          "Besonders stark wirkt dabei die Kombination aus Animationen und Level Thumbnail, weil sie dem Menu sofort mehr Charakter und Orientierung gibt. Dadurch entsteht kein rein statischer Startscreen, sondern ein deutlich runderer Einstieg mit besserer Lesbarkeit, Preview-Funktion und visuellem Wiedererkennungswert.",
+        ],
+        media: createProjectMedia(
+          "/IslandJouneyMen%C3%BC.gif",
+          "Island Journey Main Menu",
+        ),
+        mediaSide: "left",
+      },
+    ],
   },
   {
-    slug: "grimcute",
+    slug: "cd-go-home",
     category: "games",
-    title: "GrimCute",
-    heroImage: publicGameImage("GrimCute"),
-    logoImage: "/GrimCuteLogo.png",
-    short: "Stylized game project with trailer showcase.",
+    title: "CD Go Home",
+    heroImage: "/window.svg",
     description: [
-      "GrimCute ist eines deiner Game-Projekte und wird aktuell ueber den Trailer vorgestellt.",
-      "Diese Projektseite kann spaeter noch mit Details zu Gameplay, Rolle, Tech-Stack und Produktionskontext erweitert werden.",
+      "CD Go Home ist eine kleine Game-Physics-Abgabe und als kompakter Cut-the-Rope-Clone aufgebaut. Ziel ist es, physikbasierte Interaktionen so einzusetzen, dass aus wenigen Systemen ein klarer und spielbarer Core Loop entsteht.",
+      "Das Projekt ist bewusst klein gehalten, eignet sich dadurch aber sehr gut als direkt spielbare Browser-Demo. Statt nur Screenshots oder Trailer zu zeigen, kann das Spiel hier unmittelbar im Portfolio erlebt werden.",
     ],
-    tags: ["Junior Dev", "Wave Spawning", "Learning C#"],
-    techIcons: ["unity", "csharp"],
-    links: [{ label: "Trailer", href: "https://www.youtube.com/watch?v=3db3ryLB7ys" }],
+    tags: ["Unity", "C#", "Game Physics", "Playable", "Lead Developer"],
+    techIcons: ["unity", "csharp", "vscode", "git"],
+    links: [{ label: "Play on itch.io", href: "https://luckyhanni.itch.io/cd-go-home" }],
+    detailVideo: {
+      title: "Play CD Go Home",
+      description:
+        "Die HTML5-Version ist direkt ueber itch.io eingebettet, damit das Spiel ohne Download direkt im Browser ausprobiert werden kann.",
+      embedUrl: "https://itch.io/embed-upload/16987934?color=333333",
+      embedAspectRatio: "1280 / 740",
+      placement: "top",
+    },
   },
   {
     slug: "tiefwurz",

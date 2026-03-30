@@ -42,6 +42,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const embedPlacement = project.detailVideo?.placement ?? "bottom";
+
   return (
     <main style={styles.page}>
       <Header />
@@ -49,6 +51,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <section style={styles.section}>
         <div style={styles.container}>
           <Link href="/#projects" style={styles.backBtn}>← Zurueck zu Projects</Link>
+
+          {embedPlacement === "top" ? <ProjectEmbedSection project={project} /> : null}
 
           <div style={styles.heroCard}>
             <ProjectVisual
@@ -155,42 +159,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             ))}
           </div>
 
-          <section style={styles.videoSection}>
-            <div style={styles.sectionHeadingRow}>
-              <span style={styles.sectionIndex}>
-                {`${(project.detailSections?.length ?? 0) + 3}`.padStart(2, "0")}
-              </span>
-              <h2 style={styles.h2}>{project.detailVideo?.title ?? "YouTube Video"}</h2>
-            </div>
-
-            <div style={styles.videoCard}>
-              {project.detailVideo?.embedUrl ? (
-                <div style={styles.videoFrame}>
-                  <iframe
-                    src={project.detailVideo.embedUrl}
-                    title={`${project.title} YouTube Video`}
-                    style={styles.videoEmbed}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  />
-                </div>
-              ) : (
-                <div style={styles.videoPlaceholder}>
-                  <p style={styles.videoPlaceholderTitle}>YouTube Embed folgt hier</p>
-                  <p style={styles.p}>
-                    Trage spaeter einfach einen YouTube-Link in den Projektdaten ein. Die Seite erzeugt daraus automatisch den eingebetteten Player.
-                  </p>
-                </div>
-              )}
-
-              <p style={styles.videoDescription}>
-                {project.detailVideo?.description ??
-                  "Hier kannst du spaeter Trailer, Gameplay, GIF-Alternativen oder eine kurze Demo ergaenzen."}
-              </p>
-            </div>
-          </section>
+          {embedPlacement !== "top" ? <ProjectEmbedSection project={project} /> : null}
         </div>
       </section>
 
@@ -200,6 +169,54 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </footer>
     </main>
+  );
+}
+
+function ProjectEmbedSection({ project }: { project: Project }) {
+  return (
+    <section style={styles.videoSection}>
+      <div style={styles.sectionHeadingRow}>
+        <span style={styles.sectionIndex}>
+          {`${(project.detailSections?.length ?? 0) + 3}`.padStart(2, "0")}
+        </span>
+        <h2 style={styles.h2}>{project.detailVideo?.title ?? "YouTube Video"}</h2>
+      </div>
+
+      <div style={styles.videoCard}>
+        {project.detailVideo?.embedUrl ? (
+          <div
+            style={{
+              ...styles.videoFrame,
+              ...(project.detailVideo.embedAspectRatio
+                ? { aspectRatio: project.detailVideo.embedAspectRatio }
+                : null),
+            }}
+          >
+            <iframe
+              src={project.detailVideo.embedUrl}
+              title={`${project.title} Embed`}
+              style={styles.videoEmbed}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        ) : (
+          <div style={styles.videoPlaceholder}>
+            <p style={styles.videoPlaceholderTitle}>Embed folgt hier</p>
+            <p style={styles.p}>
+              Trage spaeter einfach einen Embed-Link in den Projektdaten ein. Die Seite erzeugt daraus automatisch den eingebetteten Bereich.
+            </p>
+          </div>
+        )}
+
+        <p style={styles.videoDescription}>
+          {project.detailVideo?.description ??
+            "Hier kannst du spaeter Trailer, Gameplay, GIF-Alternativen oder eine kurze Demo ergaenzen."}
+        </p>
+      </div>
+    </section>
   );
 }
 
