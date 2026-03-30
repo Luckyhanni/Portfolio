@@ -417,15 +417,58 @@ const baseProjects: Project[] = [
     slug: "cd-go-home",
     category: "games",
     title: "CD Go Home",
-    heroImage: "/window.svg",
-    short: "Kompakter Cut-the-Rope-Clone mit spielbarer HTML5-Version direkt im Browser.",
+    heroImage: "/CD-Banner.png",
+    logoImage: "/CD_Logo.png",
+    short: "Game-Physics-Prototyp im Stil von Cut the Rope mit spielbarer Unity-WebGL-Version im Browser.",
     description: [
-      "CD Go Home ist eine kleine Game-Physics-Abgabe und als kompakter Cut-the-Rope-Clone aufgebaut. Ziel ist es, physikbasierte Interaktionen so einzusetzen, dass aus wenigen Systemen ein klarer und spielbarer Core Loop entsteht.",
-      "Das Projekt ist bewusst klein gehalten, eignet sich dadurch aber sehr gut als direkt spielbare Browser-Demo. Statt nur Screenshots oder Trailer zu zeigen, kann das Spiel hier unmittelbar im Portfolio erlebt werden.",
+      "CD Go Home ist das Ergebnis einer Game-Physics-Abgabe und als kompakter Cut-the-Rope-Clone konzipiert. Der Prototyp fokussiert sich vor allem auf Seil-Physik, physikbasierte Interaktionen und einen klaren Puzzle-Loop, der aus wenigen, aber gut kombinierbaren Systemen entsteht.",
+      "Technisch lag der Schwerpunkt darauf, die Unity-Physik nicht nur fuer einzelne Objekte zu verwenden, sondern zum Kern des Level-Designs zu machen. Dadurch wurde das Projekt zu einer kleinen, aber sehr systemischen Prototype-Arbeit mit starkem Fokus auf emergentes Verhalten.",
     ],
     tags: ["Unity", "C#", "Game Physics", "Playable", "Lead Developer"],
     techIcons: ["unity", "csharp", "vscode", "git"],
     links: [{ label: "Play on itch.io", href: "https://luckyhanni.itch.io/cd-go-home" }],
+    detailSections: [
+      {
+        title: "Segmented Rope System & Cut Interaction",
+        body: [
+          "Das zentrale System des Prototyps ist ein Seil, das aus mehreren verbundenen Joint-Segmenten aufgebaut ist. Diese segmentierte Struktur war wichtig, weil sie nicht nur statische Verbindungspunkte simuliert, sondern glaubwuerdige Spannung, Schwingung und dynamisches Verhalten ermoeglicht, wie man es fuer einen Cut-the-Rope-Ansatz braucht.",
+          "Ueber Maus-Input kann ein einzelnes Segment gezielt durchschnitten und damit effektiv aus der Joint-Kette entfernt werden. Genau dieser Ansatz war fuer mich sinnvoll, weil er eine sehr direkte Interaktion mit einem physikbasierten Constraint-System erlaubt: Statt ein Seil nur visuell zu toggeln, entsteht ein nachvollziehbarer Bruch innerhalb der Struktur, der sofort neue Bewegungsvektoren und Reaktionen im gesamten System ausloest.",
+        ],
+        media: createProjectMedia(
+          "/CD-Seil.gif",
+          "CD Go Home Seil System",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Physics-Driven Gameplay in Unity",
+        body: [
+          "Fuer die zugrunde liegenden Interaktionen habe ich die Unity Physics Engine gezielt als spieltragendes Fundament genutzt. Rigidbodies, Collider, Gravitation und kollisionsbasierte Reaktionen wurden nicht nur technisch eingebunden, sondern direkt in das Puzzle-Design uebersetzt, sodass Bewegung und Loesung aus denselben physikalischen Regeln entstehen.",
+          "Dadurch konnten Level gebaut werden, die mit Fallverhalten, Impulsuebertragung, Pendelbewegung und Objektinteraktion spielen, statt geskriptete Einzelloesungen vorzugeben. Genau das macht den Prototyp spannend: Die Physik ist nicht nur Effekt, sondern die eigentliche Gameplay-Logik, auf der die Level aufbauen.",
+        ],
+        media: createProjectMedia(
+          "/CD-Physik.gif",
+          "CD Go Home Physics Gameplay",
+        ),
+        mediaSide: "left",
+      },
+      {
+        title: "Mechanic Complexity & Combinatorial Level Design",
+        body: [
+          "Besonders interessant wurde das System durch die Kombination mehrerer Mechaniken. Seile, Balloons, Ventilatoren und Rope-Spawner eroeffnen gemeinsam deutlich mehr Moeglichkeiten als jede Komponente fuer sich allein und vergroessern den Design-Space fuer neue Puzzle-Situationen.",
+          "Gerade diese Kombination sorgt fuer die eigentliche Komplexitaet des Projekts: Durch systemische Wechselwirkungen lassen sich mit wenigen Bausteinen sehr unterschiedliche Level aufbauen. So entsteht aus einem kleinen Physics-Prototyp ein flexibel erweiterbares Puzzle-Framework mit klarer mechanischer Tiefe.",
+        ],
+        media: {
+          src: "/CD-Complexity.gif",
+          alt: "CD Go Home Mechanic Complexity",
+          type: "gif",
+          width: 1600,
+          height: 900,
+          fit: "cover",
+        },
+        mediaSide: "right",
+      },
+    ],
     detailVideo: {
       title: "Play CD Go Home",
       description:
