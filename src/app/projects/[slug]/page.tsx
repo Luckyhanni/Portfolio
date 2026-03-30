@@ -225,7 +225,7 @@ function DetailSection({
   section: ProjectDetailSection;
   index: number;
 }) {
-  const mediaLeft = section.mediaSide === "left";
+  const mediaLeft = index % 2 === 1;
 
   return (
     <article style={styles.detailCard}>
@@ -249,11 +249,11 @@ function DetailSection({
 
       <ProjectVisual
         media={section.media}
-        style={{
-          ...styles.detailVisual,
+        style={styles.detailVisual}
+        frameStyle={{
+          ...styles.detailVisualWrap,
           order: mediaLeft ? 1 : 2,
         }}
-        frameStyle={styles.detailVisualWrap}
       />
     </article>
   );
@@ -393,14 +393,15 @@ const styles: Record<string, React.CSSProperties> = {
 
   heroCard: {
     display: "grid",
-    gap: 18,
+    gap: 14,
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 24,
-    padding: 18,
+    padding: 16,
     background: stylesVars.cardBg,
     boxShadow: "0 20px 44px rgba(0, 0, 0, 0.22)",
   },
   heroVisualWrap: {
+    aspectRatio: "18 / 4",
     borderRadius: 20,
     overflow: "hidden",
     border: `1px solid rgba(143, 168, 203, 0.18)`,
@@ -408,8 +409,8 @@ const styles: Record<string, React.CSSProperties> = {
   },
   heroVisual: {
     width: "100%",
-    height: "auto",
-    minHeight: 320,
+    height: "100%",
+    minHeight: 0,
     display: "block",
   },
   heroBody: {
@@ -500,7 +501,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 16,
   },
   sideCard: {
-    flex: "1 1 320px",
+    flex: "1 1 360px",
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 22,
     padding: 22,
@@ -530,61 +531,63 @@ const styles: Record<string, React.CSSProperties> = {
   sectionHeadingRow: {
     display: "flex",
     alignItems: "center",
-    gap: 12,
+    gap: 8,
     flexWrap: "wrap",
   },
   sectionIndex: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: 800,
-    letterSpacing: 1,
+    letterSpacing: 0.5,
     color: stylesVars.accentStrong,
   },
 
   skillGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
-    gap: 12,
+    gridTemplateColumns: "repeat(auto-fit, minmax(72px, 1fr))",
+    gap: 8,
   },
   techBadge: {
     display: "grid",
     justifyItems: "center",
-    gap: 10,
+    gap: 8,
     textAlign: "center",
-    padding: "14px 10px",
-    borderRadius: 18,
+    padding: "12px 6px",
+    borderRadius: 16,
     border: `1px solid rgba(143, 168, 203, 0.18)`,
     background: "rgba(143, 168, 203, 0.06)",
   },
   techBadgeIconWrap: {
-    width: 58,
-    height: 58,
+    width: 48,
+    height: 48,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 16,
+    borderRadius: 14,
     background: "rgba(13, 20, 29, 0.92)",
     border: `1px solid rgba(143, 168, 203, 0.16)`,
   },
   techBadgeLabel: {
-    fontSize: 13,
-    lineHeight: 1.35,
+    fontSize: 11,
+    lineHeight: 1.25,
     fontWeight: 700,
     color: stylesVars.text,
+    overflowWrap: "anywhere",
   },
   techBadgeFallback: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    minHeight: 58,
-    padding: "12px 14px",
-    borderRadius: 16,
+    minHeight: 48,
+    padding: "10px 8px",
+    borderRadius: 14,
     border: `1px solid rgba(143, 168, 203, 0.18)`,
     background: "rgba(143, 168, 203, 0.06)",
   },
   techBadgeFallbackText: {
-    fontSize: 13,
+    fontSize: 11,
     fontWeight: 700,
     color: stylesVars.text,
+    overflowWrap: "anywhere",
   },
 
   linksBlock: {

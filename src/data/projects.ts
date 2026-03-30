@@ -225,7 +225,7 @@ const baseProjects: Project[] = [
       "Vacation Invasion ist ein 3D-Multiplayer-Prop-Hunt auf einer südlichen Ferieninsel, bei dem sich Tourist:innen als Objekte tarnen und von den Einheimischen gejagt werden.",
       "Ich habe das Projekt als Solo- und Lead-Programmer technisch geleitet und mich dabei intensiv mit Multiplayer in Unreal beschäftigt: Client-Server-Logik, Sessions und Lobbies, Actor Replication, RepNotify, Ownership sowie Server- und NetMulticast-RPCs.",
     ],
-    tags: ["Unreal", "C++", "Blueprints", "Multiplayer"],
+    tags: ["Unreal", "C++", "Blueprints", "Multiplayer", "Lead Developer", ],
     techIcons: ["unreal", "cplusplus", "github", "vscode"],
     links: [{ label: "Trailer", href: "https://www.youtube.com/watch?v=ZfP31Po8edI" }],
     detailSections: [
@@ -236,33 +236,37 @@ const baseProjects: Project[] = [
           "Technisch habe ich mich dabei stark an Unreals server-authoritative Client-Server-Modell orientiert und mit Sessions, Lobbies, Actor Replication, Ownership sowie Server- und NetMulticast-RPCs gearbeitet, damit Join, Präsenz und Interaktionen für alle Clients konsistent bleiben.",
         ],
         media: createProjectMedia(
-          publicGameImage("Vacation Invasion"),
+          "/Multiplayer.gif",
           "Vacation Invasion Multiplayer Szene",
         ),
         mediaSide: "right",
       },
       {
-        title: "Hider Abilities & Replication",
+        title: "Abilites und Replication",
         body: [
-          "Für die Hider-Abilities war entscheidend, dass Aktivierung, Zustandswechsel und Feedback sauber bei allen Spieler:innen ankommen und nicht nur lokal sichtbar sind.",
-          "Dafür habe ich replicated properties beziehungsweise RepNotify und RPCs genutzt, sodass relevante Zustände, Effekte, Animationen und Cooldowns zuverlässig über alle Clients synchronisiert werden.",
+          "Ein zentraler Teil des Projekts war es, die verschiedenen Abilities so umzusetzen, dass sie sich nicht nur lokal gut anfuehlen, sondern im Multiplayer auch technisch sauber fuer alle Spieler:innen funktionieren.",
+          "Dafuer habe ich mit Actor Replication, RepNotify und RPCs gearbeitet, damit Aktivierungen, Zustandswechsel, Effekte, Animationen und Cooldowns auf allen Clients konsistent synchronisiert und nachvollziehbar bleiben.",
         ],
         media: createProjectMedia(
           "/HiderAbility.gif",
-          "Vacation Invasion Hider Ability Platzhalter",
+          "Vacation Invasion Abilities und Replication",
         ),
         mediaSide: "left",
       },
       {
-        title: "Seeker Abilities & Replication",
+        title: "Sauberer Code",
         body: [
-          "Auch die Seeker-Abilities mussten serverseitig validiert und anschließend sichtbar an alle Clients repliziert werden, damit jede Aktion für alle Spielenden gleich nachvollziehbar ist.",
-          "So konnten Interaktionen, Trefferlogik, Reaktionen und visuelle Rückmeldungen konsistent umgesetzt werden, ohne dass einzelne Clients unterschiedliche Zustände oder Ergebnisse sehen.",
+          "Gerade in einem groesseren Unreal-Projekt ist sauberer und uebersichtlicher Code in C++ und Blueprints extrem wichtig, um Features schnell erweitern, Bugs gezielt finden und technische Abhaengigkeiten klar nachvollziehen zu koennen.",
+          "Eine klare Struktur spart im Alltag enorm viel Zeit: Wenn Logik, Zustandswechsel und Verantwortlichkeiten sauber aufgebaut sind, kann man deutlich effektiver arbeiten, schneller iterieren und auch komplexere Systeme wesentlich sicherer weiterentwickeln.",
         ],
-        media: createProjectMedia(
-          publicGameImage("Vacation Invasion"),
-          "Vacation Invasion Seeker Ability Platzhalter",
-        ),
+        media: {
+          src: "/Blueprints.png",
+          alt: "Vacation Invasion Blueprint Screenshot",
+          type: "image",
+          width: 1268,
+          height: 1056,
+          fit: "contain",
+        },
         mediaSide: "right",
       },
       {
@@ -295,11 +299,49 @@ const baseProjects: Project[] = [
       "Grow Gently verbindet einen Fokustimer mit emotionaler Belohnung und richtet sich an Menschen, die Produktivitaet mit einer freundlicheren, weicheren Erfahrung verbinden moechten.",
       "Du pflanzt, ziehst Begleiter gross und kuemmerst dich um deinen Garten, waehrend du im echten Leben konzentriert arbeitest.",
       "Nach einer Fokus-Session kehrst du zurueck und siehst, wie dein Garten mit dir waechst. Dadurch wird Produktivitaet als ruhiger, motivierender Kreislauf inszeniert.",
-      "Das Projekt verbindet Cozy-Game-Aesthetik mit realem Nutzen und uebersetzt Selbstorganisation in eine 3D-Spielwelt.",
+      "Technisch lag mein Fokus auf Gameplay-Systemen in Unreal, darunter zustandsbasiertes Tierverhalten mit AI Controller, ein Anpflanz-Workflow sowie ein Shop- und Economy-System fuer den spielerischen Fortschritt.",
     ],
-    tags: ["Game", "Cozy", "3D", "Productivity"],
-    techIcons: ["unreal", "blender"],
+    tags: ["Unreal", "C++", "Blueprints", "Lead Developer", "Productivity", "AI"],
+    techIcons: ["unreal", "github", "cplusplus", "blender"],
     links: [{ label: "Trailer", href: "https://www.youtube.com/watch?v=ZXsQZYzn8Zs" }],
+    detailSections: [
+      {
+        title: "Animal AI & Reactive Follow Behavior",
+        body: [
+          "Ein technischer Schwerpunkt lag auf dem KI-Verhalten der Tiere. Jedes Tier besitzt einen eigenen AI Controller und navigiert ueber ein Navigation Mesh, auf dem in Intervallen neue Zielpositionen gesucht werden, um ein glaubwuerdiges Wander- und Idle-Verhalten im Garten zu erzeugen.",
+          "Besonders interessant war die reaktive Verhaltenslogik rund um das Fuettern: Wird ein Tier von der Oma gefuettert, wechselt es in einen Follow State und folgt ihr als dynamischem Ziel, bis der Zustand erneut durch Fuetterung aktualisiert wird oder der Hunger-Loop wieder greift. Dadurch entsteht ein klar lesbarer Gameplay-Loop aus AI State Changes, Target Tracking und zustandsbasiertem NPC-Verhalten.",
+        ],
+        media: createProjectMedia(
+          "/AnimalAI.gif",
+          "Grow Gently Animal AI und Follow Behavior",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Anpflanzsystem & Growth Loop",
+        body: [
+          "Das Anpflanzsystem bildet den Kern des spielerischen Fortschritts: Pflanzen werden gezielt im Garten platziert und in den bestehenden Gameplay-Loop eingebunden, sodass aus einer einfachen Interaktion ein nachvollziehbarer Aufbauprozess entsteht.",
+          "Wichtig war dabei vor allem eine saubere Systemstruktur zwischen Platzierung, Zustand und Rueckmeldung, damit der Ablauf fuer Spieler:innen intuitiv bleibt und gleichzeitig technisch erweiterbar ist. So laesst sich der Gardening-Loop modular ausbauen, ohne dass das System unuebersichtlich wird.",
+        ],
+        media: createProjectMedia(
+          "/Anpflanzen.gif",
+          "Grow Gently Anpflanzsystem",
+        ),
+        mediaSide: "left",
+      },
+      {
+        title: "Shop, Money & Purchase Flow",
+        body: [
+          "Ergaenzend dazu habe ich ein Shop- und Money-System aufgebaut, das den spielerischen Fortschritt an eine einfache Ingame-Oekonomie koppelt. Kauefe muessen dabei mit dem vorhandenen Budget abgeglichen werden, bevor neue Inhalte oder Optionen freigeschaltet werden.",
+          "Gerade fuer Cozy- und Progression-Systeme ist dieser Economy-Loop wichtig, weil er Ziele, Belohnungen und Entscheidungen miteinander verbindet. Dadurch bekommt das Projekt neben dem entspannten Look auch eine klare Systemtiefe aus Ressourcenverwaltung, Kauflogik und dauerhaftem Fortschritt.",
+        ],
+        media: createProjectMedia(
+          "/GGShop.png",
+          "Grow Gently Shop und Money System",
+        ),
+        mediaSide: "right",
+      },
+    ],
   },
   {
     slug: "island-journey",
