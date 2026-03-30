@@ -429,9 +429,9 @@ const baseProjects: Project[] = [
     detailVideo: {
       title: "Play CD Go Home",
       description:
-        "Die HTML5-Version ist direkt ueber itch.io eingebettet, damit das Spiel ohne Download direkt im Browser ausprobiert werden kann.",
-      embedUrl: "https://itch.io/embed-upload/16987934?color=333333",
-      embedAspectRatio: "1280 / 740",
+        "Die Unity-WebGL-Version wird direkt aus dem Portfolio geladen, damit das Spiel ohne itch.io und ohne zusaetzliche Weiterleitung direkt im Browser spielbar ist.",
+      embedUrl: "/games/cd-go-home/index.html",
+      embedAspectRatio: "960 / 600",
       placement: "top",
     },
   },
