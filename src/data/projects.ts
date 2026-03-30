@@ -764,26 +764,6 @@ const baseProjects: Project[] = [
       },
     ],
   },
-  {
-    slug: "ticket-system-power-automate",
-    category: "software",
-    title: "Ticket-System mit Power Automate",
-    period: "Steuerkanzlei",
-    logoImage: "/Ticket%20System%20Logo.png",
-    short: "Internes Ticket-System auf Basis von Microsoft Power Automate, Forms und Planner.",
-    description: [
-      "Für die Kanzlei wurde ein Ticket-System mit Power Automate, Forms und Planner aufgebaut.",
-      "Anfragen lassen sich damit strukturiert erfassen und automatisch weiterleiten.",
-      "So wurden interne Abläufe mit wenig manuellem Aufwand verbessert.",
-    ],
-    tags: ["Software", "Power Automate", "Microsoft Forms", "Microsoft Planner"],
-    techIcons: ["microsoft", "power-automate", "forms", "planner"],
-    highlights: [
-      "Automatisierte Ticket-Erstellung",
-      "Integration in bestehende Microsoft-Tools",
-      "Verbesserung interner Prozessabläufe",
-    ],
-  },
 ];
 
 export const PROJECTS: Project[] = baseProjects.map(enrichProject);

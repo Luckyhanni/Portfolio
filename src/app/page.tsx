@@ -5,10 +5,8 @@ import { DiVisualstudio } from "react-icons/di";
 import {
   FaDatabase,
   FaFileExcel,
-  FaListCheck,
   FaMicrosoft,
   FaWindows,
-  FaWpforms,
 } from "react-icons/fa6";
 import {
   SiBlender,
@@ -494,21 +492,6 @@ const projectTechIconMap: Record<
     icon: FaMicrosoft,
     color: "#5aa6ff",
     label: "Microsoft",
-  },
-  "power-automate": {
-    icon: FaMicrosoft,
-    color: "#3d8bff",
-    label: "Power Automate",
-  },
-  forms: {
-    icon: FaWpforms,
-    color: "#65b5ff",
-    label: "Forms",
-  },
-  planner: {
-    icon: FaListCheck,
-    color: "#88c5ff",
-    label: "Planner",
   },
 };
 

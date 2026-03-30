@@ -6,10 +6,8 @@ import { DiVisualstudio } from "react-icons/di";
 import {
   FaDatabase,
   FaFileExcel,
-  FaListCheck,
   FaMicrosoft,
   FaWindows,
-  FaWpforms,
 } from "react-icons/fa6";
 import { IoLogoGithub } from "react-icons/io5";
 import {
@@ -361,9 +359,6 @@ const techIconMap: Record<string, { icon: IconType; color: string; label: string
   github: { icon: IoLogoGithub, color: "#edf4ff", label: "GitHub" },
   git: { icon: SiGit, color: "#f05033", label: "Git" },
   microsoft: { icon: FaMicrosoft, color: "#5aa6ff", label: "Microsoft" },
-  "power-automate": { icon: FaMicrosoft, color: "#3d8bff", label: "Power Automate" },
-  forms: { icon: FaWpforms, color: "#65b5ff", label: "Forms" },
-  planner: { icon: FaListCheck, color: "#88c5ff", label: "Planner" },
   blender: { icon: SiBlender, color: "#ff8a00", label: "Blender" },
   vscode: { icon: DiVisualstudio, color: "#9b6dff", label: "Visual Studio" },
   cplusplus: { icon: SiCplusplus, color: "#4f90d9", label: "C++" },
