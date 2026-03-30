@@ -613,21 +613,96 @@ const baseProjects: Project[] = [
   {
     slug: "lager-sortier-tool",
     category: "software",
-    title: "Lager- und Sortier-Tool",
+    title: "Sorty",
     period: "Metzgerei",
+    heroImage: "/Sorty banner.png",
     logoImage: "/Sorty%20Logo.png",
-    short: "System zur strukturierten Lagerung, Verfolgung und schnellen Ausgabe von Bestellungen.",
+    short: "Lokale WebApp zur Annahme, Sortierung und Ausgabe von Weihnachtsbestellungen in einer Metzgerei.",
     description: [
-      "Das Tool organisiert Bestellungen strukturiert im Lager.",
-      "Beim Abholen zeigt es direkt, wo sich die Ware befindet.",
-      "Zusätzlich hilft eine Namenssuche bei der schnellen Zuordnung.",
+      "Sorty wurde für eine Metzgerei gebaut, die an Weihnachten sehr viele Bestellungen annehmen, lagern und wieder ausgeben muss.",
+      "Die Anwendung läuft lokal als WebApp, weil das für den Einsatz vor Ort am sinnvollsten war. Technisch ließe sich das Konzept aber auch leicht zu einer App oder klassischen Website weiterführen.",
+      "Bestellungen werden erfasst, in Datenbanken gespeichert, beim Abholen wiedergefunden und intern weitergeleitet.",
     ],
-    tags: ["Software", "C#", "WinForms", "Excel", "Datenbanken"],
-    techIcons: ["csharp", "windows", "excel", "database"],
+    tags: ["Software", "WebApp", "C#", "Datenbanken", "Discord"],
+    techIcons: ["csharp", "database", "github", "render"],
     highlights: [
       "Strukturierte Lager- und Bestellorganisation",
       "Schnelle Ausgabe an Kundschaft",
       "Namenssuche für bessere Auffindbarkeit",
+    ],
+    detailSections: [
+      {
+        title: "Home & Dashboard",
+        body: [
+          "Die Startseite bündelt die wichtigsten Bereiche in einem klaren Dashboard.",
+          "So kommt man ohne Umwege in Annahme, Abholung, Bestellübersicht oder Einstellungen.",
+        ],
+        media: createProjectMedia(
+          "/Sorty Home.png",
+          "Sorty Home",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Bestellungen annehmen",
+        body: [
+          "Neue Bestellungen können strukturiert erfasst und direkt in der Datenbank gespeichert werden.",
+          "Dadurch entsteht eine saubere Datengrundlage für Lagerung, Ausgabe und spätere Änderungen.",
+        ],
+        media: createProjectMedia(
+          "/Sorty Annahme.png",
+          "Sorty Annahme",
+        ),
+        mediaSide: "left",
+      },
+      {
+        title: "Läufer & Abholung",
+        body: [
+          "Im Abholbereich kann eine Bestellung schnell gesucht und direkt ausgewählt werden.",
+          "Sobald sie bestätigt wird, erhalten die Läufer alle relevanten Informationen für die Ausgabe.",
+        ],
+        media: createProjectMedia(
+          "/Sorty Abholen.png",
+          "Sorty Abholung",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Alle Bestellungen",
+        body: [
+          "In der Gesamtübersicht lassen sich alle Bestellungen prüfen und bei Bedarf korrigieren.",
+          "So bleibt der Datenbestand auch bei hohem Bestellvolumen konsistent und kontrollierbar.",
+        ],
+        media: createProjectMedia(
+          "/Sorty Alle Bestellungen.png",
+          "Sorty Alle Bestellungen",
+        ),
+        mediaSide: "left",
+      },
+      {
+        title: "Settings & Lagerlogik",
+        body: [
+          "In den Einstellungen können Lagerstruktur und wichtige Daten zentral gepflegt werden.",
+          "Dadurch bleibt der Workflow anpassbar, ohne die eigentliche Anwendung umbauen zu müssen.",
+        ],
+        media: createProjectMedia(
+          "/Sorty Settings.png",
+          "Sorty Settings",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Discord-Benachrichtigung & Namenssuche",
+        body: [
+          "Bei der Ausgabe sendet das System automatisch eine Discord-Nachricht mit Bestellung, Lagerort und Preis.",
+          "Für die Suche kommen mehrere Algorithmen zum Einsatz, damit Namen schnell, tolerant und zielgenau gefunden werden.",
+        ],
+        media: createProjectMedia(
+          "/Sorty Discord Nachricht.png",
+          "Sorty Discord Nachricht",
+        ),
+        mediaSide: "left",
+      },
     ],
   },
   {
