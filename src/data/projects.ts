@@ -706,23 +706,62 @@ const baseProjects: Project[] = [
     ],
   },
   {
-    slug: "zeiterfassung-webapp",
+    slug: "timely",
     category: "software",
-    title: "Zeiterfassung WebApp",
+    title: "Timely",
     period: "Metzgerei",
+    heroImage: "/Timely Banner.png",
     logoImage: "/Timely%20Logo.png",
-    short: "Webbasierte Zeiterfassung mit Login, Einstempeln und Excel-Export für Admins.",
+    short: "Digitale Zeiterfassung fuer den modernen Einzelhandel mit Login, Check-in, Pausen und Admin-Export.",
     description: [
-      "Die WebApp ermöglicht Login und einfaches Einstempeln für Mitarbeitende.",
-      "Admins können alle Daten zentral einsehen und nach Excel exportieren.",
-      "Das Projekt wurde mit C#, Datenbanken und Render umgesetzt.",
+      "Timely ist eine Webanwendung fuer eine Metzgerei, mit der Mitarbeitende ihre Arbeitszeit digital erfassen koennen, statt sich auf handschriftliche oder uneinheitliche Prozesse zu verlassen.",
+      "Nach dem Login ueber Namensauswahl und vierstellige PIN koennen sie sich einchecken, auschecken und auch Pausen sauber dokumentieren. Eigene Eintraege und die bisherige Historie bleiben dabei direkt einsehbar.",
+      "Admins koennen Mitarbeitende und PINs verwalten, alle Zeiten zentral pruefen und die Daten anschliessend fuer Auswertung oder Abrechnung exportieren.",
     ],
-    tags: ["Software", "WebApp", "C#", "Datenbanken", "Render"],
-    techIcons: ["csharp", "database", "render", "github"],
+    tags: ["Software", "WebApp", "C#", ".NET", "Datenbanken", "Zeiterfassung"],
+    techIcons: ["csharp", "dotnet", "database", "excel", "render", "github"],
     highlights: [
-      "Login und Einstempeln für Mitarbeitende",
-      "Admin-Übersicht mit Excel-Export",
-      "Deployment über Render und GitHub",
+      "Login ueber Namensauswahl und vierstellige PIN",
+      "Einchecken, Auschecken und Pausen direkt im Dashboard",
+      "Admin-Export sowie Verwaltung von Mitarbeitenden und PINs",
+    ],
+    detailSections: [
+      {
+        title: "Login mit Namensauswahl und PIN",
+        body: [
+          "Der Einstieg in Timely ist bewusst einfach gehalten: Mitarbeitende waehlen zuerst ihren Namen aus und geben danach eine vierstellige PIN ein. Dadurch bleibt der Login im Arbeitsalltag schnell, ohne auf eine klare Zuordnung der Zeiten zu verzichten.",
+          "Gerade fuer den Einsatz im Einzelhandel war wichtig, dass der Ablauf auch unter Zeitdruck direkt verstaendlich bleibt. So entsteht ein unkomplizierter Zugang, der weniger Huerden hat als klassische Account-Systeme und trotzdem sauber administrierbar ist.",
+        ],
+        media: createProjectMedia(
+          "/timely Login.png",
+          "Timely Login mit Namensauswahl und PIN",
+        ),
+        mediaSide: "right",
+      },
+      {
+        title: "Dashboard fuer Check-in, Check-out und Pausen",
+        body: [
+          "Im Home-Dashboard koennen Mitarbeitende ihre Schicht mit wenigen Klicks starten und beenden. Auch Pausen lassen sich direkt erfassen, sodass der komplette Tagesablauf in derselben Oberflaeche dokumentiert wird.",
+          "Neben den Aktionen selbst ist auch die persoenliche Historie wichtig: Mitarbeitende sehen ihre bisherigen Eintraege und behalten dadurch sofort den Ueberblick ueber bereits gebuchte Zeiten. Das macht die Anwendung nicht nur funktional, sondern auch transparent im Alltag.",
+        ],
+        media: createProjectMedia(
+          "/Timely Dashboard Home.png",
+          "Timely Dashboard mit Zeiterfassung",
+        ),
+        mediaSide: "left",
+      },
+      {
+        title: "Admin-Export und Mitarbeiterverwaltung",
+        body: [
+          "Fuer Admins stellt Timely die erfassten Daten zentral bereit und ermoeglicht den Export fuer weitere Verarbeitung, Abrechnung oder interne Auswertung. Dadurch wird aus der einfachen Zeiterfassung ein kompletter digitaler Workflow bis hin zur Weitergabe der Daten.",
+          "Zusatzlich lassen sich Mitarbeitende, Rollen und PINs verwalten, sodass organisatorische Aenderungen nicht ausserhalb des Systems gepflegt werden muessen. Das reduziert manuellen Aufwand und haelt den Prozess auch bei mehreren Mitarbeitenden sauber wartbar.",
+        ],
+        media: createProjectMedia(
+          "/Timely Export.png",
+          "Timely Admin Export und Verwaltung",
+        ),
+        mediaSide: "right",
+      },
     ],
   },
   {
