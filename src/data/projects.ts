@@ -418,6 +418,7 @@ const baseProjects: Project[] = [
     category: "games",
     title: "CD Go Home",
     heroImage: "/window.svg",
+    short: "Kompakter Cut-the-Rope-Clone mit spielbarer HTML5-Version direkt im Browser.",
     description: [
       "CD Go Home ist eine kleine Game-Physics-Abgabe und als kompakter Cut-the-Rope-Clone aufgebaut. Ziel ist es, physikbasierte Interaktionen so einzusetzen, dass aus wenigen Systemen ein klarer und spielbarer Core Loop entsteht.",
       "Das Projekt ist bewusst klein gehalten, eignet sich dadurch aber sehr gut als direkt spielbare Browser-Demo. Statt nur Screenshots oder Trailer zu zeigen, kann das Spiel hier unmittelbar im Portfolio erlebt werden.",
