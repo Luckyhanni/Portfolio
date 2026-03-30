@@ -426,7 +426,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   heroVisual: {
     width: "100%",
-    height: "100%",
+    height: "auto",
     minHeight: 0,
     display: "block",
   },
@@ -662,8 +662,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   detailVisual: {
     width: "100%",
-    height: "100%",
-    minHeight: 280,
+    height: "auto",
     display: "block",
   },
 

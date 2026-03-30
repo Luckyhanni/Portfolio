@@ -361,7 +361,6 @@ function ProjectCard({ project }: { project: Project }) {
                   style={{
                     ...styles.projectImage,
                     objectFit: projectVisualFit,
-                    minHeight: projectUsesLogoPanel ? 112 : 160,
                     padding: project.heroImage ? 0 : 12,
                   }}
                 />
@@ -729,8 +728,7 @@ const styles: Record<string, React.CSSProperties> = {
   projectImage: {
     display: "block",
     width: "100%",
-    height: "100%",
-    minHeight: 160,
+    height: "auto",
     objectFit: "cover",
   },
   projectTechRow: {
