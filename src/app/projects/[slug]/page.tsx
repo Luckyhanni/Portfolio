@@ -361,6 +361,7 @@ const techIconMap: Record<string, { icon: IconType; color: string; label: string
   microsoft: { icon: FaMicrosoft, color: "#5aa6ff", label: "Microsoft" },
   blender: { icon: SiBlender, color: "#ff8a00", label: "Blender" },
   vscode: { icon: DiVisualstudio, color: "#9b6dff", label: "Visual Studio" },
+  visualstudio: { icon: DiVisualstudio, color: "#9b6dff", label: "Visual Studio" },
   cplusplus: { icon: SiCplusplus, color: "#4f90d9", label: "C++" },
 };
 

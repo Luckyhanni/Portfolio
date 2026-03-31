@@ -493,6 +493,11 @@ const projectTechIconMap: Record<
     color: "#5aa6ff",
     label: "Microsoft",
   },
+  visualstudio: {
+    icon: DiVisualstudio,
+    color: "#9b6dff",
+    label: "Visual Studio",
+  },
 };
 
 const styles: Record<string, React.CSSProperties> = {
@@ -770,12 +775,15 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   period: {
-    fontSize: 12,
-    color: stylesVars.textMuted,
-    padding: "4px 10px",
+    fontSize: 13,
+    fontWeight: 800,
+    letterSpacing: 0.2,
+    color: stylesVars.text,
+    padding: "6px 12px",
     borderRadius: 999,
-    border: `1px solid ${stylesVars.cardBorder}`,
-    background: "rgba(143, 168, 203, 0.06)",
+    border: `1px solid rgba(143, 168, 203, 0.32)`,
+    background: "linear-gradient(180deg, rgba(143, 168, 203, 0.2), rgba(111, 135, 168, 0.12))",
+    boxShadow: "0 8px 18px rgba(8, 14, 22, 0.22)",
   },
 
   tag: {

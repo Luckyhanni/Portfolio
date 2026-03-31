@@ -296,6 +296,7 @@ const baseProjects: Project[] = [
     slug: "grow-gently",
     category: "games",
     title: "Grow Gently",
+    period: "Uni-Projekt",
     heroImage: publicGameImage("Grow Gently"),
     logoImage: "/Grow%20Genrly%20Logo.png",
     short: "Cozy 3D-Gardening-Produktivitaetstool, das Fokuszeit mit emotionalem Fortschritt verbindet.",
@@ -351,6 +352,7 @@ const baseProjects: Project[] = [
     slug: "cd-go-home",
     category: "games",
     title: "CD Go Home",
+    period: "Uni-Projekt",
     heroImage: "/CD-Banner.png",
     logoImage: "/CD_Logo.png",
     short: "Game-Physics-Prototyp im Stil von Cut the Rope mit spielbarer Unity-WebGL-Version im Browser.",
@@ -359,7 +361,7 @@ const baseProjects: Project[] = [
       "Technisch lag der Schwerpunkt darauf, die Unity-Physik nicht nur fuer einzelne Objekte zu verwenden, sondern zum Kern des Level-Designs zu machen. Dadurch wurde das Projekt zu einer kleinen, aber sehr systemischen Prototype-Arbeit mit starkem Fokus auf emergentes Verhalten.",
     ],
     tags: ["Unity", "C#", "Game Physics", "Playable", "Lead Developer"],
-    techIcons: ["unity", "csharp", "vscode", "git"],
+    techIcons: ["unity", "csharp", "visualstudio", "git"],
     links: [{ label: "Play on itch.io", href: "https://luckyhanni.itch.io/cd-go-home" }],
     detailSections: [
       {
@@ -416,6 +418,7 @@ const baseProjects: Project[] = [
     slug: "island-journey",
     category: "games",
     title: "Island Journey",
+    period: "Uni-Projekt",
     heroImage: publicGameImage("Island Journey"),
     logoImage: "/Island%20Journey%20Logo.png",
     short: "Atmosphaerisches 3D-Puzzle-Abenteuer mit Rotation, Raetseln und vierseitiger Weltstruktur.",
@@ -427,7 +430,7 @@ const baseProjects: Project[] = [
       "Wir waren ein sehr kleines Team aus vier Personen, und ich habe das Projekt als Solo- und Lead-Programmer technisch umgesetzt. Mein Fokus lag dabei auf Character Control, Kamera-Logik, Shadern sowie der technischen Umsetzung von UI- und Gameplay-Systemen.",
     ],
     tags: ["Unreal", "Lead Developer", "Gameplay", "Puzzle", "Atmospheric"],
-    techIcons: ["unity", "csharp", "vscode", "git"],
+    techIcons: ["unity", "csharp", "visualstudio", "git"],
     links: [{ label: "Trailer", href: "https://www.youtube.com/watch?v=w4ZLKdRwZGw" }],
     detailSections: [
       {
@@ -493,7 +496,7 @@ const baseProjects: Project[] = [
       "Ein Vorgang, der früher oft 15 Minuten gedauert hat, ist damit in etwa 2 Minuten erledigt.",
       "Änderungen an Sätzen und Beträgen können zentral über Excel gepflegt werden.",
     ],
-    tags: ["Software", "C#", "WDF", "Excel", "Datenbanken"],
+    tags: ["C#", "WDF", "Excel", "Datenbanken"],
     techIcons: ["csharp", "dotnet", "excel", "database"],
     highlights: [
       "Schnelle Kalkulation mit wenig Eingabedaten",
@@ -552,7 +555,7 @@ const baseProjects: Project[] = [
       "Die Daten können anschließend gezielt ausgewertet werden, zum Beispiel für einen bestimmten Monat oder für das gesamte Jahr.",
       "So verbindet das Tool Datenerfassung, Datenpflege und Reporting in einem kompakten Kanzlei-Workflow.",
     ],
-    tags: ["Software", "C#", "WDF", "Datenbanken", "Reporting"],
+    tags: ["C#", "WDF", "Datenbanken", "Reporting"],
     techIcons: ["csharp", "dotnet", "database"],
     highlights: [
       "Zeitfensterbasierte Auswertung",
@@ -623,7 +626,7 @@ const baseProjects: Project[] = [
       "Die Anwendung läuft lokal als WebApp, weil das für den Einsatz vor Ort am sinnvollsten war. Technisch ließe sich das Konzept aber auch leicht zu einer App oder klassischen Website weiterführen.",
       "Bestellungen werden erfasst, in Datenbanken gespeichert, beim Abholen wiedergefunden und intern weitergeleitet.",
     ],
-    tags: ["Software", "WebApp", "C#", "Datenbanken", "Discord"],
+    tags: ["WebApp", "C#", "Datenbanken", "Discord"],
     techIcons: ["csharp", "database", "github", "render"],
     highlights: [
       "Strukturierte Lager- und Bestellorganisation",
@@ -718,7 +721,7 @@ const baseProjects: Project[] = [
       "Nach dem Login ueber Namensauswahl und vierstellige PIN koennen sie sich einchecken, auschecken und auch Pausen sauber dokumentieren. Eigene Eintraege und die bisherige Historie bleiben dabei direkt einsehbar.",
       "Admins koennen Mitarbeitende und PINs verwalten, alle Zeiten zentral pruefen und die Daten anschliessend fuer Auswertung oder Abrechnung exportieren.",
     ],
-    tags: ["Software", "WebApp", "C#", ".NET", "Datenbanken", "Zeiterfassung"],
+    tags: ["WebApp", "C#", ".NET", "Datenbanken", "Zeiterfassung"],
     techIcons: ["csharp", "dotnet", "database", "excel", "render", "github"],
     highlights: [
       "Login ueber Namensauswahl und vierstellige PIN",
