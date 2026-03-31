@@ -17,6 +17,7 @@ export default function EmbedPlayer({
 }: EmbedPlayerProps) {
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [isPortraitViewport, setIsPortraitViewport] = useState(true);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   useEffect(() => {
     if (!overlayOpen) {
@@ -34,6 +35,7 @@ export default function EmbedPlayer({
   useEffect(() => {
     function updateViewportOrientation() {
       setIsPortraitViewport(window.innerHeight >= window.innerWidth);
+      setIsMobileViewport(window.innerWidth <= 820);
     }
 
     updateViewportOrientation();
@@ -73,7 +75,7 @@ export default function EmbedPlayer({
           />
         </div>
 
-        {showFullscreenButton ? (
+        {showFullscreenButton && isMobileViewport ? (
           <div style={styles.actions}>
             <button
               type="button"
