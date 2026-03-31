@@ -71,7 +71,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div style={styles.heroBody}>
               <div style={styles.eyebrowRow}>
                 <span style={styles.categoryPill}>
-                  {project.category === "games" ? "Game Project" : "Software Project"}
+                  {project.category === "games" ? "Game Prototype" : "Software Project"}
                 </span>
                 {project.period ? <span style={styles.periodPill}>{project.period}</span> : null}
               </div>

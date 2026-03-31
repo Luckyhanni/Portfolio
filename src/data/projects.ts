@@ -92,7 +92,7 @@ function gamePlaceholderSections(project: Project): ProjectDetailSection[] {
       title: "Core Gameplay",
       body: [
         `${project.title} stellt im Kern eine klare Gameplay-Fantasie in den Mittelpunkt und kann hier spaeter mit echten Informationen zu Loop, Rollen und Spielerfahrung befuellt werden.`,
-        `Dieser Abschnitt ist bewusst als Platzhalter angelegt: Hier kannst du spaeter erklaeren, was Spieler konkret tun, wie sich eine Runde aufbaut und wodurch sich das Projekt von anderen Games abhebt.`,
+        `Dieser Abschnitt ist bewusst als Platzhalter angelegt: Hier kannst du spaeter erklaeren, was Spieler konkret tun, wie sich eine Runde aufbaut und wodurch sich das Projekt von anderen Game Prototypes abhebt.`,
       ],
       media: mediaPool[0],
       mediaSide: "right",
@@ -773,6 +773,18 @@ export function getProject(slug: string): Project | undefined {
 }
 
 export const GAME_PROJECTS = PROJECTS.filter((project) => project.category === "games");
+
+const SOFTWARE_PROJECT_ORDER = [
+  "lager-sortier-tool",
+  "timely",
+  "honorar-rechner",
+  "neumandats-abgaenge-uebersicht",
+] as const;
+
 export const SOFTWARE_PROJECTS = PROJECTS.filter(
   (project) => project.category === "software",
+).sort(
+  (a, b) =>
+    SOFTWARE_PROJECT_ORDER.indexOf(a.slug as (typeof SOFTWARE_PROJECT_ORDER)[number]) -
+    SOFTWARE_PROJECT_ORDER.indexOf(b.slug as (typeof SOFTWARE_PROJECT_ORDER)[number]),
 );

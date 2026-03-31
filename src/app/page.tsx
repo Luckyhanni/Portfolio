@@ -61,7 +61,7 @@ export default function Home() {
               <h1 style={styles.h1}>Johannes Blank</h1>
               <p style={styles.subline}>B.Sc. Game Design · Programmierung · KI</p>
               <p style={styles.heroText}>
-                Ich entwickle Desktop-Apps (C#/.NET), Webanwendungen und Games (Unity/Unreal).
+                Ich entwickle Desktop-Apps (C#/.NET), Webanwendungen und Game Prototypes (Unity/Unreal).
                 Aktuell: Bachelorarbeit zu KI-gestützten NPC-Dialogen.
               </p>
             </div>
@@ -81,12 +81,12 @@ export default function Home() {
 
             <div style={styles.statsRow}>
               <Stat
-                title="Games"
-                logos={gameStatLogos}
-              />
-              <Stat
                 title="Software"
                 logos={softwareStatLogos}
+              />
+              <Stat
+                title="Game Prototypes"
+                logos={gameStatLogos}
               />
             </div>
           </div>
@@ -97,14 +97,14 @@ export default function Home() {
       <Section id="projects" title="Projects" titleStyle={styles.projectsSectionTitle}>
         <div style={{ ...styles.container, display: "grid", gap: 28 }}>
           <CategoryBlock
-            title="Games"
-            subtitle=""
-            projects={GAME_PROJECTS}
-          />
-          <CategoryBlock
             title="Software"
             subtitle=""
             projects={SOFTWARE_PROJECTS}
+          />
+          <CategoryBlock
+            title="Game Prototypes"
+            subtitle=""
+            projects={GAME_PROJECTS}
           />
         </div>
       </Section>
