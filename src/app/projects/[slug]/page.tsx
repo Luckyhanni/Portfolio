@@ -246,6 +246,10 @@ function DetailSection({
   index: number;
 }) {
   const mediaLeft = index % 2 === 1;
+  const isPortraitMedia =
+    typeof section.media.width === "number" &&
+    typeof section.media.height === "number" &&
+    section.media.height > section.media.width;
 
   return (
     <article style={styles.detailCard}>
@@ -269,9 +273,10 @@ function DetailSection({
 
       <ProjectVisual
         media={section.media}
-        style={styles.detailVisual}
+        style={isPortraitMedia ? styles.detailVisualPortrait : styles.detailVisual}
         frameStyle={{
           ...styles.detailVisualWrap,
+          ...(isPortraitMedia ? styles.detailVisualWrapPortrait : null),
           order: mediaLeft ? 1 : 2,
         }}
       />
@@ -647,6 +652,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: "flex",
     gap: 18,
     flexWrap: "wrap",
+    alignItems: "flex-start",
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 22,
     padding: 18,
@@ -668,10 +674,25 @@ const styles: Record<string, React.CSSProperties> = {
     background: "#0d141d",
     display: "flex",
   },
+  detailVisualWrapPortrait: {
+    flex: "0 0 240px",
+    width: "min(100%, 240px)",
+    minWidth: 200,
+    maxWidth: 240,
+    padding: 8,
+    justifyContent: "center",
+    marginInline: "auto",
+  },
   detailVisual: {
     width: "100%",
     height: "auto",
     display: "block",
+  },
+  detailVisualPortrait: {
+    width: "100%",
+    height: "auto",
+    display: "block",
+    objectFit: "contain",
   },
 
   videoSection: {

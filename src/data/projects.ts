@@ -65,6 +65,17 @@ function createProjectMedia(src: string, alt: string): ProjectMedia {
   };
 }
 
+function createPortraitProjectMedia(src: string, alt: string): ProjectMedia {
+  return {
+    src,
+    alt,
+    type: "image",
+    width: 900,
+    height: 1600,
+    fit: "contain",
+  };
+}
+
 function getMediaPool(project: Project): ProjectMedia[] {
   const sources = [project.heroImage, project.logoImage].filter(
     (src): src is string => Boolean(src),
@@ -226,8 +237,8 @@ const baseProjects: Project[] = [
     logoImage: "/Vacation%20Invasion%20Logo.png",
     short: "3D-Multiplayer-Hide-and-Seek / Prop Hunt auf einer südlichen Ferieninsel.",
     description: [
-      "Vacation Invasion ist ein 3D-Multiplayer-Prop-Hunt auf einer südlichen Ferieninsel, bei dem sich Tourist:innen als Objekte tarnen und von den Einheimischen gejagt werden.",
-      "Ich habe das Projekt als Solo- und Lead-Programmer technisch geleitet und mich dabei intensiv mit Multiplayer in Unreal beschäftigt: Client-Server-Logik, Sessions und Lobbies, Actor Replication, RepNotify, Ownership sowie Server- und NetMulticast-RPCs.",
+      "Vacation Invasion ist ein 3D-Multiplayer-Prop-Hunt auf einer südlichen Ferieninsel: Tourist:innen tarnen sich als Objekte und werden von Einheimischen gejagt.",
+      "Als Solo- und Lead-Programmer lag mein Fokus auf Unreal-Multiplayer mit Client-Server-Logik, Sessions, Lobbies, Actor Replication, RepNotify, Ownership sowie Server- und NetMulticast-RPCs.",
     ],
     tags: ["Unreal", "C++", "Blueprints", "Multiplayer", "Lead Developer", ],
     techIcons: ["unreal", "cplusplus", "github", "vscode"],
@@ -236,8 +247,8 @@ const baseProjects: Project[] = [
       {
         title: "Multiplayer Lobby & Interaction",
         body: [
-          "Ein großer Fokus lag auf dem Multiplayer-Fundament: Spieler:innen können gemeinsam einer Lobby beziehungsweise Session beitreten, korrekt gespawnt werden, sich gegenseitig sehen und direkt miteinander interagieren.",
-          "Technisch habe ich mich dabei stark an Unreals server-authoritative Client-Server-Modell orientiert und mit Sessions, Lobbies, Actor Replication, Ownership sowie Server- und NetMulticast-RPCs gearbeitet, damit Join, Präsenz und Interaktionen für alle Clients konsistent bleiben.",
+          "Ein Schwerpunkt war das Multiplayer-Fundament: Join über Sessions und Lobbies, korrektes Spawning, Sichtbarkeit und direkte Interaktion zwischen allen Spieler:innen.",
+          "Dafuer habe ich mit Unreals server-authoritative Client-Server-Modell, Actor Replication, Ownership sowie Server- und NetMulticast-RPCs gearbeitet.",
         ],
         media: createProjectMedia(
           "/Multiplayer.gif",
@@ -248,8 +259,8 @@ const baseProjects: Project[] = [
       {
         title: "Abilites und Replication",
         body: [
-          "Ein zentraler Teil des Projekts war es, die verschiedenen Abilities so umzusetzen, dass sie sich nicht nur lokal gut anfuehlen, sondern im Multiplayer auch technisch sauber fuer alle Spieler:innen funktionieren.",
-          "Dafuer habe ich mit Actor Replication, RepNotify und RPCs gearbeitet, damit Aktivierungen, Zustandswechsel, Effekte, Animationen und Cooldowns auf allen Clients konsistent synchronisiert und nachvollziehbar bleiben.",
+          "Die Abilities mussten nicht nur lokal gut funktionieren, sondern im Multiplayer fuer alle Clients sauber synchronisiert sein.",
+          "Zum Einsatz kamen Actor Replication, RepNotify und RPCs, damit Aktivierungen, Zustandswechsel, Effekte, Animationen und Cooldowns konsistent bleiben.",
         ],
         media: createProjectMedia(
           "/HiderAbility.gif",
@@ -260,8 +271,8 @@ const baseProjects: Project[] = [
       {
         title: "Sauberer Code",
         body: [
-          "Gerade in einem groesseren Unreal-Projekt ist sauberer und uebersichtlicher Code in C++ und Blueprints extrem wichtig, um Features schnell erweitern, Bugs gezielt finden und technische Abhaengigkeiten klar nachvollziehen zu koennen.",
-          "Eine klare Struktur spart im Alltag enorm viel Zeit: Wenn Logik, Zustandswechsel und Verantwortlichkeiten sauber aufgebaut sind, kann man deutlich effektiver arbeiten, schneller iterieren und auch komplexere Systeme wesentlich sicherer weiterentwickeln.",
+          "Sauber strukturierter Code in C++ und Blueprints war wichtig, um Features schnell zu erweitern, Bugs gezielt zu finden und Abhaengigkeiten klar zu halten.",
+          "Gerade bei Multiplayer-Logik spart eine klare Trennung von Zustandswechseln und Verantwortlichkeiten viel Zeit in Iteration und Debugging.",
         ],
         media: {
           src: "/Blueprints.png",
@@ -276,8 +287,8 @@ const baseProjects: Project[] = [
       {
         title: "FMOD Integration",
         body: [
-          "Neben Gameplay und Networking habe ich FMOD integriert, um Musik, Ambience und Soundeffekte sauber aus Spielcode und Blueprints heraus anzusteuern.",
-          "Dadurch ließen sich Events, Parameter und Übergänge klar strukturieren und später gezielt an Spielsituationen wie Verfolgung, Spannung oder erfolgreiche Aktionen koppeln.",
+          "Zusaetzlich habe ich FMOD integriert, um Musik, Ambience und Soundeffekte direkt aus Spielcode und Blueprints anzusteuern.",
+          "So liessen sich Events, Parameter und Uebergaenge sauber strukturieren und gezielt an Verfolgung, Spannung oder Erfolge koppeln.",
         ],
         media: createProjectMedia(
           "/Fmod Logo.png",
@@ -301,10 +312,9 @@ const baseProjects: Project[] = [
     logoImage: "/Grow%20Genrly%20Logo.png",
     short: "Cozy 3D-Gardening-Produktivitaetstool, das Fokuszeit mit emotionalem Fortschritt verbindet.",
     description: [
-      "Grow Gently verbindet einen Fokustimer mit emotionaler Belohnung und richtet sich an Menschen, die Produktivitaet mit einer freundlicheren, weicheren Erfahrung verbinden moechten.",
-      "Du pflanzt, ziehst Begleiter gross und kuemmerst dich um deinen Garten, waehrend du im echten Leben konzentriert arbeitest.",
-      "Nach einer Fokus-Session kehrst du zurueck und siehst, wie dein Garten mit dir waechst. Dadurch wird Produktivitaet als ruhiger, motivierender Kreislauf inszeniert.",
-      "Technisch lag mein Fokus auf Gameplay-Systemen in Unreal, darunter zustandsbasiertes Tierverhalten mit AI Controller, ein Anpflanz-Workflow sowie ein Shop- und Economy-System fuer den spielerischen Fortschritt.",
+      "Grow Gently verbindet einen Fokustimer mit einem cozy Gardening-Loop und emotionalem Fortschritt.",
+      "Spieler:innen pflanzen, ziehen Begleiter gross und sehen nach jeder Fokus-Session, wie ihr Garten weiterwaechst.",
+      "Technisch lag mein Fokus auf Unreal-Gameplay-Systemen wie AI Controller, Anpflanz-Workflow sowie einem Shop- und Economy-System.",
     ],
     tags: ["Unreal", "C++", "Blueprints", "Lead Developer", "Productivity", "AI"],
     techIcons: ["unreal", "github", "cplusplus", "blender"],
@@ -313,8 +323,8 @@ const baseProjects: Project[] = [
       {
         title: "Animal AI & Reactive Follow Behavior",
         body: [
-          "Ein technischer Schwerpunkt lag auf dem KI-Verhalten der Tiere. Jedes Tier besitzt einen eigenen AI Controller und navigiert ueber ein Navigation Mesh, auf dem in Intervallen neue Zielpositionen gesucht werden, um ein glaubwuerdiges Wander- und Idle-Verhalten im Garten zu erzeugen.",
-          "Besonders interessant war die reaktive Verhaltenslogik rund um das Fuettern: Wird ein Tier von der Oma gefuettert, wechselt es in einen Follow State und folgt ihr als dynamischem Ziel, bis der Zustand erneut durch Fuetterung aktualisiert wird oder der Hunger-Loop wieder greift. Dadurch entsteht ein klar lesbarer Gameplay-Loop aus AI State Changes, Target Tracking und zustandsbasiertem NPC-Verhalten.",
+          "Die Tiere nutzen eigene AI Controller und ein Navigation Mesh, um glaubwuerdiges Wander- und Idle-Verhalten im Garten zu erzeugen.",
+          "Beim Fuettern wechseln sie in einen Follow State und folgen einem dynamischen Ziel. So entsteht ein klarer Gameplay-Loop aus AI State Changes und Target Tracking.",
         ],
         media: createProjectMedia(
           "/AnimalAI.gif",
@@ -325,8 +335,8 @@ const baseProjects: Project[] = [
       {
         title: "Anpflanzsystem & Growth Loop",
         body: [
-          "Das Anpflanzsystem bildet den Kern des spielerischen Fortschritts: Pflanzen werden gezielt im Garten platziert und in den bestehenden Gameplay-Loop eingebunden, sodass aus einer einfachen Interaktion ein nachvollziehbarer Aufbauprozess entsteht.",
-          "Wichtig war dabei vor allem eine saubere Systemstruktur zwischen Platzierung, Zustand und Rueckmeldung, damit der Ablauf fuer Spieler:innen intuitiv bleibt und gleichzeitig technisch erweiterbar ist. So laesst sich der Gardening-Loop modular ausbauen, ohne dass das System unuebersichtlich wird.",
+          "Das Anpflanzsystem bildet den Kern des Fortschritts: Pflanzen werden platziert und direkt in den Gameplay-Loop eingebunden.",
+          "Wichtig war eine saubere Struktur zwischen Platzierung, Zustand und Feedback, damit der Gardening-Loop intuitiv und modular erweiterbar bleibt.",
         ],
         media: createProjectMedia(
           "/Anpflanzen.gif",
@@ -337,8 +347,8 @@ const baseProjects: Project[] = [
       {
         title: "Shop, Money & Purchase Flow",
         body: [
-          "Ergaenzend dazu habe ich ein Shop- und Money-System aufgebaut, das den spielerischen Fortschritt an eine einfache Ingame-Oekonomie koppelt. Kauefe muessen dabei mit dem vorhandenen Budget abgeglichen werden, bevor neue Inhalte oder Optionen freigeschaltet werden.",
-          "Gerade fuer Cozy- und Progression-Systeme ist dieser Economy-Loop wichtig, weil er Ziele, Belohnungen und Entscheidungen miteinander verbindet. Dadurch bekommt das Projekt neben dem entspannten Look auch eine klare Systemtiefe aus Ressourcenverwaltung, Kauflogik und dauerhaftem Fortschritt.",
+          "Ergaenzend entstand ein Shop- und Money-System, das Fortschritt mit einer einfachen Ingame-Oekonomie verbindet.",
+          "Kaeufe werden gegen das Budget geprueft und schaffen einen klaren Economy-Loop aus Ressourcenverwaltung, Kauflogik und Progression.",
         ],
         media: createProjectMedia(
           publicGameImage("Grow Gently"),
@@ -357,8 +367,8 @@ const baseProjects: Project[] = [
     logoImage: "/CD_Logo.png",
     short: "Game-Physics-Prototyp im Stil von Cut the Rope mit spielbarer Unity-WebGL-Version im Browser.",
     description: [
-      "CD Go Home ist das Ergebnis einer Game-Physics-Abgabe und als kompakter Cut-the-Rope-Clone konzipiert. Der Prototyp fokussiert sich vor allem auf Seil-Physik, physikbasierte Interaktionen und einen klaren Puzzle-Loop, der aus wenigen, aber gut kombinierbaren Systemen entsteht.",
-      "Technisch lag der Schwerpunkt darauf, die Unity-Physik nicht nur fuer einzelne Objekte zu verwenden, sondern zum Kern des Level-Designs zu machen. Dadurch wurde das Projekt zu einer kleinen, aber sehr systemischen Prototype-Arbeit mit starkem Fokus auf emergentes Verhalten.",
+      "CD Go Home ist ein kompakter Cut-the-Rope-inspirierter Physics-Prototyp mit Fokus auf Seil-Physik, Interaktionen und einen klaren Puzzle-Loop.",
+      "Die Unity-Physik wurde dabei nicht nur als Effekt genutzt, sondern als Grundlage fuer Level-Design und emergentes Verhalten.",
     ],
     tags: ["Unity", "C#", "Game Physics", "Playable", "Lead Developer"],
     techIcons: ["unity", "csharp", "visualstudio", "git"],
@@ -367,8 +377,8 @@ const baseProjects: Project[] = [
       {
         title: "Segmented Rope System & Cut Interaction",
         body: [
-          "Das zentrale System des Prototyps ist ein Seil, das aus mehreren verbundenen Joint-Segmenten aufgebaut ist. Diese segmentierte Struktur war wichtig, weil sie nicht nur statische Verbindungspunkte simuliert, sondern glaubwuerdige Spannung, Schwingung und dynamisches Verhalten ermoeglicht, wie man es fuer einen Cut-the-Rope-Ansatz braucht.",
-          "Ueber Maus-Input kann ein einzelnes Segment gezielt durchschnitten und damit effektiv aus der Joint-Kette entfernt werden. Genau dieser Ansatz war fuer mich sinnvoll, weil er eine sehr direkte Interaktion mit einem physikbasierten Constraint-System erlaubt: Statt ein Seil nur visuell zu toggeln, entsteht ein nachvollziehbarer Bruch innerhalb der Struktur, der sofort neue Bewegungsvektoren und Reaktionen im gesamten System ausloest.",
+          "Das Kernsystem ist ein Seil aus verbundenen Joint-Segmenten, das Spannung, Schwingung und dynamisches Verhalten fuer den Cut-the-Rope-Ansatz erzeugt.",
+          "Per Maus-Input lassen sich Segmente gezielt trennen. So entsteht ein direkter Eingriff in ein physikbasiertes Constraint-System statt nur ein visueller Toggle.",
         ],
         media: createProjectMedia(
           "/CD-Seil.gif",
@@ -379,8 +389,8 @@ const baseProjects: Project[] = [
       {
         title: "Physics-Driven Gameplay in Unity",
         body: [
-          "Fuer die zugrunde liegenden Interaktionen habe ich die Unity Physics Engine gezielt als spieltragendes Fundament genutzt. Rigidbodies, Collider, Gravitation und kollisionsbasierte Reaktionen wurden nicht nur technisch eingebunden, sondern direkt in das Puzzle-Design uebersetzt, sodass Bewegung und Loesung aus denselben physikalischen Regeln entstehen.",
-          "Dadurch konnten Level gebaut werden, die mit Fallverhalten, Impulsuebertragung, Pendelbewegung und Objektinteraktion spielen, statt geskriptete Einzelloesungen vorzugeben. Genau das macht den Prototyp spannend: Die Physik ist nicht nur Effekt, sondern die eigentliche Gameplay-Logik, auf der die Level aufbauen.",
+          "Die Unity Physics Engine bildet das spieltragende Fundament: Rigidbodies, Collider, Gravitation und kollisionsbasierte Reaktionen wurden direkt ins Puzzle-Design uebersetzt.",
+          "Dadurch entstehen Fallverhalten, Impulsuebertragung und Pendelbewegung aus denselben Regeln wie die Loesung selbst. Die Physik ist hier Gameplay-Logik, nicht nur Effekt.",
         ],
         media: createProjectMedia(
           "/CD-Physik.gif",
@@ -391,8 +401,8 @@ const baseProjects: Project[] = [
       {
         title: "Mechanic Complexity & Combinatorial Level Design",
         body: [
-          "Besonders interessant wurde das System durch die Kombination mehrerer Mechaniken. Seile, Balloons, Ventilatoren und Rope-Spawner eroeffnen gemeinsam deutlich mehr Moeglichkeiten als jede Komponente fuer sich allein und vergroessern den Design-Space fuer neue Puzzle-Situationen.",
-          "Gerade diese Kombination sorgt fuer die eigentliche Komplexitaet des Projekts: Durch systemische Wechselwirkungen lassen sich mit wenigen Bausteinen sehr unterschiedliche Level aufbauen. So entsteht aus einem kleinen Physics-Prototyp ein flexibel erweiterbares Puzzle-Framework mit klarer mechanischer Tiefe.",
+          "Die eigentliche Komplexitaet entsteht durch die Kombination von Seilen, Balloons, Ventilatoren und Rope-Spawnern.",
+          "Diese systemischen Wechselwirkungen vergroessern den Design-Space und machen aus wenigen Bausteinen ein flexibel erweiterbares Puzzle-Framework.",
         ],
         media: {
           src: "/CD-Complexity.gif",
@@ -423,11 +433,9 @@ const baseProjects: Project[] = [
     logoImage: "/Island%20Journey%20Logo.png",
     short: "Atmosphaerisches 3D-Puzzle-Abenteuer mit Rotation, Raetseln und vierseitiger Weltstruktur.",
     description: [
-      "Island Journey ist ein Puzzle-Abenteuer in einer atmosphaerischen 3D-Welt, in der Rotation und Perspektive den Schluessel zum Fortschritt bilden.",
-      "Du steuerst einen Charakter durch eine vierseitige Dimension, bei der immer nur eine Seite gleichzeitig sichtbar ist. Jede Drehung offenbart neue Hinweise, Herausforderungen und tierische Begleiter.",
-      "Die Welt besteht aus rotierbaren Plattformen, die ueber farblich zugeordnete Hebel in die richtige Position gebracht werden muessen.",
-      "Dabei wird dein Gedaechtnis gefordert, weil du Informationen von den anderen Seiten behalten musst, um die Raetsel erfolgreich zu loesen.",
-      "Wir waren ein sehr kleines Team aus vier Personen, und ich habe das Projekt als Solo- und Lead-Programmer technisch umgesetzt. Mein Fokus lag dabei auf Character Control, Kamera-Logik, Shadern sowie der technischen Umsetzung von UI- und Gameplay-Systemen.",
+      "Island Journey ist ein atmosphaerisches 3D-Puzzle-Abenteuer, in dem Rotation und Perspektive den Fortschritt bestimmen.",
+      "Spieler:innen bewegen sich durch eine vierseitige Welt mit rotierbaren Plattformen, Hebeln und raeumlichen Raetseln.",
+      "Als Solo- und Lead-Programmer lag mein Fokus auf Character Control, Kamera-Logik, Shadern sowie UI- und Gameplay-Systemen.",
     ],
     tags: ["Unreal", "Lead Developer", "Gameplay", "Puzzle", "Atmospheric"],
     techIcons: ["unity", "csharp", "visualstudio", "git"],
@@ -436,8 +444,8 @@ const baseProjects: Project[] = [
       {
         title: "Character Animation, Movement & Player Input",
         body: [
-          "Ein zentraler Teil meiner Arbeit war die technische Verbindung von Player Input, Character Movement und Animation. Obwohl das Bewegungsset bewusst kompakt gehalten war, mussten Idle-, Lauf- und Interaktionsanimationen sauber an den Bewegungszustand des Characters gekoppelt werden, damit Steuerung und visuelles Feedback praezise zusammenarbeiten.",
-          "Gerade bei Interaktionen wie dem Betaetigen von Schaltern war wichtig, dass Input-Verarbeitung, Character-Orientierung und Animation State Transitions konsistent ineinandergreifen. So entsteht trotz einfacher Animationen ein kontrolliertes und lesbares Character-Feeling mit klarer Responsiveness.",
+          "Ein Kernpunkt war die Verbindung von Player Input, Character Movement und Animation, damit Steuerung und Feedback praezise zusammenarbeiten.",
+          "Auch Schalter-Interaktionen mussten sauber mit Character-Orientierung und Animation State Transitions verzahnt werden, um ein klares Character-Feeling zu erzeugen.",
         ],
         media: createProjectMedia(
           "/IslandJouneyAnimtions.gif",
@@ -448,8 +456,8 @@ const baseProjects: Project[] = [
       {
         title: "Stylized Low-Poly Water Shader",
         body: [
-          "Fuer die Umgebung habe ich einen einfachen, stilisierten Water Shader umgesetzt, der sich visuell in den Low-Poly-Look des Projekts einfuegt. Ziel war kein physikalisch komplexes Wassersystem, sondern ein kontrolliertes Material-Setup mit klarer Formensprache und einer sauberen stylized surface animation.",
-          "Durch animierte Shader-Parameter und ein bewusst reduziertes Materialverhalten bekommt das Wasser trotzdem ausreichend Bewegung und Tiefe, ohne die ruhige Gesamtwirkung der Szene zu verlieren. So traegt der Shader technisch wie visuell zur Atmosphaere bei, ohne den Artstyle zu ueberladen.",
+          "Fuer die Umgebung entstand ein stylized Water Shader, der sich sauber in den Low-Poly-Look einfuegt.",
+          "Animierte Shader-Parameter geben dem Wasser Bewegung und Tiefe, ohne die ruhige Atmosphaere oder den Artstyle zu ueberladen.",
         ],
         media: createProjectMedia(
           "/IslandJouneyWaterShader.gif",
@@ -460,8 +468,8 @@ const baseProjects: Project[] = [
       {
         title: "Camera Rotation & Corner Transition",
         body: [
-          "Eine der wichtigsten technischen Aufgaben war die Kamera-Logik beim Laufen ueber die Ecken der Welt. Sobald der Character eine Kante ueberschreitet, muss sich die Kamera mitdrehen, damit Raumorientierung, Perspektive und Kontrolle fuer Spieler:innen erhalten bleiben.",
-          "Dafuer habe ich eine weiche Rotations- und Uebergangslogik umgesetzt, bei der sich die Kamera nicht abrupt umstellt, sondern ueber eine smooth interpolated transition in die neue Ausrichtung blendet. Dadurch fuehlt sich der Perspektivwechsel kontrolliert und hochwertig an, obwohl im Hintergrund ein klarer technischer State Change stattfindet.",
+          "Eine zentrale Aufgabe war die Kamera-Logik beim Uebergang ueber die Ecken der Welt, damit Orientierung, Perspektive und Kontrolle erhalten bleiben.",
+          "Dafuer habe ich eine weiche Rotationslogik mit smooth interpolated transition umgesetzt, statt die Kamera abrupt in die neue Ausrichtung zu setzen.",
         ],
         media: createProjectMedia(
           "/IslandJouneyKameraMovement.gif",
@@ -472,8 +480,8 @@ const baseProjects: Project[] = [
       {
         title: "Main Menu, UI Animation & Level Thumbnail",
         body: [
-          "Auch das Main Menu wurde von mir technisch mit aufgebaut und sollte nicht nur funktional sein, sondern das Projekt bereits vor Spielstart hochwertig praesentieren. Deshalb lag der Fokus auf einer sauberen Menu-Struktur, klaren UI-Transitions und einer insgesamt stimmigen Presentation Layer.",
-          "Besonders stark wirkt dabei die Kombination aus Animationen und Level Thumbnail, weil sie dem Menu sofort mehr Charakter und Orientierung gibt. Dadurch entsteht kein rein statischer Startscreen, sondern ein deutlich runderer Einstieg mit besserer Lesbarkeit, Preview-Funktion und visuellem Wiedererkennungswert.",
+          "Ich habe auch das Main Menu technisch mit aufgebaut, mit Fokus auf klare UI-Transitions und eine saubere Presentation Layer.",
+          "Animationen und Level Thumbnail geben dem Einstieg mehr Charakter, Lesbarkeit und visuellen Wiedererkennungswert.",
         ],
         media: createProjectMedia(
           "/IslandJouneyMen%C3%BC.gif",
@@ -734,7 +742,7 @@ const baseProjects: Project[] = [
           "Der Einstieg in Timely ist bewusst einfach gehalten: Mitarbeitende waehlen zuerst ihren Namen aus und geben danach eine vierstellige PIN ein. Dadurch bleibt der Login im Arbeitsalltag schnell, ohne auf eine klare Zuordnung der Zeiten zu verzichten.",
           "Gerade fuer den Einsatz im Einzelhandel war wichtig, dass der Ablauf auch unter Zeitdruck direkt verstaendlich bleibt. So entsteht ein unkomplizierter Zugang, der weniger Huerden hat als klassische Account-Systeme und trotzdem sauber administrierbar ist.",
         ],
-        media: createProjectMedia(
+        media: createPortraitProjectMedia(
           "/timely Login.png",
           "Timely Login mit Namensauswahl und PIN",
         ),
@@ -746,7 +754,7 @@ const baseProjects: Project[] = [
           "Im Home-Dashboard koennen Mitarbeitende ihre Schicht mit wenigen Klicks starten und beenden. Auch Pausen lassen sich direkt erfassen, sodass der komplette Tagesablauf in derselben Oberflaeche dokumentiert wird.",
           "Neben den Aktionen selbst ist auch die persoenliche Historie wichtig: Mitarbeitende sehen ihre bisherigen Eintraege und behalten dadurch sofort den Ueberblick ueber bereits gebuchte Zeiten. Das macht die Anwendung nicht nur funktional, sondern auch transparent im Alltag.",
         ],
-        media: createProjectMedia(
+        media: createPortraitProjectMedia(
           "/Timely Dashboard Home.png",
           "Timely Dashboard mit Zeiterfassung",
         ),
@@ -758,7 +766,7 @@ const baseProjects: Project[] = [
           "Fuer Admins stellt Timely die erfassten Daten zentral bereit und ermoeglicht den Export fuer weitere Verarbeitung, Abrechnung oder interne Auswertung. Dadurch wird aus der einfachen Zeiterfassung ein kompletter digitaler Workflow bis hin zur Weitergabe der Daten.",
           "Zusatzlich lassen sich Mitarbeitende, Rollen und PINs verwalten, sodass organisatorische Aenderungen nicht ausserhalb des Systems gepflegt werden muessen. Das reduziert manuellen Aufwand und haelt den Prozess auch bei mehreren Mitarbeitenden sauber wartbar.",
         ],
-        media: createProjectMedia(
+        media: createPortraitProjectMedia(
           "/Timely Export.png",
           "Timely Admin Export und Verwaltung",
         ),
