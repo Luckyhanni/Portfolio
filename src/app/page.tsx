@@ -66,7 +66,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div style={styles.heroRight}>
+            <div className="heroRight" style={styles.heroRight}>
               <div style={styles.photoWrap}>
                 <Image
                   src="/profile.jpg"
@@ -122,15 +122,16 @@ export default function Home() {
                 Bachelorarbeit zu KI-gestützten NPC-Dialogen.
               </p>
 
-              <div style={styles.aboutMetaRow}>
-                <p style={styles.p}>
+              <div className="aboutMetaRow" style={styles.aboutMetaRow}>
+                <p className="aboutEmail" style={styles.p}>
                   E-Mail:{" "}
-                  <a style={styles.link} href="mailto:Johannes_blank2001@gmx.de">
-                    Johannes_blank2001@gmx.de
+                  <a style={styles.link} href="mailto:johannes_blank2001@gmx.de">
+                    johannes_blank2001@gmx.de
                   </a>
                 </p>
 
                 <a
+                  className="downloadBtn"
                   href="/JohannesBlank_Lebenslauf.pdf"
                   download
                   style={styles.downloadBtn}
@@ -163,6 +164,39 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .heroRight {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            justify-content: center !important;
+          }
+
+          .aboutMetaRow {
+            grid-template-columns: 1fr !important;
+            row-gap: 12px;
+          }
+
+          .aboutEmail {
+            overflow-wrap: anywhere;
+          }
+
+          .downloadBtn {
+            width: 100%;
+          }
+
+          .projectContentRow {
+            justify-content: flex-start !important;
+          }
+
+          .projectImageColumn,
+          .projectImageColumnCompact {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+      `}</style>
 
     </main>
   );
@@ -316,7 +350,7 @@ function ProjectCard({
       className="projectLink"
     >
       <div className="projectRow" style={styles.projectRow}>
-        <div style={styles.projectContentRow}>
+        <div className="projectContentRow" style={styles.projectContentRow}>
           <div style={styles.projectMainColumn}>
             <div className="projectHeading" style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
               <h3 className="projectTitle" style={{ ...styles.h3, margin: 0, color: stylesVars.text }}>{project.title}</h3>
@@ -348,6 +382,11 @@ function ProjectCard({
 
           {projectVisualSrc ? (
             <div
+              className={
+                projectUsesLogoPanel
+                  ? "projectImageColumnCompact"
+                  : "projectImageColumn"
+              }
               style={
                 projectUsesLogoPanel
                   ? styles.projectImageColumnCompact
@@ -818,7 +857,12 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 14,
   },
 
-  link: { color: stylesVars.accent, textDecoration: "none", fontWeight: 800 },
+  link: {
+    color: stylesVars.accent,
+    textDecoration: "none",
+    fontWeight: 800,
+    overflowWrap: "anywhere",
+  },
   downloadBtn: {
     display: "inline-flex",
     alignItems: "center",

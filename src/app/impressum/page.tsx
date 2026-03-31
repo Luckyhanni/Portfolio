@@ -142,9 +142,10 @@ const styles: Record<string, React.CSSProperties> = {
   },
   h1: {
     margin: 0,
-    fontSize: 40,
-    lineHeight: 1.02,
+    fontSize: "clamp(34px, 7vw, 40px)",
+    lineHeight: 1.05,
     letterSpacing: -0.8,
+    overflowWrap: "anywhere",
   },
   h2: {
     margin: 0,
@@ -156,10 +157,12 @@ const styles: Record<string, React.CSSProperties> = {
     color: vars.textMuted,
     lineHeight: 1.8,
     fontSize: 15,
+    overflowWrap: "anywhere",
   },
   link: {
     color: vars.accentStrong,
     textDecoration: "none",
     fontWeight: 800,
+    overflowWrap: "anywhere",
   },
 };
