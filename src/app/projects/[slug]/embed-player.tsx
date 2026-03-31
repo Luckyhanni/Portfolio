@@ -16,6 +16,7 @@ export default function EmbedPlayer({
   showFullscreenButton = false,
 }: EmbedPlayerProps) {
   const [overlayOpen, setOverlayOpen] = useState(false);
+  const [isPortraitViewport, setIsPortraitViewport] = useState(true);
 
   useEffect(() => {
     if (!overlayOpen) {
@@ -29,6 +30,28 @@ export default function EmbedPlayer({
       document.body.style.overflow = previousOverflow;
     };
   }, [overlayOpen]);
+
+  useEffect(() => {
+    function updateViewportOrientation() {
+      setIsPortraitViewport(window.innerHeight >= window.innerWidth);
+    }
+
+    updateViewportOrientation();
+    window.addEventListener("resize", updateViewportOrientation);
+    window.addEventListener("orientationchange", updateViewportOrientation);
+
+    return () => {
+      window.removeEventListener("resize", updateViewportOrientation);
+      window.removeEventListener("orientationchange", updateViewportOrientation);
+    };
+  }, []);
+
+  const overlayShellStyle = isPortraitViewport
+    ? styles.rotatedShellPortrait
+    : styles.rotatedShellLandscape;
+  const overlayFrameStyle = isPortraitViewport
+    ? styles.overlayFramePortrait
+    : styles.overlayFrameLandscape;
 
   return (
     <>
@@ -78,10 +101,10 @@ export default function EmbedPlayer({
           </button>
 
           <div style={styles.overlayViewport}>
-            <div style={styles.rotatedShell}>
+            <div style={overlayShellStyle}>
               <div
                 style={{
-                  ...styles.overlayFrame,
+                  ...overlayFrameStyle,
                   ...(aspectRatio ? { aspectRatio } : null),
                 }}
               >
@@ -178,7 +201,7 @@ const styles: Record<string, React.CSSProperties> = {
     overflow: "hidden",
     zIndex: 1,
   },
-  rotatedShell: {
+  rotatedShellPortrait: {
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -192,9 +215,29 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 16,
     boxSizing: "border-box",
   },
-  overlayFrame: {
+  rotatedShellLandscape: {
+    position: "absolute",
+    inset: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+    boxSizing: "border-box",
+  },
+  overlayFramePortrait: {
     width: "100%",
     maxWidth: "100%",
+    aspectRatio: "16 / 9",
+    borderRadius: 18,
+    overflow: "hidden",
+    border: "1px solid rgba(143, 168, 203, 0.18)",
+    background: "#081018",
+    boxShadow: "0 20px 44px rgba(0, 0, 0, 0.35)",
+  },
+  overlayFrameLandscape: {
+    width: "100%",
+    maxWidth: "100%",
+    maxHeight: "calc(100dvh - 32px)",
     aspectRatio: "16 / 9",
     borderRadius: 18,
     overflow: "hidden",
