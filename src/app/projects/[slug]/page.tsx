@@ -170,8 +170,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </section>
 
       <footer style={styles.footer}>
-        <div style={{ ...styles.container, color: stylesVars.textMuted, fontSize: 14 }}>
-          © {new Date().getFullYear()} Johannes Blank
+        <div style={styles.footerContent}>
+          <span>© {new Date().getFullYear()} Johannes Blank</span>
+          <div style={styles.footerLinks}>
+            <Link href="/impressum" style={styles.footerLink}>Impressum</Link>
+            <Link href="/datenschutz" style={styles.footerLink}>Datenschutz</Link>
+          </div>
         </div>
       </footer>
     </main>
@@ -729,5 +733,27 @@ const styles: Record<string, React.CSSProperties> = {
     padding: "26px 0",
     marginTop: 20,
     background: "rgba(7, 12, 18, 0.65)",
+  },
+  footerContent: {
+    maxWidth: 1160,
+    padding: "0 24px",
+    margin: "0 auto",
+    color: stylesVars.textMuted,
+    fontSize: 14,
+    display: "flex",
+    gap: 14,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  footerLinks: {
+    display: "flex",
+    gap: 16,
+    flexWrap: "wrap",
+  },
+  footerLink: {
+    color: stylesVars.textMuted,
+    textDecoration: "none",
+    fontWeight: 700,
   },
 };

@@ -27,15 +27,15 @@ export default function Home() {
   const skills = [
     { name: "C#", icon: TbBrandCSharp, color: "#9b4f96" },
     { name: ".NET", icon: SiDotnet, color: "#7c65d1" },
-    { name: "Unity", icon: SiUnity, color: "#d9e0ec" },
-    { name: "Unreal", icon: SiUnrealengine, color: "#f3f7ff" },
-    { name: "Blender", icon: SiBlender, color: "#ff8a00" },
+    { name: "C++", icon: SiCplusplus, color: "#4f90d9" },
     { name: "Python", icon: SiPython, color: "#f2c14e" },
     { name: "React", icon: SiReact, color: "#5bd3ff" },
     { name: "Git", icon: SiGit, color: "#f05033" },
     { name: "VS Code", icon: TbBrandVscode, color: "#2f8fff" },
     { name: "Visual Studio", icon: DiVisualstudio, color: "#9b6dff" },
-    { name: "C++", icon: SiCplusplus, color: "#4f90d9" },
+    { name: "Unity", icon: SiUnity, color: "#d9e0ec" },
+    { name: "Unreal", icon: SiUnrealengine, color: "#f3f7ff" },
+    { name: "Blender", icon: SiBlender, color: "#ff8a00" },
     { name: "Power Automate", icon: FaMicrosoft, color: "#3d8bff" },
   ];
   const gameStatLogos = GAME_PROJECTS.map((project) => ({
@@ -122,20 +122,29 @@ export default function Home() {
                 Bachelorarbeit zu KI-gestützten NPC-Dialogen.
               </p>
 
-              <a
-                href="/JohannesBlank_Lebenslauf.pdf"
-                download
-                style={styles.downloadBtn}
-              >
-                Lebenslauf herunterladen
-              </a>
+              <div style={styles.aboutMetaRow}>
+                <p style={styles.p}>
+                  E-Mail:{" "}
+                  <a style={styles.link} href="mailto:Johannes_blank2001@gmx.de">
+                    Johannes_blank2001@gmx.de
+                  </a>
+                </p>
+
+                <a
+                  href="/JohannesBlank_Lebenslauf.pdf"
+                  download
+                  style={styles.downloadBtn}
+                >
+                  Lebenslauf herunterladen
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </Section>
 
       {/* SKILLS */}
-      <Section id="skills" title="Technologien">
+      <Section id="skills" title="Skill Set">
         <div style={styles.container}>
           <div style={styles.skillsGrid}>
             {skills.map((skill) => (
@@ -145,23 +154,13 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* CONTACT */}
-      <Section id="contact" title="Kontakt">
-        <div style={styles.container}>
-          <div style={styles.card}>
-            <p style={styles.p}>
-              Email:{" "}
-              <a style={styles.link} href="mailto:Johannes_blank2001@gmx.de">
-                Johannes_blank2001@gmx.de
-              </a>
-                        </p>
-          </div>
-        </div>
-      </Section>
-
       <footer style={styles.footer}>
-        <div style={{ ...styles.container, color: stylesVars.textMuted, fontSize: 14 }}>
-          © {new Date().getFullYear()} Johannes Blank
+        <div style={styles.footerContent}>
+          <span>© {new Date().getFullYear()} Johannes Blank</span>
+          <div style={styles.footerLinks}>
+            <Link href="/impressum" style={styles.footerLink}>Impressum</Link>
+            <Link href="/datenschutz" style={styles.footerLink}>Datenschutz</Link>
+          </div>
         </div>
       </footer>
 
@@ -648,7 +647,13 @@ const styles: Record<string, React.CSSProperties> = {
   aboutContent: {
     display: "grid",
     gap: 16,
-    justifyItems: "start",
+  },
+  aboutMetaRow: {
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: "minmax(0, 1fr) auto",
+    columnGap: 16,
+    alignItems: "center",
   },
 
   placeholderCard: {
@@ -835,5 +840,27 @@ const styles: Record<string, React.CSSProperties> = {
     padding: "26px 0",
     marginTop: 20,
     background: "rgba(7, 12, 18, 0.65)",
+  },
+  footerContent: {
+    maxWidth: 1160,
+    padding: "0 24px",
+    margin: "0 auto",
+    color: stylesVars.textMuted,
+    fontSize: 14,
+    display: "flex",
+    gap: 14,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  footerLinks: {
+    display: "flex",
+    gap: 16,
+    flexWrap: "wrap",
+  },
+  footerLink: {
+    color: stylesVars.textMuted,
+    textDecoration: "none",
+    fontWeight: 700,
   },
 };

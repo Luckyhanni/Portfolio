@@ -82,14 +82,14 @@ function toYouTubeEmbedUrl(url: string): string | undefined {
 
     if (parsed.hostname.includes("youtu.be")) {
       const videoId = parsed.pathname.replace("/", "");
-      return videoId ? `https://www.youtube.com/embed/${videoId}` : undefined;
+      return videoId ? `https://www.youtube-nocookie.com/embed/${videoId}` : undefined;
     }
 
     if (parsed.hostname.includes("youtube.com")) {
       const watchId = parsed.searchParams.get("v");
 
       if (watchId) {
-        return `https://www.youtube.com/embed/${watchId}`;
+        return `https://www.youtube-nocookie.com/embed/${watchId}`;
       }
 
       const pathSegments = parsed.pathname.split("/").filter(Boolean);
@@ -97,11 +97,11 @@ function toYouTubeEmbedUrl(url: string): string | undefined {
       const embedIndex = pathSegments.indexOf("embed");
 
       if (shortsIndex >= 0 && pathSegments[shortsIndex + 1]) {
-        return `https://www.youtube.com/embed/${pathSegments[shortsIndex + 1]}`;
+        return `https://www.youtube-nocookie.com/embed/${pathSegments[shortsIndex + 1]}`;
       }
 
       if (embedIndex >= 0 && pathSegments[embedIndex + 1]) {
-        return `https://www.youtube.com/embed/${pathSegments[embedIndex + 1]}`;
+        return `https://www.youtube-nocookie.com/embed/${pathSegments[embedIndex + 1]}`;
       }
     }
   } catch {
