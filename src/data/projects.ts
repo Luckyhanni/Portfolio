@@ -623,11 +623,10 @@ const baseProjects: Project[] = [
     short: "Lokale WebApp zur Annahme, Sortierung und Ausgabe von Weihnachtsbestellungen in einer Metzgerei.",
     description: [
       "Sorty wurde für eine Metzgerei gebaut, die an Weihnachten sehr viele Bestellungen annehmen, lagern und wieder ausgeben muss.",
-      "Die Anwendung läuft lokal als WebApp, weil das für den Einsatz vor Ort am sinnvollsten war. Technisch ließe sich das Konzept aber auch leicht zu einer App oder klassischen Website weiterführen.",
       "Bestellungen werden erfasst, in Datenbanken gespeichert, beim Abholen wiedergefunden und intern weitergeleitet.",
     ],
     tags: ["WebApp", "C#", "Datenbanken", "Discord"],
-    techIcons: ["csharp", "database", "github", "render"],
+    techIcons: ["csharp", "database", "github", "render", "vscode"],
     highlights: [
       "Strukturierte Lager- und Bestellorganisation",
       "Schnelle Ausgabe an Kundschaft",

@@ -19,7 +19,7 @@ import {
   SiUnity,
   SiUnrealengine,
 } from "react-icons/si";
-import { TbBrandCSharp } from "react-icons/tb";
+import { TbBrandCSharp, TbBrandVscode } from "react-icons/tb";
 import {
   getProject,
   PROJECTS,
@@ -41,6 +41,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   const embedPlacement = project.detailVideo?.placement ?? "bottom";
+  const hasLinks = Boolean(project.links?.length);
 
   return (
     <main style={styles.page}>
@@ -48,7 +49,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <section style={styles.section}>
         <div style={styles.container}>
-          <Link href="/#projects" style={styles.backBtn}>← Zurueck zu Projects</Link>
+          <Link href="/#projects" style={styles.backBtn}>← Zurück zu Projects</Link>
 
           {project.detailVideo && embedPlacement === "top" ? (
             <ProjectEmbedSection project={project} />
@@ -119,7 +120,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
 
               {project.techIcons?.length ? (
-                <div style={styles.skillGrid}>
+                <div style={hasLinks ? styles.skillGrid : styles.skillGridRelaxed}>
                   {project.techIcons.map((tech) => (
                     <TechBadge key={tech} tech={tech} />
                   ))}
@@ -360,7 +361,7 @@ const techIconMap: Record<string, { icon: IconType; color: string; label: string
   git: { icon: SiGit, color: "#f05033", label: "Git" },
   microsoft: { icon: FaMicrosoft, color: "#5aa6ff", label: "Microsoft" },
   blender: { icon: SiBlender, color: "#ff8a00", label: "Blender" },
-  vscode: { icon: DiVisualstudio, color: "#9b6dff", label: "Visual Studio" },
+  vscode: { icon: TbBrandVscode, color: "#2f8fff", label: "Visual Studio Code" },
   visualstudio: { icon: DiVisualstudio, color: "#9b6dff", label: "Visual Studio" },
   cplusplus: { icon: SiCplusplus, color: "#4f90d9", label: "C++" },
 };
@@ -426,9 +427,10 @@ const styles: Record<string, React.CSSProperties> = {
   },
   heroVisual: {
     width: "100%",
-    height: "auto",
-    minHeight: 0,
+    height: "115%",
+    minHeight: "100%",
     display: "block",
+    objectPosition: "center center",
   },
   heroBody: {
     display: "grid",
@@ -562,6 +564,12 @@ const styles: Record<string, React.CSSProperties> = {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(72px, 1fr))",
     gap: 8,
+  },
+  skillGridRelaxed: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(88px, 96px))",
+    gap: 10,
+    justifyContent: "start",
   },
   techBadge: {
     display: "grid",

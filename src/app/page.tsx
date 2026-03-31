@@ -493,6 +493,11 @@ const projectTechIconMap: Record<
     color: "#5aa6ff",
     label: "Microsoft",
   },
+  vscode: {
+    icon: TbBrandVscode,
+    color: "#2f8fff",
+    label: "Visual Studio Code",
+  },
   visualstudio: {
     icon: DiVisualstudio,
     color: "#9b6dff",
