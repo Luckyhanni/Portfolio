@@ -590,11 +590,12 @@ const styles: Record<string, React.CSSProperties> = {
   },
   statLogoRow: {
     display: "grid",
-    gap: 6,
+    gap: 12,
     marginTop: 12,
+    justifyItems: "center",
   },
   statLogoLink: {
-    width: "100%",
+    width: "88%",
     height: "auto",
     aspectRatio: "1 / 1",
     display: "flex",
@@ -608,8 +609,8 @@ const styles: Record<string, React.CSSProperties> = {
     transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
   },
   statLogoImage: {
-    width: "112%",
-    height: "112%",
+    width: "100%",
+    height: "100%",
     objectFit: "cover",
     objectPosition: "center",
   },
