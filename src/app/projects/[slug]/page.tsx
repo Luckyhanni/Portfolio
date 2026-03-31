@@ -42,6 +42,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const embedPlacement = project.detailVideo?.placement ?? "bottom";
   const hasLinks = Boolean(project.links?.length);
+  const hasEmbed = Boolean(project.detailVideo?.embedUrl);
+  const hasVideoDescription = Boolean(project.detailVideo?.description.trim());
+  const hasTechContent = Boolean(project.techIcons?.length || project.links?.length);
 
   return (
     <main style={styles.page}>
@@ -49,9 +52,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <section style={styles.section}>
         <div style={styles.container}>
-          <Link href="/#projects" style={styles.backBtn}>← Zurück zu Projects</Link>
+          <Link href="/#projects" style={styles.backBtn}>← Zurück zu den Projekten</Link>
 
-          {project.detailVideo && embedPlacement === "top" ? (
+          {hasEmbed && project.detailVideo && embedPlacement === "top" ? (
             <ProjectEmbedSection project={project} />
           ) : null}
 
@@ -59,7 +62,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <ProjectVisual
               media={{
                 src: project.heroImage ?? project.logoImage ?? "/window.svg",
-                alt: `${project.title} Hero`,
+                alt: `${project.title} Banner`,
                 width: 1600,
                 height: 900,
                 fit: project.heroImage ? "cover" : "contain",
@@ -72,7 +75,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div style={styles.heroBody}>
               <div style={styles.eyebrowRow}>
                 <span style={styles.categoryPill}>
-                  {project.category === "games" ? "Game Prototype" : "Software Project"}
+                  {project.category === "games" ? "Spielprototyp" : "Softwareprojekt"}
                 </span>
                 {project.period ? <span style={styles.periodPill}>{project.period}</span> : null}
               </div>
@@ -92,7 +95,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <article style={styles.card}>
               <div style={styles.sectionHeadingRow}>
                 <span style={styles.sectionIndex}>01</span>
-                <h2 style={styles.h2}>Overview</h2>
+                <h2 style={styles.h2}>Überblick</h2>
               </div>
 
               <div style={{ display: "grid", gap: 12 }}>
@@ -113,41 +116,41 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               ) : null}
             </article>
 
-            <aside style={styles.sideCard}>
-              <div style={styles.sectionHeadingRow}>
-                <span style={styles.sectionIndex}>02</span>
-                <h2 style={styles.h2}>Skills Applied</h2>
-              </div>
-
-              {project.techIcons?.length ? (
-                <div style={hasLinks ? styles.skillGrid : styles.skillGridRelaxed}>
-                  {project.techIcons.map((tech) => (
-                    <TechBadge key={tech} tech={tech} />
-                  ))}
+            {hasTechContent ? (
+              <aside style={styles.sideCard}>
+                <div style={styles.sectionHeadingRow}>
+                  <span style={styles.sectionIndex}>02</span>
+                  <h2 style={styles.h2}>Eingesetzte Technologien</h2>
                 </div>
-              ) : (
-                <p style={styles.p}>Hier kannst du spaeter konkrete Tools und Technologien pro Projekt eintragen.</p>
-              )}
 
-              {project.links?.length ? (
-                <div style={styles.linksBlock}>
-                  <h3 style={styles.h3}>Links</h3>
-                  <div style={styles.linkRow}>
-                    {project.links.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={styles.primaryBtn}
-                      >
-                        {link.label}
-                      </a>
+                {project.techIcons?.length ? (
+                  <div style={hasLinks ? styles.skillGrid : styles.skillGridRelaxed}>
+                    {project.techIcons.map((tech) => (
+                      <TechBadge key={tech} tech={tech} />
                     ))}
                   </div>
-                </div>
-              ) : null}
-            </aside>
+                ) : null}
+
+                {project.links?.length ? (
+                  <div style={styles.linksBlock}>
+                    <h3 style={styles.h3}>Links</h3>
+                    <div style={styles.linkRow}>
+                      {project.links.map((link) => (
+                        <a
+                          key={link.href}
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={styles.primaryBtn}
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </aside>
+            ) : null}
           </div>
 
           <div style={styles.sectionStack}>
@@ -160,7 +163,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             ))}
           </div>
 
-          {project.detailVideo && embedPlacement !== "top" ? (
+          {hasEmbed && project.detailVideo && embedPlacement !== "top" ? (
             <ProjectEmbedSection project={project} />
           ) : null}
         </div>
@@ -182,7 +185,7 @@ function ProjectEmbedSection({ project }: { project: Project }) {
         <span style={styles.sectionIndex}>
           {`${(project.detailSections?.length ?? 0) + 3}`.padStart(2, "0")}
         </span>
-        <h2 style={styles.h2}>{project.detailVideo?.title ?? "YouTube Video"}</h2>
+        <h2 style={styles.h2}>{project.detailVideo?.title}</h2>
       </div>
 
       <div style={styles.videoCard}>
@@ -205,19 +208,11 @@ function ProjectEmbedSection({ project }: { project: Project }) {
               allowFullScreen
             />
           </div>
-        ) : (
-          <div style={styles.videoPlaceholder}>
-            <p style={styles.videoPlaceholderTitle}>Embed folgt hier</p>
-            <p style={styles.p}>
-              Trage spaeter einfach einen Embed-Link in den Projektdaten ein. Die Seite erzeugt daraus automatisch den eingebetteten Bereich.
-            </p>
-          </div>
-        )}
+        ) : null}
 
-        <p style={styles.videoDescription}>
-          {project.detailVideo?.description ??
-            "Hier kannst du spaeter Trailer, Gameplay, GIF-Alternativen oder eine kurze Demo ergaenzen."}
-        </p>
+        {project.detailVideo?.description.trim() ? (
+          <p style={styles.videoDescription}>{project.detailVideo.description}</p>
+        ) : null}
       </div>
     </section>
   );
@@ -231,7 +226,7 @@ function Header() {
 
         <nav style={{ display: "flex", gap: 18, fontSize: 14 }}>
           <Link href="/#projects" style={styles.navLink}>PORTFOLIO</Link>
-          <Link href="/#about" style={styles.navLink}>ABOUT ME</Link>
+          <Link href="/#about" style={styles.navLink}>ÜBER MICH</Link>
         </nav>
       </div>
     </header>
@@ -721,24 +716,6 @@ const styles: Record<string, React.CSSProperties> = {
     border: 0,
     width: "100%",
     height: "100%",
-  },
-  videoPlaceholder: {
-    minHeight: 320,
-    borderRadius: 18,
-    border: `1px dashed rgba(143, 168, 203, 0.22)`,
-    background: "linear-gradient(135deg, rgba(13, 20, 29, 0.96), rgba(16, 23, 32, 0.85))",
-    display: "grid",
-    placeItems: "center",
-    textAlign: "center",
-    padding: 28,
-    gap: 10,
-  },
-  videoPlaceholderTitle: {
-    margin: 0,
-    fontSize: 24,
-    fontWeight: 800,
-    letterSpacing: -0.4,
-    color: stylesVars.text,
   },
   videoDescription: {
     margin: 0,

@@ -76,93 +76,6 @@ function createPortraitProjectMedia(src: string, alt: string): ProjectMedia {
   };
 }
 
-function getMediaPool(project: Project): ProjectMedia[] {
-  const sources = [project.heroImage, project.logoImage].filter(
-    (src): src is string => Boolean(src),
-  );
-
-  if (sources.length === 0) {
-    return [
-      createProjectMedia(
-        "/window.svg",
-        `${project.title} Platzhaltergrafik`,
-      ),
-    ];
-  }
-
-  return sources.map((src, index) =>
-    createProjectMedia(src, `${project.title} Medienplatzhalter ${index + 1}`),
-  );
-}
-
-function gamePlaceholderSections(project: Project): ProjectDetailSection[] {
-  const mediaPool = getMediaPool(project);
-
-  return [
-    {
-      title: "Core Gameplay",
-      body: [
-        `${project.title} stellt im Kern eine klare Gameplay-Fantasie in den Mittelpunkt und kann hier spaeter mit echten Informationen zu Loop, Rollen und Spielerfahrung befuellt werden.`,
-        `Dieser Abschnitt ist bewusst als Platzhalter angelegt: Hier kannst du spaeter erklaeren, was Spieler konkret tun, wie sich eine Runde aufbaut und wodurch sich das Projekt von anderen Game Prototypes abhebt.`,
-      ],
-      media: mediaPool[0],
-      mediaSide: "right",
-    },
-    {
-      title: "Visuals and Presentation",
-      body: [
-        `Hier kannst du spaeter auf Art Direction, Stimmung, Animationen, UI oder Sound eingehen. Gerade fuer GIFs eignet sich dieser Block gut, um Bewegung, Feedback oder Menues direkt zu zeigen.`,
-        `Wenn du spaeter ein GIF hinzufuegst, musst du nur den Medienpfad und optional den Typ auf "gif" setzen, die Seite ist dafuer bereits vorbereitet.`,
-      ],
-      media: mediaPool[1] ?? mediaPool[0],
-      mediaSide: "left",
-    },
-    {
-      title: "Systems and Production",
-      body: [
-        `Dieser Bereich ist fuer technische oder produktionelle Schwerpunkte gedacht, zum Beispiel KI, Multiplayer, Save-Systeme, Tools, Performance oder Iterationsschritte waehrend der Entwicklung.`,
-        `Du kannst hier spaeter auch deine Rolle, besondere Herausforderungen und Learnings beschreiben, damit die Seite nicht nur schoen aussieht, sondern auch deine Arbeitsweise zeigt.`,
-      ],
-      media: mediaPool[2] ?? mediaPool[0],
-      mediaSide: "right",
-    },
-  ];
-}
-
-function softwarePlaceholderSections(project: Project): ProjectDetailSection[] {
-  const mediaPool = getMediaPool(project);
-
-  return [
-    {
-      title: "Ausgangslage und Ziel",
-      body: [
-        `${project.title} löst ein konkretes Problem im Arbeitsalltag und übersetzt einen manuellen Ablauf in einen klaren digitalen Prozess.`,
-        `Hier geht es vor allem um Zielgruppe, Ausgangslage und den praktischen Nutzen im Einsatz.`,
-      ],
-      media: mediaPool[0],
-      mediaSide: "right",
-    },
-    {
-      title: "Workflow und Interface",
-      body: [
-        `Dieser Abschnitt zeigt den Eingabefluss, wichtige Ansichten und die eigentliche Bedienlogik des Tools.`,
-        `So wird schnell verständlich, wie Nutzende mit der Anwendung arbeiten.`,
-      ],
-      media: mediaPool[1] ?? mediaPool[0],
-      mediaSide: "left",
-    },
-    {
-      title: "Ergebnis und Mehrwert",
-      body: [
-        `Hier stehen die wichtigsten Effekte: Zeitersparnis, weniger Fehler und bessere Übersicht.`,
-        `So wird aus dem Projekt eine kurze, greifbare Case Study.`,
-      ],
-      media: mediaPool[2] ?? mediaPool[0],
-      mediaSide: "right",
-    },
-  ];
-}
-
 function toYouTubeEmbedUrl(url: string): string | undefined {
   try {
     const parsed = new URL(url);
@@ -207,22 +120,21 @@ function buildDefaultVideo(project: Project): ProjectVideo | undefined {
     link.href.includes("youtube.com") || link.href.includes("youtu.be"),
   );
 
+  if (!youtubeLink) {
+    return undefined;
+  }
+
   return {
-    title: "YouTube Video",
-    description:
-      "Hier kannst du später Gameplay, Trailer oder eine kurze Demo einbetten.",
-    embedUrl: youtubeLink ? toYouTubeEmbedUrl(youtubeLink.href) : undefined,
+    title: "Trailer",
+    description: "",
+    embedUrl: toYouTubeEmbedUrl(youtubeLink.href),
   };
 }
 
 function enrichProject(project: Project): Project {
   return {
     ...project,
-    detailSections:
-      project.detailSections ??
-      (project.category === "games"
-        ? gamePlaceholderSections(project)
-        : softwarePlaceholderSections(project)),
+    detailSections: project.detailSections ?? [],
     detailVideo: project.detailVideo ?? buildDefaultVideo(project),
   };
 }
@@ -248,7 +160,7 @@ const baseProjects: Project[] = [
         title: "Multiplayer Lobby & Interaction",
         body: [
           "Ein Schwerpunkt war das Multiplayer-Fundament: Join über Sessions und Lobbies, korrektes Spawning, Sichtbarkeit und direkte Interaktion zwischen allen Spieler:innen.",
-          "Dafuer habe ich mit Unreals server-authoritative Client-Server-Modell, Actor Replication, Ownership sowie Server- und NetMulticast-RPCs gearbeitet.",
+          "Dafür habe ich mit Unreals server-authoritative Client-Server-Modell, Actor Replication, Ownership sowie Server- und NetMulticast-RPCs gearbeitet.",
         ],
         media: createProjectMedia(
           "/Multiplayer.gif",
@@ -257,9 +169,9 @@ const baseProjects: Project[] = [
         mediaSide: "right",
       },
       {
-        title: "Abilites und Replication",
+        title: "Abilities und Replication",
         body: [
-          "Die Abilities mussten nicht nur lokal gut funktionieren, sondern im Multiplayer fuer alle Clients sauber synchronisiert sein.",
+          "Die Abilities mussten nicht nur lokal gut funktionieren, sondern im Multiplayer für alle Clients sauber synchronisiert sein.",
           "Zum Einsatz kamen Actor Replication, RepNotify und RPCs, damit Aktivierungen, Zustandswechsel, Effekte, Animationen und Cooldowns konsistent bleiben.",
         ],
         media: createProjectMedia(
@@ -271,7 +183,7 @@ const baseProjects: Project[] = [
       {
         title: "Sauberer Code",
         body: [
-          "Sauber strukturierter Code in C++ und Blueprints war wichtig, um Features schnell zu erweitern, Bugs gezielt zu finden und Abhaengigkeiten klar zu halten.",
+          "Sauber strukturierter Code in C++ und Blueprints war wichtig, um Features schnell zu erweitern, Bugs gezielt zu finden und Abhängigkeiten klar zu halten.",
           "Gerade bei Multiplayer-Logik spart eine klare Trennung von Zustandswechseln und Verantwortlichkeiten viel Zeit in Iteration und Debugging.",
         ],
         media: {
@@ -287,12 +199,12 @@ const baseProjects: Project[] = [
       {
         title: "FMOD Integration",
         body: [
-          "Zusaetzlich habe ich FMOD integriert, um Musik, Ambience und Soundeffekte direkt aus Spielcode und Blueprints anzusteuern.",
-          "So liessen sich Events, Parameter und Uebergaenge sauber strukturieren und gezielt an Verfolgung, Spannung oder Erfolge koppeln.",
+          "Zusätzlich habe ich FMOD integriert, um Musik, Ambience und Soundeffekte direkt aus Spielcode und Blueprints anzusteuern.",
+          "So ließen sich Events, Parameter und Übergänge sauber strukturieren und gezielt an Verfolgung, Spannung oder Erfolge koppeln.",
         ],
         media: createProjectMedia(
           "/Fmod Logo.png",
-          "Vacation Invasion FMOD Integration Platzhalter",
+          "Vacation Invasion FMOD Integration",
         ),
         mediaSide: "left",
       },
@@ -310,21 +222,21 @@ const baseProjects: Project[] = [
     period: "Uni-Projekt",
     heroImage: publicGameImage("Grow Gently"),
     logoImage: "/Grow%20Genrly%20Logo.png",
-    short: "Cozy 3D-Gardening-Produktivitaetstool, das Fokuszeit mit emotionalem Fortschritt verbindet.",
+    short: "Cozy 3D-Gardening-Produktivitätstool, das Fokuszeit mit emotionalem Fortschritt verbindet.",
     description: [
       "Grow Gently verbindet einen Fokustimer mit einem cozy Gardening-Loop und emotionalem Fortschritt.",
-      "Spieler:innen pflanzen, ziehen Begleiter gross und sehen nach jeder Fokus-Session, wie ihr Garten weiterwaechst.",
+      "Spieler:innen pflanzen, ziehen Begleiter groß und sehen nach jeder Fokus-Session, wie ihr Garten weiterwächst.",
       "Technisch lag mein Fokus auf Unreal-Gameplay-Systemen wie AI Controller, Anpflanz-Workflow sowie einem Shop- und Economy-System.",
     ],
-    tags: ["Unreal", "C++", "Blueprints", "Lead Developer", "Productivity", "AI"],
+    tags: ["Unreal", "C++", "Blueprints", "Lead Developer", "Produktivität", "AI"],
     techIcons: ["unreal", "github", "cplusplus", "blender"],
     links: [{ label: "Trailer", href: "https://www.youtube.com/watch?v=ZXsQZYzn8Zs" }],
     detailSections: [
       {
         title: "Animal AI & Reactive Follow Behavior",
         body: [
-          "Die Tiere nutzen eigene AI Controller und ein Navigation Mesh, um glaubwuerdiges Wander- und Idle-Verhalten im Garten zu erzeugen.",
-          "Beim Fuettern wechseln sie in einen Follow State und folgen einem dynamischen Ziel. So entsteht ein klarer Gameplay-Loop aus AI State Changes und Target Tracking.",
+          "Die Tiere nutzen eigene AI Controller und ein Navigation Mesh, um glaubwürdiges Wander- und Idle-Verhalten im Garten zu erzeugen.",
+          "Beim Füttern wechseln sie in einen Follow State und folgen einem dynamischen Ziel. So entsteht ein klarer Gameplay-Loop aus AI State Changes und Target Tracking.",
         ],
         media: createProjectMedia(
           "/AnimalAI.gif",
@@ -347,8 +259,8 @@ const baseProjects: Project[] = [
       {
         title: "Shop, Money & Purchase Flow",
         body: [
-          "Ergaenzend entstand ein Shop- und Money-System, das Fortschritt mit einer einfachen Ingame-Oekonomie verbindet.",
-          "Kaeufe werden gegen das Budget geprueft und schaffen einen klaren Economy-Loop aus Ressourcenverwaltung, Kauflogik und Progression.",
+          "Ergänzend entstand ein Shop- und Money-System, das Fortschritt mit einer einfachen Ingame-Ökonomie verbindet.",
+          "Käufe werden gegen das Budget geprüft und schaffen einen klaren Economy-Loop aus Ressourcenverwaltung, Kauflogik und Progression.",
         ],
         media: createProjectMedia(
           publicGameImage("Grow Gently"),
@@ -365,19 +277,19 @@ const baseProjects: Project[] = [
     period: "Uni-Projekt",
     heroImage: "/CD-Banner.png",
     logoImage: "/CD_Logo.png",
-    short: "Game-Physics-Prototyp im Stil von Cut the Rope mit spielbarer Unity-WebGL-Version im Browser.",
+    short: "Spielphysik-Prototyp im Stil von Cut the Rope mit spielbarer Unity-WebGL-Version im Browser.",
     description: [
       "CD Go Home ist ein kompakter Cut-the-Rope-inspirierter Physics-Prototyp mit Fokus auf Seil-Physik, Interaktionen und einen klaren Puzzle-Loop.",
-      "Die Unity-Physik wurde dabei nicht nur als Effekt genutzt, sondern als Grundlage fuer Level-Design und emergentes Verhalten.",
+      "Die Unity-Physik wurde dabei nicht nur als Effekt genutzt, sondern als Grundlage für Level-Design und emergentes Verhalten.",
     ],
-    tags: ["Unity", "C#", "Game Physics", "Playable", "Lead Developer"],
+    tags: ["Unity", "C#", "Spielphysik", "Spielbar", "Lead Developer"],
     techIcons: ["unity", "csharp", "visualstudio", "git"],
-    links: [{ label: "Play on itch.io", href: "https://luckyhanni.itch.io/cd-go-home" }],
+    links: [{ label: "Auf itch.io spielen", href: "https://luckyhanni.itch.io/cd-go-home" }],
     detailSections: [
       {
         title: "Segmented Rope System & Cut Interaction",
         body: [
-          "Das Kernsystem ist ein Seil aus verbundenen Joint-Segmenten, das Spannung, Schwingung und dynamisches Verhalten fuer den Cut-the-Rope-Ansatz erzeugt.",
+          "Das Kernsystem ist ein Seil aus verbundenen Joint-Segmenten, das Spannung, Schwingung und dynamisches Verhalten für den Cut-the-Rope-Ansatz erzeugt.",
           "Per Maus-Input lassen sich Segmente gezielt trennen. So entsteht ein direkter Eingriff in ein physikbasiertes Constraint-System statt nur ein visueller Toggle.",
         ],
         media: createProjectMedia(
@@ -389,8 +301,8 @@ const baseProjects: Project[] = [
       {
         title: "Physics-Driven Gameplay in Unity",
         body: [
-          "Die Unity Physics Engine bildet das spieltragende Fundament: Rigidbodies, Collider, Gravitation und kollisionsbasierte Reaktionen wurden direkt ins Puzzle-Design uebersetzt.",
-          "Dadurch entstehen Fallverhalten, Impulsuebertragung und Pendelbewegung aus denselben Regeln wie die Loesung selbst. Die Physik ist hier Gameplay-Logik, nicht nur Effekt.",
+          "Die Unity Physics Engine bildet das spieltragende Fundament: Rigidbodies, Collider, Gravitation und kollisionsbasierte Reaktionen wurden direkt ins Puzzle-Design übersetzt.",
+          "Dadurch entstehen Fallverhalten, Impulsübertragung und Pendelbewegung aus denselben Regeln wie die Lösung selbst. Die Physik ist hier Gameplay-Logik, nicht nur Effekt.",
         ],
         media: createProjectMedia(
           "/CD-Physik.gif",
@@ -401,8 +313,8 @@ const baseProjects: Project[] = [
       {
         title: "Mechanic Complexity & Combinatorial Level Design",
         body: [
-          "Die eigentliche Komplexitaet entsteht durch die Kombination von Seilen, Balloons, Ventilatoren und Rope-Spawnern.",
-          "Diese systemischen Wechselwirkungen vergroessern den Design-Space und machen aus wenigen Bausteinen ein flexibel erweiterbares Puzzle-Framework.",
+          "Die eigentliche Komplexität entsteht durch die Kombination von Seilen, Balloons, Ventilatoren und Rope-Spawnern.",
+          "Diese systemischen Wechselwirkungen vergrößern den Design-Space und machen aus wenigen Bausteinen ein flexibel erweiterbares Puzzle-Framework.",
         ],
         media: {
           src: "/CD-Complexity.gif",
@@ -416,9 +328,9 @@ const baseProjects: Project[] = [
       },
     ],
     detailVideo: {
-      title: "Play CD Go Home",
+      title: "CD Go Home spielen",
       description:
-        "Die Unity-WebGL-Version wird direkt aus dem Portfolio geladen, damit das Spiel ohne itch.io und ohne zusaetzliche Weiterleitung direkt im Browser spielbar ist.",
+        "Die Unity-WebGL-Version wird direkt aus dem Portfolio geladen, damit das Spiel ohne itch.io und ohne zusätzliche Weiterleitung direkt im Browser spielbar ist.",
       embedUrl: "/games/cd-go-home/index.html",
       embedAspectRatio: "960 / 600",
       placement: "top",
@@ -431,20 +343,20 @@ const baseProjects: Project[] = [
     period: "Uni-Projekt",
     heroImage: publicGameImage("Island Journey"),
     logoImage: "/Island%20Journey%20Logo.png",
-    short: "Atmosphaerisches 3D-Puzzle-Abenteuer mit Rotation, Raetseln und vierseitiger Weltstruktur.",
+    short: "Atmosphärisches 3D-Puzzle-Abenteuer mit Rotation, Rätseln und vierseitiger Weltstruktur.",
     description: [
-      "Island Journey ist ein atmosphaerisches 3D-Puzzle-Abenteuer, in dem Rotation und Perspektive den Fortschritt bestimmen.",
-      "Spieler:innen bewegen sich durch eine vierseitige Welt mit rotierbaren Plattformen, Hebeln und raeumlichen Raetseln.",
+      "Island Journey ist ein atmosphärisches 3D-Puzzle-Abenteuer, in dem Rotation und Perspektive den Fortschritt bestimmen.",
+      "Spieler:innen bewegen sich durch eine vierseitige Welt mit rotierbaren Plattformen, Hebeln und räumlichen Rätseln.",
       "Als Solo- und Lead-Programmer lag mein Fokus auf Character Control, Kamera-Logik, Shadern sowie UI- und Gameplay-Systemen.",
     ],
-    tags: ["Unreal", "Lead Developer", "Gameplay", "Puzzle", "Atmospheric"],
+    tags: ["Unreal", "Lead Developer", "Gameplay", "Puzzle", "Atmosphärisch"],
     techIcons: ["unity", "csharp", "visualstudio", "git"],
     links: [{ label: "Trailer", href: "https://www.youtube.com/watch?v=w4ZLKdRwZGw" }],
     detailSections: [
       {
         title: "Character Animation, Movement & Player Input",
         body: [
-          "Ein Kernpunkt war die Verbindung von Player Input, Character Movement und Animation, damit Steuerung und Feedback praezise zusammenarbeiten.",
+          "Ein Kernpunkt war die Verbindung von Player Input, Character Movement und Animation, damit Steuerung und Feedback präzise zusammenarbeiten.",
           "Auch Schalter-Interaktionen mussten sauber mit Character-Orientierung und Animation State Transitions verzahnt werden, um ein klares Character-Feeling zu erzeugen.",
         ],
         media: createProjectMedia(
@@ -456,8 +368,8 @@ const baseProjects: Project[] = [
       {
         title: "Stylized Low-Poly Water Shader",
         body: [
-          "Fuer die Umgebung entstand ein stylized Water Shader, der sich sauber in den Low-Poly-Look einfuegt.",
-          "Animierte Shader-Parameter geben dem Wasser Bewegung und Tiefe, ohne die ruhige Atmosphaere oder den Artstyle zu ueberladen.",
+          "Für die Umgebung entstand ein stylized Water Shader, der sich sauber in den Low-Poly-Look einfügt.",
+          "Animierte Shader-Parameter geben dem Wasser Bewegung und Tiefe, ohne die ruhige Atmosphäre oder den Artstyle zu überladen.",
         ],
         media: createProjectMedia(
           "/IslandJouneyWaterShader.gif",
@@ -468,8 +380,8 @@ const baseProjects: Project[] = [
       {
         title: "Camera Rotation & Corner Transition",
         body: [
-          "Eine zentrale Aufgabe war die Kamera-Logik beim Uebergang ueber die Ecken der Welt, damit Orientierung, Perspektive und Kontrolle erhalten bleiben.",
-          "Dafuer habe ich eine weiche Rotationslogik mit smooth interpolated transition umgesetzt, statt die Kamera abrupt in die neue Ausrichtung zu setzen.",
+          "Eine zentrale Aufgabe war die Kamera-Logik beim Übergang über die Ecken der Welt, damit Orientierung, Perspektive und Kontrolle erhalten bleiben.",
+          "Dafür habe ich eine weiche Rotationslogik mit smooth interpolated transition umgesetzt, statt die Kamera abrupt in die neue Ausrichtung zu setzen.",
         ],
         media: createProjectMedia(
           "/IslandJouneyKameraMovement.gif",
@@ -494,13 +406,13 @@ const baseProjects: Project[] = [
   {
     slug: "honorar-rechner",
     category: "software",
-    title: "Honorar Rechner",
+    title: "Honorarrechner",
     period: "Steuerkanzlei",
     heroImage: "/Honorarrechner banner.png",
     logoImage: "/Honorar%20Rechner%20Logo.png",
     short: "Tool zur schnellen Honorarkalkulation für Unternehmen und Privatmandanten.",
     description: [
-      "Der Honorar Rechner berechnet mit nur vier Eingabewerten sehr schnell ein passendes Honorar.",
+      "Der Honorarrechner berechnet mit nur vier Eingabewerten sehr schnell ein passendes Honorar.",
       "Ein Vorgang, der früher oft 15 Minuten gedauert hat, ist damit in etwa 2 Minuten erledigt.",
       "Änderungen an Sätzen und Beträgen können zentral über Excel gepflegt werden.",
     ],
@@ -520,7 +432,7 @@ const baseProjects: Project[] = [
         ],
         media: createProjectMedia(
           "/Honorar Rechner Home.png",
-          "Honorar Rechner Startseite",
+          "Honorarrechner Startseite",
         ),
         mediaSide: "right",
       },
@@ -532,7 +444,7 @@ const baseProjects: Project[] = [
         ],
         media: createProjectMedia(
           "/Honorarrechner Daten.png",
-          "Honorar Rechner Eingabedaten",
+          "Honorarrechner Eingabedaten",
         ),
         mediaSide: "left",
       },
@@ -544,7 +456,7 @@ const baseProjects: Project[] = [
         ],
         media: createProjectMedia(
           "/Honorarrechner leistungen.png",
-          "Honorar Rechner Leistungen",
+          "Honorarrechner Leistungen",
         ),
         mediaSide: "right",
       },
@@ -572,7 +484,7 @@ const baseProjects: Project[] = [
     ],
     detailSections: [
       {
-        title: "Home & Workflow-Einstieg",
+        title: "Startseite & Workflow-Einstieg",
         body: [
           "Die Startseite bündelt die wichtigsten Bereiche und dient als klarer Einstieg in den Workflow.",
           "So wird Datenerfassung und Auswertung direkt aus einer zentralen Oberfläche erreichbar.",
@@ -642,7 +554,7 @@ const baseProjects: Project[] = [
     ],
     detailSections: [
       {
-        title: "Home & Dashboard",
+        title: "Startseite & Dashboard",
         body: [
           "Die Startseite bündelt die wichtigsten Bereiche in einem klaren Dashboard.",
           "So kommt man ohne Umwege in Annahme, Abholung, Bestellübersicht oder Einstellungen.",
@@ -690,7 +602,7 @@ const baseProjects: Project[] = [
         mediaSide: "left",
       },
       {
-        title: "Settings & Lagerlogik",
+        title: "Einstellungen & Lagerlogik",
         body: [
           "In den Einstellungen können Lagerstruktur und wichtige Daten zentral gepflegt werden.",
           "Dadurch bleibt der Workflow anpassbar, ohne die eigentliche Anwendung umbauen zu müssen.",
@@ -722,16 +634,16 @@ const baseProjects: Project[] = [
     period: "Metzgerei",
     heroImage: "/Timely Banner.png",
     logoImage: "/Timely%20Logo.png",
-    short: "Digitale Zeiterfassung fuer den modernen Einzelhandel mit Login, Check-in, Pausen und Admin-Export.",
+    short: "Digitale Zeiterfassung für den modernen Einzelhandel mit Login, Check-in, Pausen und Admin-Export.",
     description: [
-      "Timely ist eine Webanwendung fuer eine Metzgerei, mit der Mitarbeitende ihre Arbeitszeit digital erfassen koennen, statt sich auf handschriftliche oder uneinheitliche Prozesse zu verlassen.",
-      "Nach dem Login ueber Namensauswahl und vierstellige PIN koennen sie sich einchecken, auschecken und auch Pausen sauber dokumentieren. Eigene Eintraege und die bisherige Historie bleiben dabei direkt einsehbar.",
-      "Admins koennen Mitarbeitende und PINs verwalten, alle Zeiten zentral pruefen und die Daten anschliessend fuer Auswertung oder Abrechnung exportieren.",
+      "Timely ist eine Webanwendung für eine Metzgerei, mit der Mitarbeitende ihre Arbeitszeit digital erfassen können, statt sich auf handschriftliche oder uneinheitliche Prozesse zu verlassen.",
+      "Nach dem Login über Namensauswahl und vierstellige PIN können sie sich einchecken, auschecken und auch Pausen sauber dokumentieren. Eigene Einträge und die bisherige Historie bleiben dabei direkt einsehbar.",
+      "Admins können Mitarbeitende und PINs verwalten, alle Zeiten zentral prüfen und die Daten anschließend für Auswertung oder Abrechnung exportieren.",
     ],
     tags: ["WebApp", "C#", ".NET", "Datenbanken", "Zeiterfassung"],
     techIcons: ["csharp", "dotnet", "database", "excel", "render", "github"],
     highlights: [
-      "Login ueber Namensauswahl und vierstellige PIN",
+      "Login über Namensauswahl und vierstellige PIN",
       "Einchecken, Auschecken und Pausen direkt im Dashboard",
       "Admin-Export sowie Verwaltung von Mitarbeitenden und PINs",
     ],
@@ -739,8 +651,8 @@ const baseProjects: Project[] = [
       {
         title: "Login mit Namensauswahl und PIN",
         body: [
-          "Der Einstieg in Timely ist bewusst einfach gehalten: Mitarbeitende waehlen zuerst ihren Namen aus und geben danach eine vierstellige PIN ein. Dadurch bleibt der Login im Arbeitsalltag schnell, ohne auf eine klare Zuordnung der Zeiten zu verzichten.",
-          "Gerade fuer den Einsatz im Einzelhandel war wichtig, dass der Ablauf auch unter Zeitdruck direkt verstaendlich bleibt. So entsteht ein unkomplizierter Zugang, der weniger Huerden hat als klassische Account-Systeme und trotzdem sauber administrierbar ist.",
+          "Der Einstieg in Timely ist bewusst einfach gehalten: Mitarbeitende wählen zuerst ihren Namen aus und geben danach eine vierstellige PIN ein. Dadurch bleibt der Login im Arbeitsalltag schnell, ohne auf eine klare Zuordnung der Zeiten zu verzichten.",
+          "Gerade für den Einsatz im Einzelhandel war wichtig, dass der Ablauf auch unter Zeitdruck direkt verständlich bleibt. So entsteht ein unkomplizierter Zugang, der weniger Hürden hat als klassische Account-Systeme und trotzdem sauber administrierbar ist.",
         ],
         media: createPortraitProjectMedia(
           "/timely Login.png",
@@ -749,10 +661,10 @@ const baseProjects: Project[] = [
         mediaSide: "right",
       },
       {
-        title: "Dashboard fuer Check-in, Check-out und Pausen",
+        title: "Dashboard für Check-in, Check-out und Pausen",
         body: [
-          "Im Home-Dashboard koennen Mitarbeitende ihre Schicht mit wenigen Klicks starten und beenden. Auch Pausen lassen sich direkt erfassen, sodass der komplette Tagesablauf in derselben Oberflaeche dokumentiert wird.",
-          "Neben den Aktionen selbst ist auch die persoenliche Historie wichtig: Mitarbeitende sehen ihre bisherigen Eintraege und behalten dadurch sofort den Ueberblick ueber bereits gebuchte Zeiten. Das macht die Anwendung nicht nur funktional, sondern auch transparent im Alltag.",
+          "Im Dashboard können Mitarbeitende ihre Schicht mit wenigen Klicks starten und beenden. Auch Pausen lassen sich direkt erfassen, sodass der komplette Tagesablauf in derselben Oberfläche dokumentiert wird.",
+          "Neben den Aktionen selbst ist auch die persönliche Historie wichtig: Mitarbeitende sehen ihre bisherigen Einträge und behalten dadurch sofort den Überblick über bereits gebuchte Zeiten. Das macht die Anwendung nicht nur funktional, sondern auch transparent im Alltag.",
         ],
         media: createPortraitProjectMedia(
           "/Timely Dashboard Home.png",
@@ -761,10 +673,10 @@ const baseProjects: Project[] = [
         mediaSide: "left",
       },
       {
-        title: "Admin-Export und Mitarbeiterverwaltung",
+        title: "Admin-Export und Mitarbeitendenverwaltung",
         body: [
-          "Fuer Admins stellt Timely die erfassten Daten zentral bereit und ermoeglicht den Export fuer weitere Verarbeitung, Abrechnung oder interne Auswertung. Dadurch wird aus der einfachen Zeiterfassung ein kompletter digitaler Workflow bis hin zur Weitergabe der Daten.",
-          "Zusatzlich lassen sich Mitarbeitende, Rollen und PINs verwalten, sodass organisatorische Aenderungen nicht ausserhalb des Systems gepflegt werden muessen. Das reduziert manuellen Aufwand und haelt den Prozess auch bei mehreren Mitarbeitenden sauber wartbar.",
+          "Für Admins stellt Timely die erfassten Daten zentral bereit und ermöglicht den Export für weitere Verarbeitung, Abrechnung oder interne Auswertung. Dadurch wird aus der einfachen Zeiterfassung ein kompletter digitaler Workflow bis hin zur Weitergabe der Daten.",
+          "Zusätzlich lassen sich Mitarbeitende, Rollen und PINs verwalten, sodass organisatorische Änderungen nicht außerhalb des Systems gepflegt werden müssen. Das reduziert manuellen Aufwand und hält den Prozess auch bei mehreren Mitarbeitenden sauber wartbar.",
         ],
         media: createPortraitProjectMedia(
           "/Timely Export.png",

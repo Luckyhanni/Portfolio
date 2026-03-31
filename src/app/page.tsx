@@ -61,7 +61,7 @@ export default function Home() {
               <h1 style={styles.h1}>Johannes Blank</h1>
               <p style={styles.subline}>B.Sc. Game Design · Programmierung · KI</p>
               <p style={styles.heroText}>
-                Ich entwickle Desktop-Apps (C#/.NET), Webanwendungen und Game Prototypes (Unity/Unreal).
+                Ich entwickle Desktop-Apps (C#/.NET), Webanwendungen und Spielprototypen (Unity/Unreal).
                 Aktuell: Bachelorarbeit zu KI-gestützten NPC-Dialogen.
               </p>
             </div>
@@ -85,7 +85,7 @@ export default function Home() {
                 logos={softwareStatLogos}
               />
               <Stat
-                title="Game Prototypes"
+                title="Spielprototypen"
                 logos={gameStatLogos}
               />
             </div>
@@ -94,7 +94,7 @@ export default function Home() {
       </section>
 
       {/* PROJECTS */}
-      <Section id="projects" title="Projects" titleStyle={styles.projectsSectionTitle}>
+      <Section id="projects" title="Projekte" titleStyle={styles.projectsSectionTitle}>
         <div style={{ ...styles.container, display: "grid", gap: 28 }}>
           <CategoryBlock
             title="Software"
@@ -102,7 +102,7 @@ export default function Home() {
             projects={SOFTWARE_PROJECTS}
           />
           <CategoryBlock
-            title="Game Prototypes"
+            title="Spielprototypen"
             subtitle=""
             projects={GAME_PROJECTS}
           />
@@ -110,20 +110,32 @@ export default function Home() {
       </Section>
 
       {/* ABOUT */}
-      <Section id="about" title="About Me">
+      <Section id="about" title="Über mich">
         <div style={styles.container}>
           <div style={styles.card}>
-            <p style={styles.p}>
-              Ich baue lieber funktionierende Lösungen als nur Demos: interne Tools, sauberes UI, klare Datenlogik.
-              Neben Uni-Projekten entwickle ich privat Prototypen (z. B. Web-Buzzer + Unity) und mache gerne Projekte
-              mit 3D-Druck.
-            </p>
+            <div style={styles.aboutContent}>
+              <p style={styles.p}>
+                Ich bin 24 Jahre alt, lebe aktuell in München und habe im Studium meine Begeisterung fürs Programmieren
+                entdeckt. Mich reizt vor allem, aus Ideen funktionierende Software zu machen, egal ob Webanwendung,
+                Desktop-Tool oder Spielprototyp.
+                In letzter Zeit beschäftigt mich besonders das Thema KI, deshalb schreibe ich aktuell auch meine
+                Bachelorarbeit zu KI-gestützten NPC-Dialogen.
+              </p>
+
+              <a
+                href="/JohannesBlank_Lebenslauf.pdf"
+                download
+                style={styles.downloadBtn}
+              >
+                Lebenslauf herunterladen
+              </a>
+            </div>
           </div>
         </div>
       </Section>
 
       {/* SKILLS */}
-      <Section id="skills" title="Skills">
+      <Section id="skills" title="Technologien">
         <div style={styles.container}>
           <div style={styles.skillsGrid}>
             {skills.map((skill) => (
@@ -134,25 +146,15 @@ export default function Home() {
       </Section>
 
       {/* CONTACT */}
-      <Section id="contact" title="Contact">
+      <Section id="contact" title="Kontakt">
         <div style={styles.container}>
           <div style={styles.card}>
             <p style={styles.p}>
               Email:{" "}
-              <a style={styles.link} href="mailto:dein.name@email.de">
-                dein.name@email.de
+              <a style={styles.link} href="mailto:Johannes_blank2001@gmx.de">
+                Johannes_blank2001@gmx.de
               </a>
-              <br />
-              GitHub:{" "}
-              <a style={styles.link} href="https://github.com/deinname" target="_blank" rel="noreferrer">
-                github.com/deinname
-              </a>
-              <br />
-              LinkedIn:{" "}
-              <a style={styles.link} href="https://linkedin.com/in/deinname" target="_blank" rel="noreferrer">
-                linkedin.com/in/deinname
-              </a>
-            </p>
+                        </p>
           </div>
         </div>
       </Section>
@@ -175,7 +177,7 @@ function Header() {
 
         <nav style={{ display: "flex", gap: 18, fontSize: 14 }}>
           <a href="#projects" className="navLink" style={styles.navLink}>PORTFOLIO</a>
-          <a href="#about" className="navLink" style={styles.navLink}>ABOUT ME</a>
+          <a href="#about" className="navLink" style={styles.navLink}>ÜBER MICH</a>
         </nav>
       </div>
     </header>
@@ -288,11 +290,11 @@ function CategoryBlock({
             />
           ))}
         </div>
-      ) : (
+      ) : emptyText ? (
         <div style={styles.placeholderCard}>
-          <p style={styles.p}>{emptyText ?? "Noch keine Projekte vorhanden."}</p>
+          <p style={styles.p}>{emptyText}</p>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -341,7 +343,7 @@ function ProjectCard({
             </div>
 
             <div className="projectFooter" style={{ marginTop: 12 }}>
-              <span className="learnMore" style={styles.learnMore}>Learn more →</span>
+              <span className="learnMore" style={styles.learnMore}>Mehr erfahren →</span>
             </div>
           </div>
 
@@ -643,6 +645,11 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 18,
     background: stylesVars.cardBg,
   },
+  aboutContent: {
+    display: "grid",
+    gap: 16,
+    justifyItems: "start",
+  },
 
   placeholderCard: {
     border: `1px dashed ${stylesVars.cardBorder}`,
@@ -807,6 +814,19 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   link: { color: stylesVars.accent, textDecoration: "none", fontWeight: 800 },
+  downloadBtn: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "10px 16px",
+    borderRadius: 12,
+    textDecoration: "none",
+    background: stylesVars.accentStrong,
+    color: "#0f1722",
+    fontSize: 14,
+    fontWeight: 800,
+    boxShadow: "0 10px 24px rgba(20, 30, 44, 0.24)",
+  },
 
   ul: { margin: "10px 0 0", paddingLeft: 16, color: stylesVars.textMuted, lineHeight: 1.7, fontSize: 14 },
 
