@@ -202,7 +202,6 @@ function ProjectEmbedSection({ project }: { project: Project }) {
             title={`${project.title} Embed`}
             aspectRatio={project.detailVideo.embedAspectRatio}
             showFullscreenButton={showFullscreenButton}
-            openUrl={showFullscreenButton ? project.detailVideo.embedUrl : undefined}
           />
         ) : null}
 
