@@ -27,6 +27,7 @@ import {
   type ProjectDetailSection,
   type ProjectMedia,
 } from "../../../data/projects";
+import EmbedPlayer from "./embed-player";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -183,6 +184,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 }
 
 function ProjectEmbedSection({ project }: { project: Project }) {
+  const showFullscreenButton = project.slug === "cd-go-home";
+
   return (
     <section style={styles.videoSection}>
       <div style={styles.sectionHeadingRow}>
@@ -194,24 +197,13 @@ function ProjectEmbedSection({ project }: { project: Project }) {
 
       <div style={styles.videoCard}>
         {project.detailVideo?.embedUrl ? (
-          <div
-            style={{
-              ...styles.videoFrame,
-              ...(project.detailVideo.embedAspectRatio
-                ? { aspectRatio: project.detailVideo.embedAspectRatio }
-                : null),
-            }}
-          >
-            <iframe
-              src={project.detailVideo.embedUrl}
-              title={`${project.title} Embed`}
-              style={styles.videoEmbed}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
-          </div>
+          <EmbedPlayer
+            src={project.detailVideo.embedUrl}
+            title={`${project.title} Embed`}
+            aspectRatio={project.detailVideo.embedAspectRatio}
+            showFullscreenButton={showFullscreenButton}
+            openUrl={showFullscreenButton ? project.detailVideo.embedUrl : undefined}
+          />
         ) : null}
 
         {project.detailVideo?.description.trim() ? (
@@ -706,20 +698,6 @@ const styles: Record<string, React.CSSProperties> = {
     background: stylesVars.cardBg,
     display: "grid",
     gap: 14,
-  },
-  videoFrame: {
-    position: "relative",
-    width: "100%",
-    aspectRatio: "16 / 9",
-    borderRadius: 18,
-    overflow: "hidden",
-    border: `1px solid rgba(143, 168, 203, 0.18)`,
-    background: "#081018",
-  },
-  videoEmbed: {
-    border: 0,
-    width: "100%",
-    height: "100%",
   },
   videoDescription: {
     margin: 0,
