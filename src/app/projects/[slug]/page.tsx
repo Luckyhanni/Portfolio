@@ -121,7 +121,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <aside style={styles.sideCard}>
                 <div style={styles.sectionHeadingRow}>
                   <span style={styles.sectionIndex}>02</span>
-                  <h2 style={styles.h2}>Eingesetzte Technologien</h2>
+                  <h2 style={styles.h2}>Eingesetzte Skills</h2>
                 </div>
 
                 {project.techIcons?.length ? (
