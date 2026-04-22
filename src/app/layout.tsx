@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Johannes Blank | Portfolio",
   description: "Portfolio von Johannes Blank – Softwareentwicklung, KI, Unity/Unreal, C#/.NET und Web.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/profile-icon.png",
   },
 };
 
