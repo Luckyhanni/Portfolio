@@ -416,8 +416,9 @@ const baseProjects: Project[] = [
       "Ein Vorgang, der früher oft 15 Minuten gedauert hat, ist damit in etwa 2 Minuten erledigt.",
       "Änderungen an Sätzen und Beträgen können zentral über Excel gepflegt werden.",
     ],
-    tags: ["C#", "WDF", "Excel", "Datenbanken"],
+    tags: ["C#", "WPF", "Excel", "Datenbanken", "Demo"],
     techIcons: ["csharp", "dotnet", "excel", "database"],
+    links: [{ label: "Demo öffnen", href: "/projects/honorar-rechner/demo" }],
     highlights: [
       "Schnelle Kalkulation mit wenig Eingabedaten",
       "Unterstützung für Unternehmen und Privatmandate",

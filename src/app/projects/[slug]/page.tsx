@@ -135,17 +135,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   <div style={styles.linksBlock}>
                     <h3 style={styles.h3}>Links</h3>
                     <div style={styles.linkRow}>
-                      {project.links.map((link) => (
-                        <a
-                          key={link.href}
-                          href={link.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          style={styles.primaryBtn}
-                        >
-                          {link.label}
-                        </a>
-                      ))}
+                      {project.links.map((link) =>
+                        link.href.startsWith("/") ? (
+                          <Link key={link.href} href={link.href} style={styles.primaryBtn}>
+                            {link.label}
+                          </Link>
+                        ) : (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={styles.primaryBtn}
+                          >
+                            {link.label}
+                          </a>
+                        ),
+                      )}
                     </div>
                   </div>
                 ) : null}
