@@ -688,6 +688,26 @@ const baseProjects: Project[] = [
   },
 ];
 
+export const BACHELOR_PROJECT: Project = enrichProject({
+  slug: "bachelorarbeit",
+  category: "software",
+  title: "Bachelorarbeit",
+  period: "Unity-Prototyp",
+  heroImage: "/profile.jpg",
+  short: "KI-gestützte NPC-Dialoge in einem kleinen Krimi-Szenario mit kontrollierter Prompt-Architektur.",
+  description: [
+    "Die Bachelorarbeit untersucht, wie große Sprachmodelle für glaubwürdige NPC-Dialoge in Spielen eingesetzt werden können.",
+    "Dafür entstand ein Unity-Prototyp, in dem NPCs auf Basis von Rollenprofilen, Spielzustand, begrenztem Wissen, Memory und Prompt-Constraints antworten.",
+  ],
+  tags: ["Unity", "C#", "KI", "LLM", "Dialogsystem", "Game AI"],
+  techIcons: ["unity", "csharp", "visualstudio"],
+  highlights: [
+    "Kontrollierte NPC-Dialoge statt ungebremster KI-Kommunikation",
+    "Rollenprofile, Wissensgrenzen und GameState im Prompt-Kontext",
+    "Logging und Evaluation anhand festgelegter Qualitätskriterien",
+  ],
+});
+
 export const PROJECTS: Project[] = baseProjects.map(enrichProject);
 
 export function getProject(slug: string): Project | undefined {

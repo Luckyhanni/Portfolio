@@ -21,7 +21,7 @@ import {
   SiUnrealengine,
 } from "react-icons/si";
 import { TbBrandCSharp, TbBrandVscode } from "react-icons/tb";
-import { GAME_PROJECTS, Project, SOFTWARE_PROJECTS } from "../data/projects";
+import { BACHELOR_PROJECT, GAME_PROJECTS, Project, SOFTWARE_PROJECTS } from "../data/projects";
 
 export default function Home() {
   const skills = [
@@ -96,6 +96,12 @@ export default function Home() {
       {/* PROJECTS */}
       <Section id="projects" title="Projekte" titleStyle={styles.projectsSectionTitle}>
         <div style={{ ...styles.container, display: "grid", gap: 28 }}>
+          <CategoryBlock
+            title="Bachelorarbeit"
+            subtitle=""
+            projects={[BACHELOR_PROJECT]}
+            projectHref={(project) => `/${project.slug}`}
+          />
           <CategoryBlock
             title="Software"
             subtitle=""
@@ -300,11 +306,13 @@ function CategoryBlock({
   subtitle,
   projects,
   emptyText,
+  projectHref,
 }: {
   title: string;
   subtitle: string;
   projects: Project[];
   emptyText?: string;
+  projectHref?: (project: Project) => string;
 }) {
   return (
     <div style={{ display: "grid", gap: 12 }}>
@@ -320,6 +328,7 @@ function CategoryBlock({
               key={project.slug}
               project={project}
               priority={index === 0}
+              href={projectHref?.(project)}
             />
           ))}
         </div>
@@ -335,9 +344,11 @@ function CategoryBlock({
 function ProjectCard({
   project,
   priority = false,
+  href,
 }: {
   project: Project;
   priority?: boolean;
+  href?: string;
 }) {
   const projectUsesLogoPanel = !project.heroImage && Boolean(project.logoImage);
   const projectVisualSrc = project.heroImage ?? project.logoImage;
@@ -345,7 +356,7 @@ function ProjectCard({
 
   return (
     <Link
-      href={`/projects/${project.slug}`}
+      href={href ?? `/projects/${project.slug}`}
       style={{ textDecoration: "none" }}
       className="projectLink"
     >

@@ -44,7 +44,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const embedPlacement = project.detailVideo?.placement ?? "bottom";
   const hasLinks = Boolean(project.links?.length);
   const hasEmbed = Boolean(project.detailVideo?.embedUrl);
-  const hasVideoDescription = Boolean(project.detailVideo?.description.trim());
   const hasTechContent = Boolean(project.techIcons?.length || project.links?.length);
 
   return (
