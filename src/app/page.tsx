@@ -352,7 +352,7 @@ function ProjectCard({
 }) {
   const projectUsesLogoPanel = !project.heroImage && Boolean(project.logoImage);
   const projectVisualSrc = project.heroImage ?? project.logoImage;
-  const projectVisualFit = project.heroImage ? "cover" : "contain";
+  const projectVisualFit = project.heroImageFit ?? (project.heroImage ? "cover" : "contain");
 
   return (
     <Link
@@ -422,7 +422,7 @@ function ProjectCard({
                   style={{
                     ...styles.projectImage,
                     objectFit: projectVisualFit,
-                    padding: project.heroImage ? 0 : 12,
+                    padding: projectVisualFit === "contain" ? 10 : 0,
                   }}
                 />
               </div>
@@ -781,6 +781,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   projectImageWrap: {
     width: "100%",
+    aspectRatio: "16 / 9",
     overflow: "hidden",
     borderRadius: 16,
     border: `1px solid rgba(143, 168, 203, 0.18)`,
@@ -788,6 +789,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   projectImageWrapCompact: {
     width: "100%",
+    aspectRatio: "16 / 9",
     overflow: "hidden",
     borderRadius: 16,
     border: `1px solid rgba(143, 168, 203, 0.18)`,
@@ -796,7 +798,8 @@ const styles: Record<string, React.CSSProperties> = {
   projectImage: {
     display: "block",
     width: "100%",
-    height: "auto",
+    height: "100%",
+    boxSizing: "border-box",
     objectFit: "cover",
   },
   projectTechRow: {

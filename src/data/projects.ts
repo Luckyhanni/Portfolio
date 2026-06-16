@@ -39,6 +39,7 @@ export type Project = {
   tags: string[];
   techIcons?: string[];
   heroImage?: string;
+  heroImageFit?: "cover" | "contain";
   logoImage?: string;
   links?: ProjectLink[];
   highlights?: string[];
@@ -694,7 +695,8 @@ export const BACHELOR_PROJECT: Project = enrichProject({
   category: "software",
   title: "Bachelorarbeit",
   period: "Unity-Prototyp",
-  heroImage: "/profile.jpg",
+  heroImage: "/bachelorarbeit-deckblatt.png",
+  heroImageFit: "contain",
   short: "KI-gestützte NPC-Dialoge in einem kleinen Krimi-Szenario mit kontrollierter Prompt-Architektur.",
   description: [
     "Die Bachelorarbeit untersucht, wie große Sprachmodelle für glaubwürdige NPC-Dialoge in Spielen eingesetzt werden können.",
