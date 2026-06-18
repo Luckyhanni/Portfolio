@@ -30,6 +30,15 @@ import {
   projectHasDemo,
 } from "../data/projects";
 
+type StatProjectTile = {
+  project: Project;
+  imageSrc?: string;
+  href: string;
+  actionLabel: string;
+  hasDemo: boolean;
+  isExternal: boolean;
+};
+
 export default function Home() {
   const skills = [
     { name: "C#", icon: TbBrandCSharp, color: "#9b4f96" },
@@ -45,16 +54,9 @@ export default function Home() {
     { name: "Blender", icon: SiBlender, color: "#ff8a00" },
     { name: "Power Automate", icon: FaMicrosoft, color: "#3d8bff" },
   ];
-  const gameStatLogos = GAME_PROJECTS.map((project) => ({
-    src: project.logoImage,
-    alt: `${project.title} Logo`,
-    href: `/projects/${project.slug}`,
-  })).filter((logo): logo is { src: string; alt: string; href: string } => Boolean(logo.src));
-  const softwareStatLogos = SOFTWARE_PROJECTS.map((project) => ({
-    src: project.logoImage,
-    alt: `${project.title} Logo`,
-    href: `/projects/${project.slug}`,
-  })).filter((logo): logo is { src: string; alt: string; href: string } => Boolean(logo.src));
+  const softwareStatProjects = SOFTWARE_PROJECTS.map(createStatProjectTile);
+  const gameStatProjects = GAME_PROJECTS.map(createStatProjectTile);
+  const hobbyStatProjects = HOBBY_PROJECTS.map(createStatProjectTile);
 
   return (
     <main style={styles.page}>
@@ -89,11 +91,15 @@ export default function Home() {
             <div style={styles.statsRow}>
               <Stat
                 title="Software"
-                logos={softwareStatLogos}
+                projects={softwareStatProjects}
               />
               <Stat
                 title="Spielprototypen"
-                logos={gameStatLogos}
+                projects={gameStatProjects}
+              />
+              <Stat
+                title="Hobby-Projekte"
+                projects={hobbyStatProjects}
               />
             </div>
           </div>
@@ -320,12 +326,12 @@ function Stat({
   title,
   value,
   icons,
-  logos,
+  projects,
 }: {
   title: string;
   value?: string;
   icons?: string[];
-  logos?: { src: string; alt: string; href: string }[];
+  projects?: StatProjectTile[];
 }) {
   return (
     <div style={styles.statCard}>
@@ -333,32 +339,19 @@ function Stat({
       {value ? (
         <div style={{ marginTop: 8, fontSize: 18, fontWeight: 700, color: stylesVars.text }}>{value}</div>
       ) : null}
-      {logos?.length ? (
+      {projects?.length ? (
         <div
+          className="statLogoRow"
           style={{
             ...styles.statLogoRow,
-            gridTemplateColumns: `repeat(${logos.length}, minmax(0, 1fr))`,
             marginTop: value ? 12 : 10,
           }}
         >
-          {logos.map((logo) => (
-            <Link
-              key={logo.src}
-              href={logo.href}
-              aria-label={logo.alt}
-              title={logo.alt}
-              className="statLogoLink"
-              style={styles.statLogoLink}
-            >
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={56}
-                height={56}
-                unoptimized
-                style={styles.statLogoImage}
-              />
-            </Link>
+          {projects.map((projectTile) => (
+            <ProjectIconTile
+              key={projectTile.project.slug}
+              projectTile={projectTile}
+            />
           ))}
         </div>
       ) : null}
@@ -370,6 +363,84 @@ function Stat({
         </div>
       ) : null}
     </div>
+  );
+}
+
+function createStatProjectTile(project: Project): StatProjectTile {
+  const demoUrl = project.demoUrl?.trim();
+  const href = demoUrl || `/projects/${project.slug}`;
+
+  return {
+    project,
+    imageSrc: project.logoImage ?? project.heroImage,
+    href,
+    actionLabel: demoUrl ? "Zur Demo" : "Projekt ansehen",
+    hasDemo: Boolean(demoUrl),
+    isExternal: isExternalHref(href),
+  };
+}
+
+function isExternalHref(href: string): boolean {
+  return /^https?:\/\//i.test(href);
+}
+
+function ProjectIconTile({
+  projectTile,
+}: {
+  projectTile: StatProjectTile;
+}) {
+  const content = (
+    <>
+      <span style={styles.statLogoVisual}>
+        {projectTile.imageSrc ? (
+          <Image
+            src={projectTile.imageSrc}
+            alt={`${projectTile.project.title} Logo`}
+            width={88}
+            height={88}
+            unoptimized
+            style={styles.statLogoImage}
+          />
+        ) : (
+          <span style={styles.statLogoFallbackText}>{projectTile.project.title}</span>
+        )}
+      </span>
+      <span
+        className="statLogoButton"
+        style={projectTile.hasDemo ? styles.statLogoDemoButton : styles.statLogoDetailButton}
+      >
+        {projectTile.actionLabel}
+      </span>
+    </>
+  );
+  const sharedProps = {
+    "aria-label": `${projectTile.project.title}: ${projectTile.actionLabel}`,
+    title: `${projectTile.project.title}: ${projectTile.actionLabel}`,
+    className: "statLogoLink",
+    "data-has-demo": projectTile.hasDemo ? "true" : "false",
+    style: {
+      ...styles.statLogoLink,
+      ...(projectTile.hasDemo ? styles.statLogoLinkDemo : null),
+    },
+  };
+
+  if (projectTile.isExternal) {
+    return (
+      <a
+        {...sharedProps}
+        href={projectTile.href}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link {...sharedProps} href={projectTile.href}>
+      {content}
+    </Link>
   );
 }
 
@@ -761,12 +832,13 @@ const styles: Record<string, React.CSSProperties> = {
   statsRow: {
     flex: "1 0 100%",
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 210px), 1fr))",
     gap: 14,
     alignItems: "start",
     marginTop: 4,
   },
   statCard: {
+    minWidth: 0,
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 16,
     padding: 16,
@@ -779,30 +851,100 @@ const styles: Record<string, React.CSSProperties> = {
     marginTop: 12,
   },
   statLogoRow: {
-    display: "grid",
-    gap: 12,
+    display: "flex",
+    gap: 10,
     marginTop: 12,
-    justifyItems: "center",
+    overflowX: "auto",
+    overflowY: "hidden",
+    paddingBottom: 2,
   },
   statLogoLink: {
-    width: "88%",
-    height: "auto",
-    aspectRatio: "1 / 1",
+    flex: "0 0 108px",
+    width: 108,
+    height: 134,
+    display: "grid",
+    gridTemplateRows: "minmax(0, 1fr) auto",
+    alignItems: "stretch",
+    gap: 7,
+    overflow: "hidden",
+    borderRadius: 14,
+    border: `1px solid rgba(143, 168, 203, 0.2)`,
+    background: "rgba(13, 20, 29, 0.86)",
+    textDecoration: "none",
+    padding: 7,
+    boxSizing: "border-box",
+    transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
+  },
+  statLogoLinkDemo: {
+    border: `1px solid rgba(86, 155, 255, 0.66)`,
+    boxShadow: "0 0 0 1px rgba(86, 155, 255, 0.12), 0 0 20px rgba(42, 126, 255, 0.12)",
+  },
+  statLogoVisual: {
+    minWidth: 0,
+    minHeight: 0,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    borderRadius: 14,
-    border: `1px solid rgba(143, 168, 203, 0.2)`,
-    background: "transparent",
-    textDecoration: "none",
-    transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
+    borderRadius: 10,
+    background: "linear-gradient(180deg, rgba(143, 168, 203, 0.08), rgba(7, 12, 18, 0.36))",
   },
   statLogoImage: {
     width: "100%",
     height: "100%",
     objectFit: "cover",
     objectPosition: "center",
+  },
+  statLogoFallbackText: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    padding: "8px 6px",
+    boxSizing: "border-box",
+    color: stylesVars.text,
+    fontSize: 12,
+    lineHeight: 1.15,
+    fontWeight: 900,
+    textAlign: "center",
+    overflowWrap: "anywhere",
+  },
+  statLogoDemoButton: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    minHeight: 28,
+    padding: "6px 7px",
+    boxSizing: "border-box",
+    borderRadius: 10,
+    border: "1px solid rgba(237, 244, 255, 0.28)",
+    background: stylesVars.accentStrong,
+    color: "#0f1722",
+    fontSize: 11,
+    fontWeight: 900,
+    lineHeight: 1.1,
+    textAlign: "center",
+    whiteSpace: "normal",
+  },
+  statLogoDetailButton: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    minHeight: 28,
+    padding: "6px 7px",
+    boxSizing: "border-box",
+    borderRadius: 10,
+    border: `1px solid rgba(143, 168, 203, 0.24)`,
+    background: "rgba(143, 168, 203, 0.1)",
+    color: stylesVars.text,
+    fontSize: 11,
+    fontWeight: 900,
+    lineHeight: 1.1,
+    textAlign: "center",
+    whiteSpace: "normal",
   },
 
   h2: { margin: 0, fontSize: 26, letterSpacing: -0.3 },
