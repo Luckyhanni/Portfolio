@@ -64,7 +64,7 @@ export default function Home() {
 
       {/* HERO */}
       <section id="top" style={{ padding: "28px 0 18px" }}>
-        <div style={styles.container}>
+        <div style={{ ...styles.container, ...styles.heroContainer }}>
           <div style={styles.heroCard}>
             <div style={styles.heroMain}>
               <h1 style={styles.h1}>Johannes Blank</h1>
@@ -88,7 +88,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div style={styles.statsRow}>
+            <div className="heroStatsRow" style={styles.statsRow}>
               <Stat
                 title="Software"
                 projects={softwareStatProjects}
@@ -246,7 +246,32 @@ export default function Home() {
           transform: translateY(-1px);
         }
 
+        .statLogoRow {
+          scrollbar-width: none;
+        }
+
+        .statLogoRow::-webkit-scrollbar {
+          display: none;
+        }
+
+        @media (max-width: 900px) {
+          .heroStatsRow {
+            grid-template-columns: 1fr !important;
+          }
+        }
+
         @media (max-width: 640px) {
+          .heroStatsRow {
+            grid-template-columns: 1fr !important;
+          }
+
+          .statLogoRow {
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding-bottom: 2px !important;
+          }
+
           .heroRight {
             margin-left: auto !important;
             margin-right: auto !important;
@@ -334,7 +359,7 @@ function Stat({
   projects?: StatProjectTile[];
 }) {
   return (
-    <div style={styles.statCard}>
+    <div className="statCard" style={styles.statCard}>
       <div style={{ fontSize: 12, color: stylesVars.textMuted }}>{title}</div>
       {value ? (
         <div style={{ marginTop: 8, fontSize: 18, fontWeight: 700, color: stylesVars.text }}>{value}</div>
@@ -764,6 +789,9 @@ const styles: Record<string, React.CSSProperties> = {
     minHeight: "100vh",
   },
   container: { maxWidth: 1160, padding: "0 24px", margin: "0 auto" },
+  heroContainer: {
+    maxWidth: 1320,
+  },
 
   header: {
     position: "sticky",
@@ -832,7 +860,7 @@ const styles: Record<string, React.CSSProperties> = {
   statsRow: {
     flex: "1 0 100%",
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 210px), 1fr))",
+    gridTemplateColumns: "minmax(0, 1.15fr) minmax(0, 1.35fr) minmax(220px, 0.8fr)",
     gap: 14,
     alignItems: "start",
     marginTop: 4,
@@ -852,26 +880,27 @@ const styles: Record<string, React.CSSProperties> = {
   },
   statLogoRow: {
     display: "flex",
-    gap: 10,
+    flexWrap: "wrap",
+    gap: 8,
     marginTop: 12,
-    overflowX: "auto",
-    overflowY: "hidden",
-    paddingBottom: 2,
+    overflowX: "visible",
+    overflowY: "visible",
+    paddingBottom: 0,
   },
   statLogoLink: {
-    flex: "0 0 108px",
-    width: 108,
-    height: 134,
+    flex: "0 0 86px",
+    width: 86,
+    height: 112,
     display: "grid",
     gridTemplateRows: "minmax(0, 1fr) auto",
     alignItems: "stretch",
-    gap: 7,
+    gap: 6,
     overflow: "hidden",
     borderRadius: 14,
     border: `1px solid rgba(143, 168, 203, 0.2)`,
     background: "rgba(13, 20, 29, 0.86)",
     textDecoration: "none",
-    padding: 7,
+    padding: 6,
     boxSizing: "border-box",
     transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
   },
@@ -915,14 +944,14 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    minHeight: 28,
-    padding: "6px 7px",
+    minHeight: 25,
+    padding: "5px 5px",
     boxSizing: "border-box",
     borderRadius: 10,
     border: "1px solid rgba(237, 244, 255, 0.28)",
     background: stylesVars.accentStrong,
     color: "#0f1722",
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: 900,
     lineHeight: 1.1,
     textAlign: "center",
@@ -933,14 +962,14 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    minHeight: 28,
-    padding: "6px 7px",
+    minHeight: 25,
+    padding: "5px 5px",
     boxSizing: "border-box",
     borderRadius: 10,
     border: `1px solid rgba(143, 168, 203, 0.24)`,
     background: "rgba(143, 168, 203, 0.1)",
     color: stylesVars.text,
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: 900,
     lineHeight: 1.1,
     textAlign: "center",
