@@ -15,8 +15,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Johannes Blank | Portfolio",
   description: "Portfolio von Johannes Blank – Softwareentwicklung, KI, Unity/Unreal, C#/.NET und Web.",
+  manifest: "/manifest.webmanifest",
   icons: {
-    icon: "/profile-icon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
