@@ -21,7 +21,14 @@ import {
   SiUnrealengine,
 } from "react-icons/si";
 import { TbBrandCSharp, TbBrandVscode } from "react-icons/tb";
-import { BACHELOR_PROJECT, GAME_PROJECTS, Project, SOFTWARE_PROJECTS } from "../data/projects";
+import {
+  BACHELOR_PROJECT,
+  GAME_PROJECTS,
+  HOBBY_PROJECTS,
+  Project,
+  SOFTWARE_PROJECTS,
+  projectHasDemo,
+} from "../data/projects";
 
 export default function Home() {
   const skills = [
@@ -95,23 +102,53 @@ export default function Home() {
 
       {/* PROJECTS */}
       <Section id="projects" title="Projekte" titleStyle={styles.projectsSectionTitle}>
-        <div style={{ ...styles.container, display: "grid", gap: 28 }}>
-          <CategoryBlock
-            title="Bachelorarbeit"
-            subtitle=""
-            projects={[BACHELOR_PROJECT]}
-            projectHref={(project) => `/${project.slug}`}
+        <div className="projectFilterRoot" style={styles.projectFilterRoot}>
+          <input
+            className="projectFilterInput projectFilterAll"
+            type="radio"
+            name="project-demo-filter"
+            id="projects-filter-all"
+            defaultChecked
           />
-          <CategoryBlock
-            title="Software"
-            subtitle=""
-            projects={SOFTWARE_PROJECTS}
+          <input
+            className="projectFilterInput projectFilterDemo"
+            type="radio"
+            name="project-demo-filter"
+            id="projects-filter-demo"
           />
-          <CategoryBlock
-            title="Spielprototypen"
-            subtitle=""
-            projects={GAME_PROJECTS}
-          />
+
+          <div style={styles.projectFilterBar} className="projectFilterBar" aria-label="Projektfilter">
+            <label className="projectFilterLabel" style={styles.projectFilterLabel} htmlFor="projects-filter-all">
+              Alle Projekte
+            </label>
+            <label className="projectFilterLabel" style={styles.projectFilterLabel} htmlFor="projects-filter-demo">
+              Mit Demo
+            </label>
+          </div>
+
+          <div className="projectGroups" style={{ ...styles.container, display: "grid", gap: 28 }}>
+            <CategoryBlock
+              title="Bachelorarbeit"
+              subtitle=""
+              projects={[BACHELOR_PROJECT]}
+              projectHref={(project) => `/${project.slug}`}
+            />
+            <CategoryBlock
+              title="Software"
+              subtitle=""
+              projects={SOFTWARE_PROJECTS}
+            />
+            <CategoryBlock
+              title="Hobby-Projekte"
+              subtitle=""
+              projects={HOBBY_PROJECTS}
+            />
+            <CategoryBlock
+              title="Spielprototypen"
+              subtitle=""
+              projects={GAME_PROJECTS}
+            />
+          </div>
         </div>
       </Section>
 
@@ -172,6 +209,37 @@ export default function Home() {
       </footer>
 
       <style>{`
+        .projectFilterInput {
+          position: absolute;
+          inline-size: 1px;
+          block-size: 1px;
+          overflow: hidden;
+          clip: rect(0 0 0 0);
+          clip-path: inset(50%);
+          white-space: nowrap;
+        }
+
+        .projectFilterDemo:checked ~ .projectGroups .projectCardWrapper[data-has-demo="false"] {
+          display: none;
+        }
+
+        .projectFilterRoot:has(.projectFilterDemo:checked) .categoryBlock[data-has-demo-section="false"] {
+          display: none !important;
+        }
+
+        .projectFilterAll:checked ~ .projectFilterBar label[for="projects-filter-all"],
+        .projectFilterDemo:checked ~ .projectFilterBar label[for="projects-filter-demo"] {
+          background: #8fa8cb !important;
+          border-color: rgba(237, 244, 255, 0.3) !important;
+          color: #0f1722 !important;
+          box-shadow: 0 10px 24px rgba(20, 30, 44, 0.24);
+        }
+
+        .projectActionLink:hover,
+        .projectFilterLabel:hover {
+          transform: translateY(-1px);
+        }
+
         @media (max-width: 640px) {
           .heroRight {
             margin-left: auto !important;
@@ -200,6 +268,10 @@ export default function Home() {
           .projectImageColumnCompact {
             margin-left: auto;
             margin-right: auto;
+          }
+
+          .projectActionLink {
+            flex: 1 1 150px;
           }
         }
       `}</style>
@@ -314,8 +386,14 @@ function CategoryBlock({
   emptyText?: string;
   projectHref?: (project: Project) => string;
 }) {
+  const hasDemoProject = projects.some(projectHasDemo);
+
   return (
-    <div style={{ display: "grid", gap: 12 }}>
+    <div
+      className="categoryBlock"
+      data-has-demo-section={hasDemoProject ? "true" : "false"}
+      style={{ display: "grid", gap: 12 }}
+    >
       <div>
         <h3 style={styles.categoryTitle}>{title}</h3>
         <p style={{ ...styles.p, marginTop: 6 }}>{subtitle}</p>
@@ -353,12 +431,15 @@ function ProjectCard({
   const projectUsesLogoPanel = !project.heroImage && Boolean(project.logoImage);
   const projectVisualSrc = project.heroImage ?? project.logoImage;
   const projectVisualFit = project.heroImageFit ?? (project.heroImage ? "cover" : "contain");
+  const detailHref = href ?? `/projects/${project.slug}`;
+  const hasDemo = projectHasDemo(project);
+  const demoHref = project.demoUrl ?? (hasDemo ? detailHref : undefined);
 
   return (
-    <Link
-      href={href ?? `/projects/${project.slug}`}
-      style={{ textDecoration: "none" }}
-      className="projectLink"
+    <div
+      className="projectCardWrapper"
+      data-has-demo={hasDemo ? "true" : "false"}
+      style={{ minWidth: 0 }}
     >
       <div className="projectRow" style={styles.projectRow}>
         <div className="projectContentRow" style={styles.projectContentRow}>
@@ -366,6 +447,10 @@ function ProjectCard({
             <div className="projectHeading" style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
               <h3 className="projectTitle" style={{ ...styles.h3, margin: 0, color: stylesVars.text }}>{project.title}</h3>
               {project.period ? <span className="projectPeriod" style={styles.period}>{project.period}</span> : null}
+              {project.status && project.status !== "Demo verfügbar" ? (
+                <span style={styles.statusPill}>{project.status}</span>
+              ) : null}
+              {hasDemo ? <span style={styles.demoBadge}>Demo verfügbar</span> : null}
             </div>
 
             <p className="projectSummary" style={{ ...styles.p, marginTop: 10 }}>{project.short}</p>
@@ -386,8 +471,20 @@ function ProjectCard({
               </div>
             </div>
 
-            <div className="projectFooter" style={{ marginTop: 12 }}>
-              <span className="learnMore" style={styles.learnMore}>Mehr erfahren →</span>
+            <div className="projectFooter" style={styles.projectActionRow}>
+              {demoHref ? (
+                <ProjectActionLink href={demoHref} style={styles.demoButton}>
+                  Demo ansehen
+                </ProjectActionLink>
+              ) : null}
+              {project.githubUrl ? (
+                <ProjectActionLink href={project.githubUrl} style={styles.secondaryButton}>
+                  GitHub
+                </ProjectActionLink>
+              ) : null}
+              <ProjectActionLink href={detailHref} style={styles.detailButton}>
+                Mehr erfahren
+              </ProjectActionLink>
             </div>
           </div>
 
@@ -430,7 +527,39 @@ function ProjectCard({
           ) : null}
         </div>
       </div>
-    </Link>
+    </div>
+  );
+}
+
+function ProjectActionLink({
+  href,
+  children,
+  style,
+}: {
+  href: string;
+  children: React.ReactNode;
+  style: React.CSSProperties;
+}) {
+  const actionStyle = { ...styles.projectActionLink, ...style };
+
+  if (href.startsWith("/")) {
+    return (
+      <Link className="projectActionLink" href={href} style={actionStyle}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <a
+      className="projectActionLink"
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      style={actionStyle}
+    >
+      {children}
+    </a>
   );
 }
 
@@ -684,6 +813,37 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 900,
     textAlign: "center",
   },
+  projectFilterRoot: {
+    position: "relative",
+    display: "grid",
+    gap: 18,
+  },
+  projectFilterBar: {
+    maxWidth: 1160,
+    padding: "0 24px",
+    margin: "0 auto",
+    display: "flex",
+    gap: 10,
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  projectFilterLabel: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 38,
+    padding: "9px 14px",
+    borderRadius: 999,
+    border: `1px solid rgba(143, 168, 203, 0.24)`,
+    background: "rgba(143, 168, 203, 0.06)",
+    color: stylesVars.text,
+    fontSize: 13,
+    fontWeight: 800,
+    cursor: "pointer",
+    transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
+    userSelect: "none",
+  },
   categoryTitle: { margin: 0, fontSize: 20, fontWeight: 800, letterSpacing: -0.2 },
   h3: { margin: 0, fontSize: 16, fontWeight: 800 },
   p: { margin: 0, color: stylesVars.textMuted, lineHeight: 1.7, fontSize: 14 },
@@ -754,7 +914,6 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 18,
     background: stylesVars.cardBg,
     boxShadow: "0 12px 30px rgba(0,0,0,0.22)",
-    cursor: "pointer",
   },
   projectContentRow: {
     display: "flex",
@@ -855,6 +1014,25 @@ const styles: Record<string, React.CSSProperties> = {
     background: "linear-gradient(180deg, rgba(143, 168, 203, 0.2), rgba(111, 135, 168, 0.12))",
     boxShadow: "0 8px 18px rgba(8, 14, 22, 0.22)",
   },
+  statusPill: {
+    fontSize: 12,
+    fontWeight: 800,
+    color: stylesVars.textMuted,
+    padding: "6px 10px",
+    borderRadius: 999,
+    border: `1px solid rgba(143, 168, 203, 0.2)`,
+    background: "rgba(143, 168, 203, 0.06)",
+  },
+  demoBadge: {
+    fontSize: 12,
+    fontWeight: 900,
+    color: "#0f1722",
+    padding: "6px 10px",
+    borderRadius: 999,
+    border: "1px solid rgba(237, 244, 255, 0.32)",
+    background: stylesVars.accentStrong,
+    boxShadow: "0 8px 18px rgba(8, 14, 22, 0.22)",
+  },
 
   tag: {
     fontSize: 12,
@@ -869,6 +1047,44 @@ const styles: Record<string, React.CSSProperties> = {
     color: "rgba(243, 237, 230, 0.80)",
     fontWeight: 800,
     fontSize: 14,
+  },
+  projectActionRow: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 10,
+    alignItems: "center",
+    marginTop: 14,
+  },
+  projectActionLink: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 40,
+    padding: "10px 14px",
+    borderRadius: 12,
+    textDecoration: "none",
+    fontSize: 14,
+    fontWeight: 900,
+    lineHeight: 1.1,
+    textAlign: "center",
+    transition: "transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
+    maxWidth: "100%",
+  },
+  demoButton: {
+    background: stylesVars.accentStrong,
+    color: "#0f1722",
+    border: "1px solid rgba(237, 244, 255, 0.3)",
+    boxShadow: "0 10px 24px rgba(20, 30, 44, 0.24)",
+  },
+  detailButton: {
+    background: "rgba(143, 168, 203, 0.08)",
+    color: stylesVars.text,
+    border: `1px solid rgba(143, 168, 203, 0.24)`,
+  },
+  secondaryButton: {
+    background: "rgba(143, 168, 203, 0.06)",
+    color: stylesVars.text,
+    border: `1px solid rgba(143, 168, 203, 0.22)`,
   },
 
   link: {

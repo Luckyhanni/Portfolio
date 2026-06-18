@@ -1,4 +1,4 @@
-export type ProjectCategory = "games" | "software";
+export type ProjectCategory = "games" | "software" | "hobby";
 
 export type ProjectLink = {
   label: string;
@@ -41,6 +41,10 @@ export type Project = {
   heroImage?: string;
   heroImageFit?: "cover" | "contain";
   logoImage?: string;
+  demoUrl?: string;
+  githubUrl?: string;
+  status?: string;
+  hasDemo?: boolean;
   links?: ProjectLink[];
   highlights?: string[];
   detailSections?: ProjectDetailSection[];
@@ -278,6 +282,9 @@ const baseProjects: Project[] = [
     period: "Uni-Projekt",
     heroImage: "/CD-Banner.png",
     logoImage: "/CD_Logo.png",
+    demoUrl: "/games/cd-go-home/index.html",
+    status: "Demo verfügbar",
+    hasDemo: true,
     short: "Spielphysik-Prototyp im Stil von Cut the Rope mit spielbarer Unity-WebGL-Version im Browser.",
     description: [
       "CD Go Home ist ein kompakter Cut-the-Rope-inspirierter Physics-Prototyp mit Fokus auf Seil-Physik, Interaktionen und einen klaren Puzzle-Loop.",
@@ -411,6 +418,9 @@ const baseProjects: Project[] = [
     period: "Steuerkanzlei",
     heroImage: "/Honorarrechner banner.png",
     logoImage: "/Honorar%20Rechner%20Logo.png",
+    demoUrl: "/projects/honorar-rechner/demo",
+    status: "Demo verfügbar",
+    hasDemo: true,
     short: "Tool zur schnellen Honorarkalkulation für Unternehmen und Privatmandanten.",
     description: [
       "Der Honorarrechner berechnet mit nur vier Eingabewerten sehr schnell ein passendes Honorar.",
@@ -636,13 +646,16 @@ const baseProjects: Project[] = [
     period: "Metzgerei",
     heroImage: "/Timely Banner.png",
     logoImage: "/Timely%20Logo.png",
+    demoUrl: "/demos/timely",
+    status: "Demo verfügbar",
+    hasDemo: true,
     short: "Digitale Zeiterfassung für den modernen Einzelhandel mit Login, Check-in, Pausen und Admin-Export.",
     description: [
       "Timely ist eine Webanwendung für eine Metzgerei, mit der Mitarbeitende ihre Arbeitszeit digital erfassen können, statt sich auf handschriftliche oder uneinheitliche Prozesse zu verlassen.",
       "Nach dem Login über Namensauswahl und vierstellige PIN können sie sich einchecken, auschecken und auch Pausen sauber dokumentieren. Eigene Einträge und die bisherige Historie bleiben dabei direkt einsehbar.",
       "Admins können Mitarbeitende und PINs verwalten, alle Zeiten zentral prüfen und die Daten anschließend für Auswertung oder Abrechnung exportieren.",
     ],
-    tags: ["WebApp", "C#", ".NET", "Datenbanken", "Zeiterfassung"],
+    tags: ["Web-App / Tool", "C#", ".NET", "Datenbanken", "Zeiterfassung", "Demo"],
     techIcons: ["csharp", "dotnet", "database", "excel", "render", "github"],
     highlights: [
       "Login über Namensauswahl und vierstellige PIN",
@@ -686,6 +699,40 @@ const baseProjects: Project[] = [
         ),
         mediaSide: "right",
       },
+    ],
+  },
+  {
+    slug: "esc-voting-system",
+    category: "hobby",
+    title: "ESC Voting System",
+    period: "Hobby-Projekt",
+    status: "Demo geplant",
+    short: "Voting-System für ESC-Abende mit Freunden und übersichtlicher Ergebnisanzeige.",
+    description: [
+      "Ein Voting-System für ESC-Abende mit Freunden, bei dem Teilnehmer Songs bewerten und Ergebnisse übersichtlich angezeigt werden können.",
+    ],
+    tags: ["Hobby-Projekt / Web-App", "Voting", "ESC"],
+    highlights: [
+      "Bewertung von Songs durch mehrere Teilnehmer",
+      "Übersichtliche Darstellung der Ergebnisse",
+      "Ausgelegt für gemeinsame ESC-Abende",
+    ],
+  },
+  {
+    slug: "mealpilot",
+    category: "hobby",
+    title: "MealPilot",
+    period: "Hobby-Projekt",
+    status: "Demo geplant",
+    short: "Wochenplaner für Mahlzeiten mit klarer Übersicht und Perspektive für Einkaufsplanung.",
+    description: [
+      "Ein Wochenplaner für Mahlzeiten, der Essensplanung, einfache Übersicht und spätere Einkaufsplanung unterstützen soll.",
+    ],
+    tags: ["Hobby-Projekt / Web-App", "Meal Planning", "Wochenplanung"],
+    highlights: [
+      "Planung von Mahlzeiten über die Woche",
+      "Einfache Übersicht für Alltag und Vorbereitung",
+      "Grundlage für eine spätere Einkaufsplanung",
     ],
   },
 ];
@@ -733,3 +780,9 @@ export const SOFTWARE_PROJECTS = PROJECTS.filter(
     SOFTWARE_PROJECT_ORDER.indexOf(a.slug as (typeof SOFTWARE_PROJECT_ORDER)[number]) -
     SOFTWARE_PROJECT_ORDER.indexOf(b.slug as (typeof SOFTWARE_PROJECT_ORDER)[number]),
 );
+
+export const HOBBY_PROJECTS = PROJECTS.filter((project) => project.category === "hobby");
+
+export function projectHasDemo(project: Project): boolean {
+  return Boolean(project.demoUrl || project.hasDemo);
+}

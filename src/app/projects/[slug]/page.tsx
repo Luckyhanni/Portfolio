@@ -23,6 +23,7 @@ import { TbBrandCSharp, TbBrandVscode } from "react-icons/tb";
 import {
   getProject,
   PROJECTS,
+  projectHasDemo,
   type Project,
   type ProjectDetailSection,
   type ProjectMedia,
@@ -42,9 +43,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   const embedPlacement = project.detailVideo?.placement ?? "bottom";
-  const hasLinks = Boolean(project.links?.length);
+  const hasDemo = projectHasDemo(project);
+  const projectLinks = [
+    ...(project.demoUrl ? [{ label: "Demo ansehen", href: project.demoUrl }] : []),
+    ...(project.githubUrl ? [{ label: "GitHub", href: project.githubUrl }] : []),
+    ...(project.links ?? []).filter(
+      (link) => link.href !== project.demoUrl && link.href !== project.githubUrl,
+    ),
+  ];
+  const hasLinks = projectLinks.length > 0;
   const hasEmbed = Boolean(project.detailVideo?.embedUrl);
-  const hasTechContent = Boolean(project.techIcons?.length || project.links?.length);
+  const hasTechContent = Boolean(project.techIcons?.length || hasLinks);
 
   return (
     <main style={styles.page}>
@@ -75,9 +84,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div style={styles.heroBody}>
               <div style={styles.eyebrowRow}>
                 <span style={styles.categoryPill}>
-                  {project.category === "games" ? "Spielprototyp" : "Softwareprojekt"}
+                  {getProjectCategoryLabel(project.category)}
                 </span>
                 {project.period ? <span style={styles.periodPill}>{project.period}</span> : null}
+                {project.status && project.status !== "Demo verfügbar" ? (
+                  <span style={styles.periodPill}>{project.status}</span>
+                ) : null}
+                {hasDemo ? <span style={styles.demoPill}>Demo verfügbar</span> : null}
               </div>
 
               <h1 style={styles.h1}>{project.title}</h1>
@@ -131,11 +144,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </div>
                 ) : null}
 
-                {project.links?.length ? (
+                {hasLinks ? (
                   <div style={styles.linksBlock}>
                     <h3 style={styles.h3}>Links</h3>
                     <div style={styles.linkRow}>
-                      {project.links.map((link) =>
+                      {projectLinks.map((link) =>
                         link.href.startsWith("/") ? (
                           <Link key={link.href} href={link.href} style={styles.primaryBtn}>
                             {link.label}
@@ -186,6 +199,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </footer>
     </main>
   );
+}
+
+function getProjectCategoryLabel(category: Project["category"]): string {
+  if (category === "games") {
+    return "Spielprototyp";
+  }
+
+  if (category === "hobby") {
+    return "Hobby-Projekt";
+  }
+
+  return "Softwareprojekt";
 }
 
 function ProjectEmbedSection({ project }: { project: Project }) {
@@ -464,6 +489,17 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 12,
     fontWeight: 700,
     color: stylesVars.textMuted,
+  },
+  demoPill: {
+    display: "inline-flex",
+    alignItems: "center",
+    borderRadius: 999,
+    padding: "6px 10px",
+    background: stylesVars.accentStrong,
+    border: "1px solid rgba(237, 244, 255, 0.32)",
+    fontSize: 12,
+    fontWeight: 900,
+    color: "#0f1722",
   },
   h1: {
     margin: 0,
