@@ -646,7 +646,7 @@ const baseProjects: Project[] = [
     period: "Metzgerei",
     heroImage: "/Timely Banner.png",
     logoImage: "/Timely%20Logo.png",
-    demoUrl: "/demos/timely",
+    demoUrl: "https://blank-timely.de/demo.html",
     status: "Demo verfügbar",
     hasDemo: true,
     short: "Digitale Zeiterfassung für den modernen Einzelhandel mit Login, Check-in, Pausen und Admin-Export.",
