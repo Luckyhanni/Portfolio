@@ -1,38 +1,129 @@
-<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1600" height="900" rx="42" fill="#0B1017"/>
-  <rect x="76" y="70" width="1448" height="760" rx="36" fill="#101720" stroke="#29425F" stroke-width="3"/>
-  <text x="126" y="150" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="900" fill="#58D6FF">Party-Workflow</text>
-  <text x="126" y="212" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="900" fill="#EDF4FF">Einfach starten, abstimmen, Ergebnisse zeigen.</text>
-  <rect x="126" y="292" width="390" height="408" rx="28" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
-  <text x="172" y="362" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#EDF4FF">1. Teilnehmer</text>
-  <g font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900">
-    <rect x="172" y="402" width="266" height="54" rx="16" fill="#182638"/><text x="202" y="436" fill="#EDF4FF">Demo-Gast</text>
-    <rect x="172" y="474" width="266" height="54" rx="16" fill="#182638"/><text x="202" y="508" fill="#EDF4FF">Sophie</text>
-    <rect x="172" y="546" width="266" height="54" rx="16" fill="#182638"/><text x="202" y="580" fill="#EDF4FF">Alex</text>
-    <rect x="172" y="618" width="180" height="54" rx="16" fill="#8FA8CB"/><text x="262" y="652" text-anchor="middle" fill="#0F1722">Hinzufügen</text>
-  </g>
-  <rect x="606" y="292" width="390" height="408" rx="28" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
-  <text x="652" y="362" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#EDF4FF">2. Voting</text>
-  <rect x="652" y="410" width="292" height="28" rx="14" fill="#223144"/>
-  <rect x="652" y="410" width="236" height="28" rx="14" fill="url(#workflow)"/>
-  <text x="652" y="486" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900" fill="#BFD1EA">24 / 24 Bewertungen</text>
-  <g font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900">
-    <rect x="652" y="532" width="118" height="58" rx="16" fill="#182638"/><text x="711" y="568" text-anchor="middle" fill="#EDF4FF">Acts</text>
-    <rect x="788" y="532" width="118" height="58" rx="16" fill="#182638"/><text x="847" y="568" text-anchor="middle" fill="#EDF4FF">Votes</text>
-    <rect x="652" y="614" width="254" height="58" rx="16" fill="#8FA8CB"/><text x="779" y="650" text-anchor="middle" fill="#0F1722">Voting abschließen</text>
-  </g>
-  <rect x="1086" y="292" width="390" height="408" rx="28" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
-  <text x="1132" y="362" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#EDF4FF">3. Anzeige</text>
-  <g font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900">
-    <rect x="1132" y="408" width="294" height="62" rx="16" fill="#182638"/><text x="1164" y="447" fill="#EDF4FF">Ranking öffnen</text>
-    <rect x="1132" y="492" width="294" height="62" rx="16" fill="#182638"/><text x="1164" y="531" fill="#EDF4FF">Stimmzettel prüfen</text>
-    <rect x="1132" y="576" width="294" height="62" rx="16" fill="#FFD166"/><text x="1279" y="615" text-anchor="middle" fill="#151515">Show starten</text>
-  </g>
-  <path d="M532 496H580" stroke="#58D6FF" stroke-width="14" stroke-linecap="round"/>
-  <path d="M1012 496H1060" stroke="#58D6FF" stroke-width="14" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">ESC Voting System Admin Mockup</title>
+  <desc id="desc">Neutralized admin dashboard with current act, beamer controls, host links, participant merge and reset card.</desc>
   <defs>
-    <linearGradient id="workflow" x1="652" y1="424" x2="888" y2="424" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#58D6FF"/><stop offset="0.6" stop-color="#FFD166"/><stop offset="1" stop-color="#FF5C83"/>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#321022"/>
+      <stop offset="0.5" stop-color="#0b0f16"/>
+      <stop offset="1" stop-color="#073832"/>
     </linearGradient>
+    <linearGradient id="bar" x1="0" x2="1">
+      <stop offset="0" stop-color="#ff477a"/>
+      <stop offset="0.55" stop-color="#ffd766"/>
+      <stop offset="1" stop-color="#25f4d0"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-12%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="20" stdDeviation="22" flood-color="#000000" flood-opacity=".34"/>
+    </filter>
+    <style>
+      .ui{font-family:Inter,Segoe UI,Arial,sans-serif}
+      .card{fill:#171b24;stroke:#334052;stroke-width:2}
+      .input{fill:#10151d;stroke:#3a4556;stroke-width:2}
+      .button{fill:#232a36;stroke:#3a4556;stroke-width:2}
+      .primary{fill:#ff477a}
+      .danger{fill:#512327;stroke:#ff6a78;stroke-width:2}
+      .label{fill:#25f4d0;font-size:18px;font-weight:900;text-transform:uppercase}
+      .white{fill:#fff7eb}
+      .muted{fill:#cbd2dd}
+    </style>
   </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g class="ui" transform="translate(420 28)" filter="url(#shadow)">
+    <header>
+      <text x="0" y="28" class="label">PORTFOLIO ESC</text>
+      <text x="0" y="78" class="white" font-size="58" font-weight="900">Admin</text>
+      <text x="642" y="82" fill="#25f4d0" font-size="19" font-weight="900" text-decoration="underline">Voting</text>
+      <text x="708" y="82" fill="#25f4d0" font-size="19" font-weight="900" text-decoration="underline">Beamer</text>
+    </header>
+
+    <g transform="translate(0 112)">
+      <rect class="card" width="380" height="245" rx="10"/>
+      <text x="24" y="38" class="label">Aktueller Act</text>
+      <text x="24" y="70" class="white" font-size="30" font-weight="900">Automatisch</text>
+      <text x="24" y="118" class="muted" font-size="17" font-weight="800">Act auswaehlen</text>
+      <rect class="input" x="24" y="136" width="332" height="48" rx="7"/>
+      <text x="40" y="166" class="white" font-size="17" font-weight="900">2. Sweden - My System</text>
+      <text x="330" y="166" class="muted" font-size="18">⌄</text>
+      <rect class="primary" x="24" y="198" width="166" height="40" rx="7"/>
+      <text x="75" y="224" class="white" font-size="17" font-weight="900">Act setzen</text>
+      <rect class="button" x="200" y="198" width="156" height="40" rx="7"/>
+      <text x="224" y="224" class="white" font-size="15" font-weight="900">Automatisch</text>
+    </g>
+
+    <g transform="translate(396 112)">
+      <rect class="card" width="382" height="245" rx="10"/>
+      <text x="24" y="38" class="label">Beamer-Anzeige</text>
+      <text x="24" y="70" class="white" font-size="30" font-weight="900">Display-Steuerung</text>
+      <rect class="input" x="24" y="92" width="334" height="78" rx="7"/>
+      <rect x="30" y="100" width="105" height="30" rx="6" fill="#fff7eb"/>
+      <text x="62" y="121" fill="#11151d" font-size="15" font-weight="900">Lobby</text>
+      <text x="177" y="121" class="white" font-size="15" font-weight="900">TV-Modus</text>
+      <text x="286" y="121" class="white" font-size="15" font-weight="900">Ranking</text>
+      <text x="64" y="158" class="white" font-size="15" font-weight="900">Matrix</text>
+      <text x="176" y="158" class="white" font-size="15" font-weight="900">Stimmzettel</text>
+      <text x="286" y="158" class="white" font-size="15" font-weight="900">Statistiken</text>
+      <rect class="input" x="26" y="198" width="14" height="14"/>
+      <text x="52" y="211" class="white" font-size="16" font-weight="800">Ranking auf Beamer anzeigen</text>
+      <rect x="26" y="224" width="14" height="14" fill="#fff7eb"/>
+      <text x="52" y="237" class="white" font-size="16" font-weight="800">Teilnehmer-Fortschritt anzeigen</text>
+    </g>
+
+    <g transform="translate(0 374)">
+      <rect class="card" width="380" height="185" rx="10"/>
+      <text x="24" y="36" class="label">Finale Auswertung</text>
+      <text x="24" y="66" class="white" font-size="27" font-weight="900">Party-Statistiken</text>
+      <text x="24" y="104" class="muted" font-size="16">Statistiken basieren auf gespeicherten</text>
+      <text x="24" y="126" class="muted" font-size="16">Stimmzetteln und Favorite-Cringe-Markierungen.</text>
+      <rect class="button" x="24" y="146" width="166" height="38" rx="6"/>
+      <text x="62" y="171" class="white" font-size="15" font-weight="900">Statistiken</text>
+      <rect class="primary" x="200" y="146" width="156" height="38" rx="6"/>
+      <text x="231" y="171" class="white" font-size="15" font-weight="900">Auf Beamer</text>
+    </g>
+
+    <g transform="translate(396 374)">
+      <rect class="card" width="382" height="185" rx="10"/>
+      <text x="24" y="36" class="label">Auswertungsansichten</text>
+      <text x="24" y="66" class="white" font-size="27" font-weight="900">Host-Links</text>
+      <text x="24" y="104" class="muted" font-size="16">Ranking, Matrix und Stimmzettel bleiben</text>
+      <text x="24" y="126" class="muted" font-size="16">erhalten und koennen separat geoeffnet werden.</text>
+      <rect class="button" x="24" y="146" width="154" height="38" rx="6"/>
+      <text x="62" y="171" class="white" font-size="15" font-weight="900">Ranking</text>
+      <rect class="button" x="188" y="146" width="170" height="38" rx="6"/>
+      <text x="246" y="171" class="white" font-size="15" font-weight="900">Matrix</text>
+    </g>
+
+    <g transform="translate(0 576)">
+      <rect class="card" width="380" height="236" rx="10"/>
+      <text x="24" y="36" class="label">Teilnehmer zusammenfuehren</text>
+      <text x="24" y="66" class="white" font-size="27" font-weight="900">Dubletten korrigieren</text>
+      <text x="24" y="104" class="muted" font-size="16">Mindestens zwei Teilnehmer noetig.</text>
+      <text x="24" y="132" class="muted" font-size="16" font-weight="800">Von Teilnehmer</text>
+      <text x="202" y="132" class="muted" font-size="16" font-weight="800">In Teilnehmer</text>
+      <rect class="input" x="24" y="142" width="160" height="36" rx="6"/>
+      <text x="42" y="166" class="white" font-size="15">Demo-Gast</text>
+      <rect class="input" x="202" y="142" width="154" height="36" rx="6"/>
+      <text x="220" y="166" class="white" font-size="15">Sophie</text>
+      <rect class="primary" x="24" y="190" width="332" height="36" rx="7"/>
+      <text x="108" y="214" class="white" font-size="16" font-weight="900">Teilnehmer zusammenfuehren</text>
+    </g>
+
+    <g transform="translate(396 576)">
+      <rect class="danger" width="382" height="236" rx="10"/>
+      <text x="24" y="36" class="label">Gefaehrliche Aktion</text>
+      <text x="24" y="66" class="white" font-size="27" font-weight="900">Abend zuruecksetzen</text>
+      <text x="24" y="108" class="muted" font-size="16">Loescht Stimmen und Teilnehmerdaten</text>
+      <text x="24" y="130" class="muted" font-size="16">dieses Demo-Abends.</text>
+      <text x="24" y="158" class="muted" font-size="16" font-weight="800">Bestaetigung</text>
+      <rect class="input" x="24" y="168" width="334" height="36" rx="6"/>
+      <text x="42" y="192" fill="#87909e" font-size="16" font-weight="800">RESET eingeben</text>
+      <rect x="24" y="214" width="334" height="34" rx="7" fill="#93484b"/>
+      <text x="142" y="237" fill="#c8a1a2" font-size="16" font-weight="900">Alles zuruecksetzen</text>
+    </g>
+
+    <g transform="translate(0 828)">
+      <rect class="card" width="778" height="68" rx="10"/>
+      <text x="24" y="30" class="white" font-size="24" font-weight="900">Status</text>
+      <text x="24" y="54" class="muted" font-size="16">4 Teilnehmer, 4 gespeicherte Stimmzettel, Beamer: Lobby, aktueller Act: Automatisch</text>
+    </g>
+  </g>
 </svg>

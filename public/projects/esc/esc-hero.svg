@@ -1,61 +1,137 @@
-<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1600" height="900" rx="42" fill="#0B1017"/>
-  <circle cx="210" cy="110" r="260" fill="#1D4F83" opacity="0.25"/>
-  <circle cx="1390" cy="90" r="300" fill="#58D6FF" opacity="0.12"/>
-  <circle cx="1320" cy="820" r="310" fill="#FF5C83" opacity="0.10"/>
-  <rect x="70" y="62" width="1460" height="776" rx="34" fill="#101720" stroke="#29425F" stroke-width="3"/>
-  <text x="118" y="146" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#58D6FF" letter-spacing="3">PORTFOLIO MOCKUP</text>
-  <text x="118" y="232" font-family="Arial, Helvetica, sans-serif" font-size="88" font-weight="900" fill="#EDF4FF">ESC Voting System</text>
-  <text x="120" y="288" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#BFD1EA">Mobile Voting, Live-Fortschritt und gemeinsame Ergebnisanzeige</text>
-  <rect x="118" y="340" width="530" height="394" rx="28" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
-  <rect x="152" y="382" width="462" height="58" rx="16" fill="#162436"/>
-  <circle cx="184" cy="411" r="13" fill="#72E06A"/>
-  <text x="212" y="422" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#EDF4FF">4 Teilnehmer aktiv</text>
-  <rect x="152" y="478" width="462" height="34" rx="17" fill="#223144"/>
-  <rect x="152" y="478" width="354" height="34" rx="17" fill="url(#bar1)"/>
-  <text x="152" y="563" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#EDF4FF">Live-Ranking</text>
-  <g font-family="Arial, Helvetica, sans-serif" font-weight="800">
-    <rect x="152" y="590" width="462" height="58" rx="14" fill="#141F2E" stroke="#29425F"/>
-    <circle cx="183" cy="619" r="20" fill="#FFD166"/><text x="178" y="627" font-size="20" fill="#151515">1</text>
-    <text x="222" y="628" font-size="22" fill="#EDF4FF">Sweden</text><text x="548" y="628" text-anchor="end" font-size="22" fill="#FFD166">39 Pkt.</text>
-    <rect x="152" y="664" width="462" height="58" rx="14" fill="#141F2E" stroke="#29425F"/>
-    <circle cx="183" cy="693" r="20" fill="#223144"/><text x="178" y="701" font-size="20" fill="#FFD166">2</text>
-    <text x="222" y="702" font-size="22" fill="#EDF4FF">Italy</text><text x="548" y="702" text-anchor="end" font-size="22" fill="#FFD166">38 Pkt.</text>
-  </g>
-  <rect x="735" y="176" width="310" height="620" rx="54" fill="#07101A" stroke="#6EA8FF" stroke-width="5"/>
-  <rect x="765" y="218" width="250" height="536" rx="32" fill="#101720"/>
-  <text x="790" y="270" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900" fill="#58D6FF">Voting</text>
-  <text x="790" y="313" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="900" fill="#EDF4FF">Germany</text>
-  <text x="790" y="348" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#BFD1EA">Fire</text>
-  <g font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900" text-anchor="middle">
-    <rect x="790" y="392" width="52" height="52" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="816" y="426" fill="#EDF4FF">1</text>
-    <rect x="854" y="392" width="52" height="52" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="880" y="426" fill="#EDF4FF">2</text>
-    <rect x="918" y="392" width="52" height="52" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="944" y="426" fill="#EDF4FF">3</text>
-    <rect x="790" y="458" width="52" height="52" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="816" y="492" fill="#EDF4FF">4</text>
-    <rect x="854" y="458" width="52" height="52" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="880" y="492" fill="#EDF4FF">5</text>
-    <rect x="918" y="458" width="52" height="52" rx="14" fill="#FFD166"/><text x="944" y="492" fill="#151515">6</text>
-    <rect x="790" y="524" width="52" height="52" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="816" y="558" fill="#EDF4FF">7</text>
-    <rect x="854" y="524" width="52" height="52" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="880" y="558" fill="#EDF4FF">8</text>
-    <rect x="918" y="524" width="52" height="52" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="944" y="558" fill="#EDF4FF">9</text>
-  </g>
-  <rect x="790" y="638" width="180" height="54" rx="16" fill="#8FA8CB"/>
-  <text x="880" y="674" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="900" fill="#0F1722">Speichern</text>
-  <rect x="1120" y="218" width="300" height="486" rx="30" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
-  <text x="1160" y="278" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#EDF4FF">Show Board</text>
-  <text x="1160" y="318" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#58D6FF">Live-Ergebnis</text>
-  <g font-family="Arial, Helvetica, sans-serif">
-    <rect x="1160" y="364" width="220" height="58" rx="16" fill="#151F2D"/><text x="1185" y="400" font-size="24" font-weight="900" fill="#EDF4FF">01 Sweden</text>
-    <rect x="1160" y="444" width="184" height="15" rx="8" fill="url(#bar2)"/>
-    <rect x="1160" y="490" width="220" height="58" rx="16" fill="#151F2D"/><text x="1185" y="526" font-size="24" font-weight="900" fill="#EDF4FF">02 Italy</text>
-    <rect x="1160" y="570" width="164" height="15" rx="8" fill="url(#bar2)"/>
-    <rect x="1160" y="616" width="220" height="58" rx="16" fill="#151F2D"/><text x="1185" y="652" font-size="24" font-weight="900" fill="#EDF4FF">03 Norway</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">ESC Voting System Beamer und Voting Mockup</title>
+  <desc id="desc">Neutralized composite of the ESC party app with beamer stage, live ranking, progress, phone voting and admin control.</desc>
   <defs>
-    <linearGradient id="bar1" x1="152" y1="495" x2="506" y2="495" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#58D6FF"/><stop offset="0.55" stop-color="#FFD166"/><stop offset="1" stop-color="#FF5C83"/>
+    <linearGradient id="pageBg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#321022"/>
+      <stop offset="0.45" stop-color="#090d13"/>
+      <stop offset="1" stop-color="#063932"/>
     </linearGradient>
-    <linearGradient id="bar2" x1="1160" y1="0" x2="1380" y2="0" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#58D6FF"/><stop offset="0.6" stop-color="#FFD166"/><stop offset="1" stop-color="#FF5C83"/>
+    <linearGradient id="bar" x1="0" x2="1">
+      <stop offset="0" stop-color="#ff477a"/>
+      <stop offset="0.54" stop-color="#ffd766"/>
+      <stop offset="1" stop-color="#25f4d0"/>
     </linearGradient>
+    <linearGradient id="rankGold" x1="0" x2="1">
+      <stop offset="0" stop-color="#ffe06b"/>
+      <stop offset="1" stop-color="#2a2d35"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-12%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#000000" flood-opacity="0.36"/>
+    </filter>
+    <style>
+      .ui{font-family:Inter,Segoe UI,Arial,sans-serif}
+      .label{fill:#25f4d0;font-weight:900;font-size:22px;text-transform:uppercase}
+      .muted{fill:#c9d0dc;font-size:20px}
+      .small{fill:#d8deea;font-size:17px;font-weight:700}
+      .white{fill:#fff7eb}
+      .panel{fill:#171b24;stroke:#334052;stroke-width:2}
+      .subpanel{fill:#212735}
+    </style>
   </defs>
+
+  <rect width="1600" height="900" fill="url(#pageBg)"/>
+  <g class="ui" filter="url(#shadow)">
+    <text x="66" y="72" class="label">PORTFOLIO ESC 2026</text>
+    <text x="66" y="126" class="white" font-size="56" font-weight="900">Finalabend live steuern</text>
+    <g transform="translate(1378 62)">
+      <rect width="150" height="50" rx="25" fill="#171b24" stroke="#334052" stroke-width="2"/>
+      <circle cx="28" cy="25" r="10" fill="#5be35a"/>
+      <text x="46" y="23" class="white" font-size="18" font-weight="900">Live</text>
+      <text x="46" y="40" fill="#cbd2dd" font-size="13">4 Geraete</text>
+    </g>
+
+    <g transform="translate(64 170)">
+      <rect class="panel" width="930" height="485" rx="12"/>
+      <text x="34" y="60" class="label">TV-Modus</text>
+      <text x="34" y="178" class="white" font-size="90" font-weight="900">Germany</text>
+      <text x="34" y="230" class="white" font-size="37" font-weight="900">Demo Artist - Fire</text>
+      <text x="34" y="280" fill="#25f4d0" font-size="34" font-weight="900">Next: Sweden - My System</text>
+      <g transform="translate(34 312)">
+        <rect width="860" height="116" rx="12" fill="#202632" stroke="#3a4556" stroke-width="2"/>
+        <text x="26" y="36" class="label" font-size="20">Voting-Fortschritt</text>
+        <text x="704" y="36" class="small">18 / 24 Bewertungen</text>
+        <rect x="26" y="56" width="808" height="14" rx="7" fill="#2a303d"/>
+        <rect x="26" y="56" width="610" height="14" rx="7" fill="url(#bar)"/>
+        <circle cx="82" cy="96" r="20" fill="#2b3442" stroke="#25f4d0"/>
+        <text x="74" y="104" fill="#ffd766" font-size="22" font-weight="900">S</text>
+        <text x="122" y="102" class="white" font-size="25" font-weight="900">Sophie</text>
+        <text x="720" y="102" fill="#ffd766" font-size="28" font-weight="900">6/6</text>
+      </g>
+      <g transform="translate(34 116)">
+        <rect width="82" height="58" rx="7" fill="#11151d"/>
+        <rect x="9" y="9" width="64" height="40" rx="3" fill="#f2c94c"/>
+        <rect x="9" y="22" width="64" height="14" fill="#d93035"/>
+        <rect x="9" y="9" width="21" height="40" fill="#111111" opacity=".28"/>
+      </g>
+    </g>
+
+    <g transform="translate(1022 170)">
+      <rect class="panel" width="514" height="485" rx="12"/>
+      <text x="30" y="60" class="label">Live-Ranking</text>
+      <text x="408" y="60" class="small">sichtbar</text>
+      <g transform="translate(28 88)">
+        <rect width="458" height="64" rx="8" fill="url(#rankGold)" opacity=".84"/>
+        <circle cx="32" cy="32" r="21" fill="#ffd766"/>
+        <text x="25" y="39" fill="#11151d" font-size="21" font-weight="900">1</text>
+        <text x="70" y="29" class="white" font-size="25" font-weight="900">France</text>
+        <text x="70" y="52" fill="#f4d8a8" font-size="15">10.8 Schnitt / 65 P / 6 Stimmen</text>
+      </g>
+      <g transform="translate(28 168)">
+        <rect width="458" height="64" rx="8" fill="#202632"/>
+        <circle cx="32" cy="32" r="21" fill="#ffd766"/>
+        <text x="25" y="39" fill="#11151d" font-size="21" font-weight="900">2</text>
+        <text x="70" y="29" class="white" font-size="25" font-weight="900">Italy</text>
+        <text x="70" y="52" fill="#cbd2dd" font-size="15">9.3 Schnitt / 56 P / 6 Stimmen</text>
+      </g>
+      <g transform="translate(28 248)">
+        <rect width="458" height="64" rx="8" fill="#202632"/>
+        <circle cx="32" cy="32" r="21" fill="#ffd766"/>
+        <text x="25" y="39" fill="#11151d" font-size="21" font-weight="900">3</text>
+        <text x="70" y="29" class="white" font-size="25" font-weight="900">Sweden</text>
+        <text x="70" y="52" fill="#cbd2dd" font-size="15">8.8 Schnitt / 53 P / 6 Stimmen</text>
+      </g>
+      <g transform="translate(28 342)">
+        <rect width="222" height="98" rx="12" fill="#11151d" stroke="#334052"/>
+        <text x="18" y="32" class="label" font-size="17">Matrix</text>
+        <text x="18" y="66" class="white" font-size="28" font-weight="900">6 x 6</text>
+        <text x="18" y="86" fill="#cbd2dd" font-size="14">Bewertungen</text>
+        <rect x="262" width="196" height="98" rx="12" fill="#11151d" stroke="#334052"/>
+        <text x="280" y="32" class="label" font-size="17">Awards</text>
+        <text x="280" y="66" class="white" font-size="28" font-weight="900">9</text>
+        <text x="280" y="86" fill="#cbd2dd" font-size="14">Party-Statistiken</text>
+      </g>
+    </g>
+
+    <g transform="translate(135 600)">
+      <rect width="266" height="248" rx="28" fill="#0b0f16" stroke="#384458" stroke-width="3"/>
+      <text x="28" y="52" class="label" font-size="18">Voting</text>
+      <rect x="28" y="72" width="210" height="42" rx="7" fill="#151a22" stroke="#384458"/>
+      <text x="44" y="100" class="white" font-size="18" font-weight="900">Demo-Gast</text>
+      <text x="28" y="145" class="white" font-size="24" font-weight="900">Germany</text>
+      <g fill="#2a303d">
+        <rect x="28" y="166" width="48" height="42" rx="6"/><rect x="82" y="166" width="48" height="42" rx="6"/><rect x="136" y="166" width="48" height="42" rx="6"/><rect x="190" y="166" width="48" height="42" rx="6"/>
+      </g>
+      <rect x="28" y="166" width="48" height="42" rx="6" fill="#ffd766"/>
+      <text x="48" y="193" fill="#11151d" font-size="20" font-weight="900">1</text>
+      <text x="101" y="193" class="white" font-size="20" font-weight="900">2</text>
+      <text x="155" y="193" class="white" font-size="20" font-weight="900">3</text>
+      <text x="209" y="193" class="white" font-size="20" font-weight="900">4</text>
+    </g>
+
+    <g transform="translate(439 690)">
+      <rect width="680" height="136" rx="12" fill="#171b24" stroke="#334052" stroke-width="2"/>
+      <text x="24" y="42" class="label">Admin-Steuerung</text>
+      <g transform="translate(24 62)">
+        <rect width="148" height="44" rx="7" fill="#fff7eb"/>
+        <text x="51" y="29" fill="#11151d" font-size="16" font-weight="900">Lobby</text>
+        <rect x="164" width="148" height="44" rx="7" fill="#232a37"/>
+        <text x="197" y="29" class="white" font-size="16" font-weight="900">TV-Modus</text>
+        <rect x="328" width="148" height="44" rx="7" fill="#232a37"/>
+        <text x="370" y="29" class="white" font-size="16" font-weight="900">Ranking</text>
+        <rect x="492" width="148" height="44" rx="7" fill="#232a37"/>
+        <text x="533" y="29" class="white" font-size="16" font-weight="900">Stats</text>
+      </g>
+    </g>
+  </g>
 </svg>
