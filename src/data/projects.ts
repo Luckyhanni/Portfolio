@@ -706,7 +706,9 @@ const baseProjects: Project[] = [
     category: "hobby",
     title: "ESC Voting System",
     period: "Hobby-Projekt",
-    status: "Demo geplant",
+    demoUrl: "/demos/esc",
+    status: "Demo verfügbar",
+    hasDemo: true,
     short: "Voting-System für ESC-Abende mit Freunden und übersichtlicher Ergebnisanzeige.",
     description: [
       "Ein Voting-System für ESC-Abende mit Freunden, bei dem Teilnehmer Songs bewerten und Ergebnisse übersichtlich angezeigt werden können.",
