@@ -1,0 +1,38 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="42" fill="#0B1017"/>
+  <rect x="76" y="70" width="1448" height="760" rx="36" fill="#101720" stroke="#29425F" stroke-width="3"/>
+  <text x="126" y="150" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="900" fill="#58D6FF">Party-Workflow</text>
+  <text x="126" y="212" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="900" fill="#EDF4FF">Einfach starten, abstimmen, Ergebnisse zeigen.</text>
+  <rect x="126" y="292" width="390" height="408" rx="28" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
+  <text x="172" y="362" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#EDF4FF">1. Teilnehmer</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900">
+    <rect x="172" y="402" width="266" height="54" rx="16" fill="#182638"/><text x="202" y="436" fill="#EDF4FF">Demo-Gast</text>
+    <rect x="172" y="474" width="266" height="54" rx="16" fill="#182638"/><text x="202" y="508" fill="#EDF4FF">Sophie</text>
+    <rect x="172" y="546" width="266" height="54" rx="16" fill="#182638"/><text x="202" y="580" fill="#EDF4FF">Alex</text>
+    <rect x="172" y="618" width="180" height="54" rx="16" fill="#8FA8CB"/><text x="262" y="652" text-anchor="middle" fill="#0F1722">Hinzufügen</text>
+  </g>
+  <rect x="606" y="292" width="390" height="408" rx="28" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
+  <text x="652" y="362" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#EDF4FF">2. Voting</text>
+  <rect x="652" y="410" width="292" height="28" rx="14" fill="#223144"/>
+  <rect x="652" y="410" width="236" height="28" rx="14" fill="url(#workflow)"/>
+  <text x="652" y="486" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900" fill="#BFD1EA">24 / 24 Bewertungen</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900">
+    <rect x="652" y="532" width="118" height="58" rx="16" fill="#182638"/><text x="711" y="568" text-anchor="middle" fill="#EDF4FF">Acts</text>
+    <rect x="788" y="532" width="118" height="58" rx="16" fill="#182638"/><text x="847" y="568" text-anchor="middle" fill="#EDF4FF">Votes</text>
+    <rect x="652" y="614" width="254" height="58" rx="16" fill="#8FA8CB"/><text x="779" y="650" text-anchor="middle" fill="#0F1722">Voting abschließen</text>
+  </g>
+  <rect x="1086" y="292" width="390" height="408" rx="28" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
+  <text x="1132" y="362" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#EDF4FF">3. Anzeige</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900">
+    <rect x="1132" y="408" width="294" height="62" rx="16" fill="#182638"/><text x="1164" y="447" fill="#EDF4FF">Ranking öffnen</text>
+    <rect x="1132" y="492" width="294" height="62" rx="16" fill="#182638"/><text x="1164" y="531" fill="#EDF4FF">Stimmzettel prüfen</text>
+    <rect x="1132" y="576" width="294" height="62" rx="16" fill="#FFD166"/><text x="1279" y="615" text-anchor="middle" fill="#151515">Show starten</text>
+  </g>
+  <path d="M532 496H580" stroke="#58D6FF" stroke-width="14" stroke-linecap="round"/>
+  <path d="M1012 496H1060" stroke="#58D6FF" stroke-width="14" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="workflow" x1="652" y1="424" x2="888" y2="424" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#58D6FF"/><stop offset="0.6" stop-color="#FFD166"/><stop offset="1" stop-color="#FF5C83"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -15,6 +15,8 @@ import {
   SiCplusplus,
   SiDotnet,
   SiGit,
+  SiJavascript,
+  SiNodedotjs,
   SiRender,
   SiUnity,
   SiUnrealengine,
@@ -54,6 +56,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const hasLinks = projectLinks.length > 0;
   const hasEmbed = Boolean(project.detailVideo?.embedUrl);
   const hasTechContent = Boolean(project.techIcons?.length || hasLinks);
+  const heroImageFit = project.heroImageFit ?? (project.heroImage ? "cover" : "contain");
 
   return (
     <main style={styles.page}>
@@ -74,11 +77,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 alt: `${project.title} Banner`,
                 width: 1600,
                 height: 900,
-                fit: project.heroImage ? "cover" : "contain",
+                fit: heroImageFit,
               }}
               priority
-              style={styles.heroVisual}
-              frameStyle={styles.heroVisualWrap}
+              style={heroImageFit === "contain" ? styles.heroVisualContain : styles.heroVisual}
+              frameStyle={
+                heroImageFit === "contain"
+                  ? { ...styles.heroVisualWrap, ...styles.heroVisualWrapContain }
+                  : styles.heroVisualWrap
+              }
             />
 
             <div style={styles.heroBody}>
@@ -197,6 +204,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
       </footer>
+
+      <style>{`
+        @media (max-width: 700px) {
+          .projectDetailTextColumn {
+            order: 1 !important;
+            min-width: 0 !important;
+          }
+
+          .projectDetailVisualWrap {
+            order: 2 !important;
+            flex-basis: 100% !important;
+            min-width: 0 !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }
@@ -272,8 +294,9 @@ function DetailSection({
     section.media.height > section.media.width;
 
   return (
-    <article style={styles.detailCard}>
+    <article className="projectDetailCard" style={styles.detailCard}>
       <div
+        className="projectDetailTextColumn"
         style={{
           ...styles.detailTextColumn,
           order: mediaLeft ? 2 : 1,
@@ -294,6 +317,7 @@ function DetailSection({
       <ProjectVisual
         media={section.media}
         style={isPortraitMedia ? styles.detailVisualPortrait : styles.detailVisual}
+        frameClassName="projectDetailVisualWrap"
         frameStyle={{
           ...styles.detailVisualWrap,
           ...(isPortraitMedia ? styles.detailVisualWrapPortrait : null),
@@ -308,24 +332,28 @@ function ProjectVisual({
   media,
   priority = false,
   style,
+  frameClassName,
   frameStyle,
 }: {
   media: ProjectMedia;
   priority?: boolean;
   style?: React.CSSProperties;
+  frameClassName?: string;
   frameStyle?: React.CSSProperties;
 }) {
-  const isGif = media.type === "gif" || media.src.toLowerCase().endsWith(".gif");
+  const normalizedSrc = media.src.toLowerCase();
+  const isGif = media.type === "gif" || normalizedSrc.endsWith(".gif");
+  const isSvg = normalizedSrc.endsWith(".svg");
 
   return (
-    <div style={frameStyle}>
+    <div className={frameClassName} style={frameStyle}>
       <Image
         src={media.src}
         alt={media.alt}
         width={media.width ?? 1600}
         height={media.height ?? 900}
-        priority={priority}
-        unoptimized={isGif}
+        preload={priority}
+        unoptimized={isGif || isSvg}
         style={{
           ...style,
           objectFit: media.fit ?? "cover",
@@ -384,6 +412,8 @@ const techIconMap: Record<string, { icon: IconType; color: string; label: string
   render: { icon: SiRender, color: "#9ea9ff", label: "Render" },
   github: { icon: IoLogoGithub, color: "#edf4ff", label: "GitHub" },
   git: { icon: SiGit, color: "#f05033", label: "Git" },
+  javascript: { icon: SiJavascript, color: "#f7df1e", label: "JavaScript" },
+  nodejs: { icon: SiNodedotjs, color: "#68a063", label: "Node.js" },
   microsoft: { icon: FaMicrosoft, color: "#5aa6ff", label: "Microsoft" },
   blender: { icon: SiBlender, color: "#ff8a00", label: "Blender" },
   vscode: { icon: TbBrandVscode, color: "#2f8fff", label: "Visual Studio Code" },
@@ -450,10 +480,23 @@ const styles: Record<string, React.CSSProperties> = {
     border: `1px solid rgba(143, 168, 203, 0.18)`,
     background: "#0d141d",
   },
+  heroVisualWrapContain: {
+    aspectRatio: "16 / 9",
+    padding: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   heroVisual: {
     width: "100%",
     height: "115%",
     minHeight: "100%",
+    display: "block",
+    objectPosition: "center center",
+  },
+  heroVisualContain: {
+    width: "100%",
+    height: "100%",
     display: "block",
     objectPosition: "center center",
   },

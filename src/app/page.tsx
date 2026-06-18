@@ -14,6 +14,8 @@ import {
   SiDotnet,
   SiGit,
   SiGithub,
+  SiJavascript,
+  SiNodedotjs,
   SiPython,
   SiReact,
   SiRender,
@@ -409,6 +411,11 @@ function isExternalHref(href: string): boolean {
   return /^https?:\/\//i.test(href);
 }
 
+function shouldUseUnoptimizedImage(src?: string): boolean {
+  const normalizedSrc = src?.toLowerCase() ?? "";
+  return normalizedSrc.endsWith(".svg") || normalizedSrc.endsWith(".gif");
+}
+
 function ProjectIconTile({
   projectTile,
 }: {
@@ -423,7 +430,7 @@ function ProjectIconTile({
             alt={`${projectTile.project.title} Logo`}
             width={88}
             height={88}
-            unoptimized
+            unoptimized={shouldUseUnoptimizedImage(projectTile.imageSrc) || !projectTile.project.heroImage}
             style={styles.statLogoImage}
           />
         ) : (
@@ -611,7 +618,7 @@ function ProjectCard({
                   height={projectUsesLogoPanel ? 112 : 160}
                   priority={priority}
                   loading={priority ? "eager" : undefined}
-                  unoptimized={!project.heroImage}
+                  unoptimized={!project.heroImage || shouldUseUnoptimizedImage(projectVisualSrc)}
                   style={{
                     ...styles.projectImage,
                     objectFit: projectVisualFit,
@@ -763,6 +770,16 @@ const projectTechIconMap: Record<
     icon: SiGithub,
     color: "#edf4ff",
     label: "GitHub",
+  },
+  javascript: {
+    icon: SiJavascript,
+    color: "#f7df1e",
+    label: "JavaScript",
+  },
+  nodejs: {
+    icon: SiNodedotjs,
+    color: "#68a063",
+    label: "Node.js",
   },
   microsoft: {
     icon: FaMicrosoft,

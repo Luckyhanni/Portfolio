@@ -1,0 +1,46 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="42" fill="#0B1017"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#101720" stroke="#29425F" stroke-width="3"/>
+  <text x="120" y="150" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#58D6FF">Voting per Handy</text>
+  <text x="120" y="207" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="#EDF4FF">Jeder Teilnehmer stimmt auf dem eigenen Gerät ab.</text>
+  <text x="122" y="258" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#BFD1EA">Punkte auswählen, Fortschritt sehen, Voting speichern.</text>
+  <rect x="180" y="346" width="470" height="320" rx="28" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
+  <text x="226" y="410" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" fill="#EDF4FF">Teilnehmer</text>
+  <rect x="226" y="448" width="340" height="58" rx="16" fill="#141F2E" stroke="#29425F"/>
+  <text x="254" y="486" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#EDF4FF">Demo-Gast</text>
+  <rect x="226" y="544" width="340" height="28" rx="14" fill="#223144"/>
+  <rect x="226" y="544" width="284" height="28" rx="14" fill="url(#progress)"/>
+  <text x="226" y="622" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="900" fill="#FFD166">6 / 6 Acts bewertet</text>
+  <rect x="764" y="108" width="326" height="684" rx="58" fill="#07101A" stroke="#6EA8FF" stroke-width="5"/>
+  <rect x="794" y="152" width="266" height="596" rx="32" fill="#101720"/>
+  <text x="822" y="208" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900" fill="#58D6FF">Act 03</text>
+  <text x="822" y="254" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="900" fill="#EDF4FF">Italy</text>
+  <text x="822" y="294" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#BFD1EA">Per Sempre Si</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="900" text-anchor="middle">
+    <rect x="822" y="342" width="55" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="849.5" y="377" fill="#EDF4FF">1</text>
+    <rect x="890" y="342" width="55" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="917.5" y="377" fill="#EDF4FF">2</text>
+    <rect x="958" y="342" width="55" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="985.5" y="377" fill="#EDF4FF">3</text>
+    <rect x="822" y="412" width="55" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="849.5" y="447" fill="#EDF4FF">4</text>
+    <rect x="890" y="412" width="55" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="917.5" y="447" fill="#EDF4FF">5</text>
+    <rect x="958" y="412" width="55" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="985.5" y="447" fill="#EDF4FF">6</text>
+    <rect x="822" y="482" width="55" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="849.5" y="517" fill="#EDF4FF">7</text>
+    <rect x="890" y="482" width="55" height="55" rx="14" fill="#FFD166"/><text x="917.5" y="517" fill="#151515">8</text>
+    <rect x="958" y="482" width="55" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="985.5" y="517" fill="#EDF4FF">9</text>
+    <rect x="822" y="552" width="89" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="866.5" y="587" fill="#EDF4FF">10</text>
+    <rect x="924" y="552" width="89" height="55" rx="14" fill="#1B2A3D" stroke="#29425F"/><text x="968.5" y="587" fill="#EDF4FF">12</text>
+  </g>
+  <rect x="822" y="654" width="191" height="58" rx="16" fill="#8FA8CB"/>
+  <text x="917" y="692" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="900" fill="#0F1722">Voting speichern</text>
+  <rect x="1194" y="314" width="236" height="248" rx="28" fill="#0E1724" stroke="#355A86" stroke-width="3"/>
+  <text x="1234" y="378" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="900" fill="#EDF4FF">Schnell</text>
+  <text x="1234" y="430" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="900" fill="#EDF4FF">Mobil</text>
+  <text x="1234" y="482" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="900" fill="#EDF4FF">Übersichtlich</text>
+  <circle cx="1370" cy="378" r="16" fill="#72E06A"/>
+  <circle cx="1370" cy="430" r="16" fill="#FFD166"/>
+  <circle cx="1370" cy="482" r="16" fill="#58D6FF"/>
+  <defs>
+    <linearGradient id="progress" x1="226" y1="558" x2="510" y2="558" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#58D6FF"/><stop offset="0.6" stop-color="#FFD166"/><stop offset="1" stop-color="#FF5C83"/>
+    </linearGradient>
+  </defs>
+</svg>
