@@ -151,7 +151,7 @@ const baseProjects: Project[] = [
     title: "Vacation Invasion",
     period: "Uni-Projekt", 
     heroImage: publicGameImage("Vacation Invasion"),
-    logoImage: "/Vacation%20Invasion%20Logo.png",
+    logoImage: "/Vacation%20Invasion%20Logoquadradt.png",
     short: "3D-Multiplayer-Hide-and-Seek / Prop Hunt auf einer südlichen Ferieninsel.",
     description: [
       "Vacation Invasion ist ein 3D-Multiplayer-Prop-Hunt auf einer südlichen Ferieninsel: Tourist:innen tarnen sich als Objekte und werden von Einheimischen gejagt.",
