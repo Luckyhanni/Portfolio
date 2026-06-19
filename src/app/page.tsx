@@ -16,6 +16,7 @@ import {
   SiGithub,
   SiJavascript,
   SiNodedotjs,
+  SiOpenai,
   SiPython,
   SiReact,
   SiRender,
@@ -825,6 +826,11 @@ const projectTechIconMap: Record<
     icon: DiVisualstudio,
     color: "#9b6dff",
     label: "Visual Studio",
+  },
+  openai: {
+    icon: SiOpenai,
+    color: "#edf4ff",
+    label: "OpenAI API",
   },
 };
 

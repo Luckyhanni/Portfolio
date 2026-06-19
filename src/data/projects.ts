@@ -806,7 +806,7 @@ export const BACHELOR_PROJECT: Project = enrichProject({
     "Dafür entstand ein Unity-Prototyp, in dem NPCs auf Basis von Rollenprofilen, Spielzustand, begrenztem Wissen, Memory und Prompt-Constraints antworten.",
   ],
   tags: ["Unity", "C#", "KI", "LLM", "Dialogsystem", "Game AI"],
-  techIcons: ["unity", "csharp", "visualstudio"],
+  techIcons: ["unity", "csharp", "visualstudio", "openai"],
   highlights: [
     "Kontrollierte NPC-Dialoge statt ungebremster KI-Kommunikation",
     "Rollenprofile, Wissensgrenzen und GameState im Prompt-Kontext",
