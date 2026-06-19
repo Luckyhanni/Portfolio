@@ -17,11 +17,13 @@ import {
   SiGit,
   SiJavascript,
   SiNodedotjs,
+  SiReact,
   SiRender,
+  SiSupabase,
   SiUnity,
   SiUnrealengine,
 } from "react-icons/si";
-import { TbBrandCSharp, TbBrandVscode } from "react-icons/tb";
+import { TbApi, TbAutomation, TbBrain, TbBrandCSharp, TbBrandVscode } from "react-icons/tb";
 import {
   getProject,
   PROJECTS,
@@ -419,6 +421,12 @@ const techIconMap: Record<string, { icon: IconType; color: string; label: string
   vscode: { icon: TbBrandVscode, color: "#2f8fff", label: "Visual Studio Code" },
   visualstudio: { icon: DiVisualstudio, color: "#9b6dff", label: "Visual Studio" },
   cplusplus: { icon: SiCplusplus, color: "#4f90d9", label: "C++" },
+  "react-typescript": { icon: SiReact, color: "#5bd3ff", label: "React & TypeScript" },
+  "node-express": { icon: SiNodedotjs, color: "#68a063", label: "Node.js Backend Development" },
+  "rest-api": { icon: TbApi, color: "#7bb7ff", label: "REST API Architecture" },
+  "supabase-postgresql": { icon: SiSupabase, color: "#3ecf8e", label: "Supabase / PostgreSQL Integration" },
+  "algorithmic-meal-planning": { icon: TbBrain, color: "#f2c14e", label: "Algorithmic Recommendation Logic" },
+  "data-automation": { icon: TbAutomation, color: "#9ea9ff", label: "Automated Data Processing" },
 };
 
 const styles: Record<string, React.CSSProperties> = {

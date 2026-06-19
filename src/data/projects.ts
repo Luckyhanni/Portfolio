@@ -794,7 +794,14 @@ const baseProjects: Project[] = [
       "Packungsoptimierte Einkaufsliste mit Restmengen und Zuhause-Markierung",
       "Druck- und Kochansichten für Küche, Handy und Kühlschrank",
     ],
-    techIcons: ["javascript", "nodejs"],
+    techIcons: [
+      "react-typescript",
+      "node-express",
+      "rest-api",
+      "supabase-postgresql",
+      "algorithmic-meal-planning",
+      "data-automation",
+    ],
     detailSections: [
       {
         title: "Wochenplan als Arbeitsfläche",
