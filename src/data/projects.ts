@@ -778,6 +778,7 @@ const baseProjects: Project[] = [
     category: "hobby",
     title: "MealPilot",
     period: "Hobby-Projekt",
+    logoImage: "/apple-touch-icon%20-%20Kopie.png",
     status: "Demo geplant",
     short: "Wochenplaner für Mahlzeiten mit klarer Übersicht und Perspektive für Einkaufsplanung.",
     description: [

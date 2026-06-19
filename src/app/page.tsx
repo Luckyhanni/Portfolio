@@ -258,18 +258,18 @@ export default function Home() {
 
         @media (max-width: 900px) {
           .heroStatsRow {
-            grid-template-columns: 1fr !important;
+            justify-content: center !important;
           }
         }
 
         @media (max-width: 640px) {
           .heroStatsRow {
-            grid-template-columns: 1fr !important;
+            justify-content: center !important;
           }
 
           .statLogoRow {
-            flex-wrap: nowrap !important;
-            overflow-x: auto !important;
+            grid-template-columns: repeat(var(--stat-mobile-columns), 90px) !important;
+            overflow-x: visible !important;
             overflow-y: hidden !important;
             padding-bottom: 2px !important;
           }
@@ -305,6 +305,12 @@ export default function Home() {
 
           .projectActionLink {
             flex: 1 1 150px;
+          }
+        }
+
+        @media (max-width: 460px) {
+          .statLogoRow {
+            grid-template-columns: repeat(var(--stat-narrow-columns), 90px) !important;
           }
         }
       `}</style>
@@ -360,6 +366,14 @@ function Stat({
   icons?: string[];
   projects?: StatProjectTile[];
 }) {
+  const projectColumns = projects?.length ? Math.min(projects.length, 4) : 1;
+  const projectGridStyle = {
+    ...styles.statLogoRow,
+    "--stat-columns": projectColumns,
+    "--stat-mobile-columns": Math.min(projectColumns, 3),
+    "--stat-narrow-columns": Math.min(projectColumns, 2),
+  } as React.CSSProperties;
+
   return (
     <div className="statCard" style={styles.statCard}>
       <div style={{ fontSize: 12, color: stylesVars.textMuted }}>{title}</div>
@@ -370,7 +384,7 @@ function Stat({
         <div
           className="statLogoRow"
           style={{
-            ...styles.statLogoRow,
+            ...projectGridStyle,
             marginTop: value ? 12 : 10,
           }}
         >
@@ -876,14 +890,17 @@ const styles: Record<string, React.CSSProperties> = {
 
   statsRow: {
     flex: "1 0 100%",
-    display: "grid",
-    gridTemplateColumns: "minmax(0, 1.15fr) minmax(0, 1.35fr) minmax(220px, 0.8fr)",
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
     gap: 14,
     alignItems: "start",
     marginTop: 4,
   },
   statCard: {
-    minWidth: 0,
+    width: "fit-content",
+    maxWidth: "100%",
+    flex: "0 1 auto",
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 16,
     padding: 16,
@@ -896,8 +913,9 @@ const styles: Record<string, React.CSSProperties> = {
     marginTop: 12,
   },
   statLogoRow: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: "grid",
+    gridTemplateColumns: "repeat(var(--stat-columns), 90px)",
+    justifyContent: "start",
     gap: 8,
     marginTop: 12,
     overflowX: "visible",
@@ -943,6 +961,8 @@ const styles: Record<string, React.CSSProperties> = {
   statLogoImage: {
     width: "100%",
     height: "100%",
+    boxSizing: "border-box",
+    padding: 8,
     objectFit: "contain",
     objectPosition: "center",
   },
