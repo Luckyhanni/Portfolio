@@ -24,7 +24,6 @@ import {
   SiUnrealengine,
 } from "react-icons/si";
 import {
-  TbAi,
   TbApi,
   TbAutomation,
   TbBrain,
@@ -415,6 +414,26 @@ const stylesVars = {
   accentStrong: "#8fa8cb",
 };
 
+const CodexLogoIcon: IconType = ({ size = 24, color = "currentColor", ...props }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="none"
+    stroke={color}
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M8.5 4.8 4 8.1v7.8l4.5 3.3" />
+    <path d="M15.5 4.8 20 8.1v7.8l-4.5 3.3" />
+    <path d="M8.5 4.8 15.5 19.2" />
+    <path d="M15.5 4.8 8.5 19.2" />
+  </svg>
+);
+
 const techIconMap: Record<string, { icon: IconType; color: string; label: string }> = {
   csharp: { icon: TbBrandCSharp, color: "#9b4f96", label: "C#" },
   dotnet: { icon: SiDotnet, color: "#7c65d1", label: ".NET" },
@@ -440,7 +459,7 @@ const techIconMap: Record<string, { icon: IconType; color: string; label: string
   "algorithmic-meal-planning": { icon: TbBrain, color: "#f2c14e", label: "Algorithmic Recommendation Logic" },
   "data-automation": { icon: TbAutomation, color: "#9ea9ff", label: "Automated Data Processing" },
   "full-stack-development": { icon: TbCode, color: "#7bb7ff", label: "Full-Stack Development" },
-  "ai-assisted-coding": { icon: TbAi, color: "#edf4ff", label: "Codex & Claude Code" },
+  "ai-assisted-coding": { icon: CodexLogoIcon, color: "#edf4ff", label: "Codex & Claude Code" },
   "data-modeling": { icon: TbDatabase, color: "#3ecf8e", label: "Data Modeling" },
   "state-management": { icon: TbLayersIntersect, color: "#9ea9ff", label: "State Management" },
   "planning-logic": { icon: TbChecklist, color: "#f2c14e", label: "Planning Logic" },

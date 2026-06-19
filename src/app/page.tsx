@@ -17,7 +17,6 @@ import {
   SiJavascript,
   SiNodedotjs,
   SiOpenai,
-  SiPython,
   SiReact,
   SiRender,
   SiSupabase,
@@ -25,7 +24,6 @@ import {
   SiUnrealengine,
 } from "react-icons/si";
 import {
-  TbAi,
   TbApi,
   TbAutomation,
   TbBrain,
@@ -42,6 +40,7 @@ import {
   GAME_PROJECTS,
   HOBBY_PROJECTS,
   Project,
+  PROJECTS,
   SOFTWARE_PROJECTS,
   projectHasDemo,
 } from "../data/projects";
@@ -56,20 +55,7 @@ type StatProjectTile = {
 };
 
 export default function Home() {
-  const skills = [
-    { name: "C#", icon: TbBrandCSharp, color: "#9b4f96" },
-    { name: ".NET", icon: SiDotnet, color: "#7c65d1" },
-    { name: "C++", icon: SiCplusplus, color: "#4f90d9" },
-    { name: "Python", icon: SiPython, color: "#f2c14e" },
-    { name: "React", icon: SiReact, color: "#5bd3ff" },
-    { name: "Git", icon: SiGit, color: "#f05033" },
-    { name: "VS Code", icon: TbBrandVscode, color: "#2f8fff" },
-    { name: "Visual Studio", icon: DiVisualstudio, color: "#9b6dff" },
-    { name: "Unity", icon: SiUnity, color: "#d9e0ec" },
-    { name: "Unreal", icon: SiUnrealengine, color: "#f3f7ff" },
-    { name: "Blender", icon: SiBlender, color: "#ff8a00" },
-    { name: "Power Automate", icon: FaMicrosoft, color: "#3d8bff" },
-  ];
+  const skills = getPortfolioSkills();
   const softwareStatProjects = SOFTWARE_PROJECTS.map(createStatProjectTile);
   const gameStatProjects = GAME_PROJECTS.map(createStatProjectTile);
   const hobbyStatProjects = HOBBY_PROJECTS.map(createStatProjectTile);
@@ -774,6 +760,21 @@ function SkillLogoItem({
   );
 }
 
+function getPortfolioSkills(): { name: string; icon: IconType; color: string }[] {
+  const usedSkillKeys = new Set<string>();
+
+  for (const project of [BACHELOR_PROJECT, ...PROJECTS]) {
+    for (const skillKey of project.techIcons ?? []) {
+      usedSkillKeys.add(skillKey);
+    }
+  }
+
+  return Array.from(usedSkillKeys).flatMap((skillKey) => {
+    const skill = projectTechIconMap[skillKey];
+    return skill ? [{ name: skill.label, icon: skill.icon, color: skill.color }] : [];
+  });
+}
+
 /** ===== Styling (Navy Theme) ===== */
 
 const stylesVars = {
@@ -786,6 +787,26 @@ const stylesVars = {
   accent: "#6f87a8",
   accentStrong: "#8fa8cb",
 };
+
+const CodexLogoIcon: IconType = ({ size = 24, color = "currentColor", ...props }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="none"
+    stroke={color}
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M8.5 4.8 4 8.1v7.8l4.5 3.3" />
+    <path d="M15.5 4.8 20 8.1v7.8l-4.5 3.3" />
+    <path d="M8.5 4.8 15.5 19.2" />
+    <path d="M15.5 4.8 8.5 19.2" />
+  </svg>
+);
 
 const projectTechIconMap: Record<
   string,
@@ -902,7 +923,7 @@ const projectTechIconMap: Record<
     label: "Full-Stack Development",
   },
   "ai-assisted-coding": {
-    icon: TbAi,
+    icon: CodexLogoIcon,
     color: "#edf4ff",
     label: "Codex & Claude Code",
   },
