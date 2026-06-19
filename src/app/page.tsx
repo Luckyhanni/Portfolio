@@ -904,7 +904,7 @@ const projectTechIconMap: Record<
   "ai-assisted-coding": {
     icon: TbAi,
     color: "#edf4ff",
-    label: "AI-assisted Coding",
+    label: "Codex & Claude Code",
   },
   "data-modeling": {
     icon: TbDatabase,

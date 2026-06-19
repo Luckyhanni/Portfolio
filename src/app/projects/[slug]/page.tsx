@@ -440,7 +440,7 @@ const techIconMap: Record<string, { icon: IconType; color: string; label: string
   "algorithmic-meal-planning": { icon: TbBrain, color: "#f2c14e", label: "Algorithmic Recommendation Logic" },
   "data-automation": { icon: TbAutomation, color: "#9ea9ff", label: "Automated Data Processing" },
   "full-stack-development": { icon: TbCode, color: "#7bb7ff", label: "Full-Stack Development" },
-  "ai-assisted-coding": { icon: TbAi, color: "#edf4ff", label: "AI-assisted Coding" },
+  "ai-assisted-coding": { icon: TbAi, color: "#edf4ff", label: "Codex & Claude Code" },
   "data-modeling": { icon: TbDatabase, color: "#3ecf8e", label: "Data Modeling" },
   "state-management": { icon: TbLayersIntersect, color: "#9ea9ff", label: "State Management" },
   "planning-logic": { icon: TbChecklist, color: "#f2c14e", label: "Planning Logic" },
