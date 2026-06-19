@@ -821,7 +821,10 @@ const styles: Record<string, React.CSSProperties> = {
   },
   container: { maxWidth: 1160, padding: "0 24px", margin: "0 auto" },
   heroContainer: {
-    maxWidth: 1320,
+    width: "fit-content",
+    maxWidth: "calc(100vw - 32px)",
+    padding: 0,
+    marginInline: "auto",
   },
 
   header: {
@@ -848,6 +851,9 @@ const styles: Record<string, React.CSSProperties> = {
   heroCard: {
     display: "flex",
     flexWrap: "wrap",
+    width: "fit-content",
+    maxWidth: "100%",
+    boxSizing: "border-box",
     gap: 20,
     alignItems: "start",
     border: `1px solid ${stylesVars.cardBorder}`,
@@ -857,8 +863,8 @@ const styles: Record<string, React.CSSProperties> = {
     boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
   },
   heroMain: {
-    flex: "1 1 540px",
-    minWidth: 0,
+    flex: "0 1 620px",
+    minWidth: "min(320px, 100%)",
   },
   heroRight: {
     flex: "0 1 184px",
@@ -901,6 +907,7 @@ const styles: Record<string, React.CSSProperties> = {
     width: "fit-content",
     maxWidth: "100%",
     flex: "0 1 auto",
+    boxSizing: "border-box",
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 16,
     padding: 16,
