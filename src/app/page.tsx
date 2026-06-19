@@ -788,25 +788,29 @@ const stylesVars = {
   accentStrong: "#8fa8cb",
 };
 
-const CodexLogoIcon: IconType = ({ size = 24, color = "currentColor", ...props }) => (
-  <svg
-    viewBox="0 0 24 24"
-    width={size}
-    height={size}
-    fill="none"
-    stroke={color}
-    strokeWidth="2.2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-    {...props}
-  >
-    <path d="M8.5 4.8 4 8.1v7.8l4.5 3.3" />
-    <path d="M15.5 4.8 20 8.1v7.8l-4.5 3.3" />
-    <path d="M8.5 4.8 15.5 19.2" />
-    <path d="M15.5 4.8 8.5 19.2" />
-  </svg>
-);
+function createImageIcon(src: string, viewBox: string, imageWidth: number, imageHeight: number): IconType {
+  const ImageIcon: IconType = ({ size = 24, ...props }) => (
+    <svg
+      viewBox={viewBox}
+      width={size}
+      height={size}
+      aria-hidden="true"
+      {...props}
+    >
+      <image
+        href={src}
+        width={imageWidth}
+        height={imageHeight}
+        preserveAspectRatio="xMidYMid meet"
+      />
+    </svg>
+  );
+
+  return ImageIcon;
+}
+
+const CodexLogoIcon = createImageIcon("/skills/codex.png", "0 0 28 28", 28, 28);
+const ClaudeCodeLogoIcon = createImageIcon("/skills/claude-code.png", "0 0 50 33", 50, 33);
 
 const projectTechIconMap: Record<
   string,
@@ -922,10 +926,15 @@ const projectTechIconMap: Record<
     color: "#7bb7ff",
     label: "Full-Stack Development",
   },
-  "ai-assisted-coding": {
+  codex: {
     icon: CodexLogoIcon,
     color: "#edf4ff",
-    label: "Codex & Claude Code",
+    label: "Codex",
+  },
+  "claude-code": {
+    icon: ClaudeCodeLogoIcon,
+    color: "#d9772f",
+    label: "Claude Code",
   },
   "data-modeling": {
     icon: TbDatabase,

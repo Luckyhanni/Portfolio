@@ -721,7 +721,8 @@ const baseProjects: Project[] = [
     tags: ["LAN-App", "Voting", "Host-Admin", "Live-Beamer", "Server-Sent Events", "PWA", "JavaScript", "Node.js"],
     techIcons: [
       "full-stack-development",
-      "ai-assisted-coding",
+      "codex",
+      "claude-code",
       "data-modeling",
       "state-management",
       "planning-logic",
