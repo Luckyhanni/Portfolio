@@ -719,7 +719,14 @@ const baseProjects: Project[] = [
       "Die App ist für den Einsatz im lokalen WLAN gedacht: ein Server am Laptop, mehrere Handys als Voting-Geräte und ein großer Screen für Lobby, TV-Modus, Ranking, Matrix, Stimmzettel und Party-Statistiken.",
     ],
     tags: ["LAN-App", "Voting", "Host-Admin", "Live-Beamer", "Server-Sent Events", "PWA", "JavaScript", "Node.js"],
-    techIcons: ["javascript", "nodejs"],
+    techIcons: [
+      "full-stack-development",
+      "ai-assisted-coding",
+      "data-modeling",
+      "state-management",
+      "planning-logic",
+      "responsive-ui-engineering",
+    ],
     highlights: [
       "Getrennte Ansichten für Voting, Admin und Beamer",
       "Live-Updates für Fortschritt, aktueller Act und Ranking",

@@ -23,7 +23,19 @@ import {
   SiUnity,
   SiUnrealengine,
 } from "react-icons/si";
-import { TbApi, TbAutomation, TbBrain, TbBrandCSharp, TbBrandVscode } from "react-icons/tb";
+import {
+  TbAi,
+  TbApi,
+  TbAutomation,
+  TbBrain,
+  TbBrandCSharp,
+  TbBrandVscode,
+  TbChecklist,
+  TbCode,
+  TbDatabase,
+  TbDeviceMobileCode,
+  TbLayersIntersect,
+} from "react-icons/tb";
 import {
   getProject,
   PROJECTS,
@@ -427,6 +439,12 @@ const techIconMap: Record<string, { icon: IconType; color: string; label: string
   "supabase-postgresql": { icon: SiSupabase, color: "#3ecf8e", label: "Supabase / PostgreSQL Integration" },
   "algorithmic-meal-planning": { icon: TbBrain, color: "#f2c14e", label: "Algorithmic Recommendation Logic" },
   "data-automation": { icon: TbAutomation, color: "#9ea9ff", label: "Automated Data Processing" },
+  "full-stack-development": { icon: TbCode, color: "#7bb7ff", label: "Full-Stack Development" },
+  "ai-assisted-coding": { icon: TbAi, color: "#edf4ff", label: "AI-assisted Coding" },
+  "data-modeling": { icon: TbDatabase, color: "#3ecf8e", label: "Data Modeling" },
+  "state-management": { icon: TbLayersIntersect, color: "#9ea9ff", label: "State Management" },
+  "planning-logic": { icon: TbChecklist, color: "#f2c14e", label: "Planning Logic" },
+  "responsive-ui-engineering": { icon: TbDeviceMobileCode, color: "#5bd3ff", label: "Responsive UI Engineering" },
 };
 
 const styles: Record<string, React.CSSProperties> = {
