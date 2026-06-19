@@ -66,8 +66,8 @@ export default function Home() {
 
       {/* HERO */}
       <section id="top" style={{ padding: "28px 0 18px" }}>
-        <div style={{ ...styles.container, ...styles.heroContainer }}>
-          <div style={styles.heroCard}>
+        <div style={styles.heroContainer}>
+          <div className="heroCard" style={styles.heroCard}>
             <div style={styles.heroMain}>
               <h1 style={styles.h1}>Johannes Blank</h1>
               <p style={styles.subline}>B.Sc. Game Design · Programmierung · KI</p>
@@ -259,6 +259,22 @@ export default function Home() {
         @media (max-width: 900px) {
           .heroStatsRow {
             justify-content: center !important;
+          }
+        }
+
+        @media (max-width: 760px) {
+          .heroCard {
+            grid-template-columns: 1fr !important;
+            grid-template-areas:
+              "main"
+              "photo"
+              "stats" !important;
+            width: 100% !important;
+            max-width: calc(100vw - 24px) !important;
+          }
+
+          .heroRight {
+            justify-self: center !important;
           }
         }
 
@@ -821,9 +837,11 @@ const styles: Record<string, React.CSSProperties> = {
   },
   container: { maxWidth: 1160, padding: "0 24px", margin: "0 auto" },
   heroContainer: {
-    width: "fit-content",
-    maxWidth: "calc(100vw - 32px)",
-    padding: 0,
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    boxSizing: "border-box",
+    padding: "0 16px",
     marginInline: "auto",
   },
 
@@ -849,12 +867,13 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   heroCard: {
-    display: "flex",
-    flexWrap: "wrap",
-    width: "fit-content",
-    maxWidth: "100%",
+    display: "inline-grid",
+    gridTemplateColumns: "minmax(320px, 620px) auto",
+    gridTemplateAreas: `"main photo" "stats stats"`,
+    width: "max-content",
+    maxWidth: "calc(100vw - 32px)",
     boxSizing: "border-box",
-    gap: 20,
+    gap: "20px 28px",
     alignItems: "start",
     border: `1px solid ${stylesVars.cardBorder}`,
     borderRadius: 22,
@@ -863,13 +882,15 @@ const styles: Record<string, React.CSSProperties> = {
     boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
   },
   heroMain: {
-    flex: "0 1 620px",
-    minWidth: "min(320px, 100%)",
+    gridArea: "main",
+    minWidth: 0,
+    maxWidth: 620,
   },
   heroRight: {
-    flex: "0 1 184px",
-    width: "min(100%, 184px)",
-    marginLeft: "auto",
+    gridArea: "photo",
+    width: 184,
+    justifySelf: "end",
+    marginLeft: 0,
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "flex-start",
@@ -895,11 +916,14 @@ const styles: Record<string, React.CSSProperties> = {
   heroText: { marginTop: 12, color: stylesVars.textMuted, lineHeight: 1.65, maxWidth: 620 },
 
   statsRow: {
-    flex: "1 0 100%",
+    gridArea: "stats",
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
     gap: 14,
+    width: "fit-content",
+    maxWidth: "100%",
+    justifySelf: "center",
     alignItems: "start",
     marginTop: 4,
   },
