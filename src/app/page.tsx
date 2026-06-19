@@ -487,13 +487,26 @@ function ProjectIconTile({
     },
   };
 
+  if (projectTile.hasDemo) {
+    return (
+      <Link
+        {...sharedProps}
+        href={projectTile.href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {content}
+      </Link>
+    );
+  }
+
   if (projectTile.isExternal) {
     return (
       <a
         {...sharedProps}
         href={projectTile.href}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
       >
         {content}
       </a>
@@ -607,7 +620,7 @@ function ProjectCard({
 
             <div className="projectFooter" style={styles.projectActionRow}>
               {demoHref ? (
-                <ProjectActionLink href={demoHref} style={styles.demoButton}>
+                <ProjectActionLink href={demoHref} style={styles.demoButton} openInNewTab>
                   Demo ansehen
                 </ProjectActionLink>
               ) : null}
@@ -669,16 +682,24 @@ function ProjectActionLink({
   href,
   children,
   style,
+  openInNewTab = false,
 }: {
   href: string;
   children: React.ReactNode;
   style: React.CSSProperties;
+  openInNewTab?: boolean;
 }) {
   const actionStyle = { ...styles.projectActionLink, ...style };
+  const newTabProps = openInNewTab
+    ? {
+        target: "_blank",
+        rel: "noopener noreferrer",
+      }
+    : {};
 
   if (href.startsWith("/")) {
     return (
-      <Link className="projectActionLink" href={href} style={actionStyle}>
+      <Link className="projectActionLink" href={href} style={actionStyle} {...newTabProps}>
         {children}
       </Link>
     );
@@ -689,7 +710,7 @@ function ProjectActionLink({
       className="projectActionLink"
       href={href}
       target="_blank"
-      rel="noreferrer"
+      rel="noopener noreferrer"
       style={actionStyle}
     >
       {children}
