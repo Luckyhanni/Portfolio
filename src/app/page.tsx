@@ -96,12 +96,12 @@ export default function Home() {
                 projects={softwareStatProjects}
               />
               <Stat
-                title="Spielprototypen"
-                projects={gameStatProjects}
-              />
-              <Stat
                 title="Hobby-Projekte"
                 projects={hobbyStatProjects}
+              />
+              <Stat
+                title="Spielprototypen"
+                projects={gameStatProjects}
               />
             </div>
           </div>
