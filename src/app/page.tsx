@@ -574,9 +574,13 @@ function ProjectCard({
   priority?: boolean;
   href?: string;
 }) {
-  const projectUsesLogoPanel = !project.heroImage && Boolean(project.logoImage);
-  const projectVisualSrc = project.heroImage ?? project.logoImage;
-  const projectVisualFit = project.heroImageFit ?? (project.heroImage ? "cover" : "contain");
+  const projectUsesLogoPanel =
+    !project.homeImage && !project.heroImage && Boolean(project.logoImage);
+  const projectVisualSrc = project.homeImage ?? project.heroImage ?? project.logoImage;
+  const projectVisualFit =
+    project.homeImageFit ??
+    project.heroImageFit ??
+    (project.homeImage || project.heroImage ? "cover" : "contain");
   const detailHref = href ?? `/projects/${project.slug}`;
   const hasDemo = projectHasDemo(project);
   const demoHref = project.demoUrl ?? (hasDemo ? detailHref : undefined);
@@ -661,7 +665,7 @@ function ProjectCard({
                   height={projectUsesLogoPanel ? 112 : 160}
                   priority={priority}
                   loading={priority ? "eager" : undefined}
-                  unoptimized={!project.heroImage || shouldUseUnoptimizedImage(projectVisualSrc)}
+                  unoptimized={shouldUseUnoptimizedImage(projectVisualSrc)}
                   style={{
                     ...styles.projectImage,
                     objectFit: projectVisualFit,

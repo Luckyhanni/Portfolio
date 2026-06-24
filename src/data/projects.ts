@@ -46,6 +46,8 @@ export type Project = {
   heroAspectRatio?: string;
   heroLayout?: "default" | "portrait";
   logoImage?: string;
+  homeImage?: string;
+  homeImageFit?: "cover" | "contain";
   demoUrl?: string;
   githubUrl?: string;
   status?: string;
@@ -791,7 +793,9 @@ const baseProjects: Project[] = [
     category: "hobby",
     title: "MealPilot",
     period: "Hobby-Projekt",
-    logoImage: "/projects/mealpilot/mealpilot-logo.png",
+    logoImage: "/apple-touch-icon%20-%20Kopie.png",
+    homeImage: "/projects/mealpilot/mealpilot-logo.png",
+    homeImageFit: "cover",
     heroImage: "/projects/mealpilot/entdecken-mobile.png",
     heroImageFit: "cover",
     heroImagePosition: "center 34%",
