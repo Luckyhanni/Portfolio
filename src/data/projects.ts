@@ -716,6 +716,8 @@ const baseProjects: Project[] = [
     heroImage: "/projects/esc/TV_Ansicht.png",
     heroImageFit: "contain",
     logoImage: "/projects/esc/apple-touch-icon.png",
+    homeImage: "/projects/esc/esc-home.png",
+    homeImageFit: "cover",
     demoUrl: "/demos/esc",
     status: "Demo verfügbar",
     hasDemo: true,
