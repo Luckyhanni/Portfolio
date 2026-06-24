@@ -803,6 +803,7 @@ const baseProjects: Project[] = [
     heroImagePosition: "center 34%",
     heroAspectRatio: "4 / 5",
     heroLayout: "portrait",
+    demoUrl: "https://www.mealpilots.de/portfolio-preview-k7m4x9q2",
     status: "Mobile-first in Entwicklung",
     short: "Mobile-first Meal-Planning-App für Rezeptideen, Wochenplanung, geführtes Kochen und den direkten Einkauf.",
     description: [
