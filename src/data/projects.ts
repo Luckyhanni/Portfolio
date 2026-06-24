@@ -791,7 +791,7 @@ const baseProjects: Project[] = [
     category: "hobby",
     title: "MealPilot",
     period: "Hobby-Projekt",
-    logoImage: "/apple-touch-icon%20-%20Kopie.png",
+    logoImage: "/projects/mealpilot/mealpilot-logo.png",
     heroImage: "/projects/mealpilot/entdecken-mobile.png",
     heroImageFit: "cover",
     heroImagePosition: "center 34%",
