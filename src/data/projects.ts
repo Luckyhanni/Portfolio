@@ -12,6 +12,8 @@ export type ProjectMedia = {
   width?: number;
   height?: number;
   fit?: "cover" | "contain";
+  objectPosition?: string;
+  viewportAspectRatio?: string;
 };
 
 export type ProjectDetailSection = {
@@ -40,6 +42,9 @@ export type Project = {
   techIcons?: string[];
   heroImage?: string;
   heroImageFit?: "cover" | "contain";
+  heroImagePosition?: string;
+  heroAspectRatio?: string;
+  heroLayout?: "default" | "portrait";
   logoImage?: string;
   demoUrl?: string;
   githubUrl?: string;
@@ -787,20 +792,23 @@ const baseProjects: Project[] = [
     title: "MealPilot",
     period: "Hobby-Projekt",
     logoImage: "/apple-touch-icon%20-%20Kopie.png",
-    heroImage: "/projects/mealpilot/start.png",
-    heroImageFit: "contain",
-    status: "Demo geplant",
-    short: "Lokaler Wochenplaner für Mahlzeiten mit Rezeptimport, Kochansicht und packungsoptimierter Einkaufsliste.",
+    heroImage: "/projects/mealpilot/entdecken-mobile.png",
+    heroImageFit: "cover",
+    heroImagePosition: "center 34%",
+    heroAspectRatio: "4 / 5",
+    heroLayout: "portrait",
+    status: "Mobile-first in Entwicklung",
+    short: "Mobile-first Meal-Planning-App für Rezeptideen, Wochenplanung, geführtes Kochen und den direkten Einkauf.",
     description: [
-      "MealPilot ist ein lokaler Wochenplaner, der Rezepte, Mahlzeiten und Einkaufsvorbereitung in einem schlanken Workflow zusammenführt.",
-      "Der Fokus liegt auf Alltagstauglichkeit: ein Wochenplan mit zwei Mahlzeiten pro Tag, schnelle Rezeptwechsel, eine fokussierte Einzelgericht-Ansicht und eine Einkaufsliste, die realistische Packungsgrößen statt reiner Rezeptmengen berücksichtigt.",
+      "MealPilot bündelt die komplette Essensplanung in einer mobilen Oberfläche: passende Gerichte entdecken, Rezepte auswählen, die Woche planen, Zutaten einkaufen und Schritt für Schritt kochen.",
+      "Die App ist inzwischen konsequent mobile first aufgebaut. Große Touch-Flächen, kurze Wege und kompakte Karten halten alle wichtigen Informationen auch unterwegs schnell erreichbar.",
     ],
-    tags: ["Hobby-Projekt / Web-App", "Meal Planning", "Wochenplanung", "Einkaufsliste", "Kochansicht"],
+    tags: ["Mobile-first Web-App", "Meal Planning", "Rezeptverwaltung", "Wochenplan", "Einkaufsliste", "Kochmodus"],
     highlights: [
-      "Wochenplanung mit zwei Mahlzeiten pro Tag und Tageswerten",
-      "Rezeptimport mit Bildern, Kochschritten und gespeicherten Links",
-      "Packungsoptimierte Einkaufsliste mit Restmengen und Zuhause-Markierung",
-      "Druck- und Kochansichten für Küche, Handy und Kühlschrank",
+      "Gerichte nach Schnell, High Protein, Low Cal, vegetarisch oder vegan filtern",
+      "Rezeptdetails mit Nährwerten, Zutaten und bebilderten Kochschritten",
+      "Einkaufsliste mit Portionen, geschätztem Preis und Zuhause-Markierung",
+      "Wochenplan mit Tageswerten, Gerichtetausch und direkter Einkaufsplanung",
     ],
     techIcons: [
       "react-typescript",
@@ -812,48 +820,71 @@ const baseProjects: Project[] = [
     ],
     detailSections: [
       {
-        title: "Wochenplan als Arbeitsfläche",
+        title: "Rezeptdetails auf einen Blick",
         body: [
-          "Die Wochenansicht bündelt alle geplanten Gerichte in einer kompakten Tagesstruktur. Kalorien, Proteinwerte und Shake-Ergänzungen bleiben direkt sichtbar, ohne dass die Planung in einzelne Detailseiten zerfällt.",
-          "Gerichte können gezielt ausgetauscht oder per Remix neu vorgeschlagen werden. Dadurch funktioniert MealPilot nicht nur als statische Liste, sondern als iteratives Planungstool für echte Wochenroutinen.",
+          "Die Rezeptansicht stellt Gericht, Bild, Dauer, Kalorien und Protein direkt an den Anfang. Übersicht, Zutaten und Anleitung bleiben über eine feste Tab-Navigation ohne Umwege erreichbar.",
+          "Darunter folgen Nährwerte und die Planung für die Einkaufsliste. So führt ein ausgewähltes Gericht direkt in den nächsten sinnvollen Schritt.",
         ],
         media: {
-          src: "/projects/mealpilot/wochenplan.png",
-          alt: "MealPilot Wochenplan mit Tagesübersicht, Gerichten und Nährwerten",
+          src: "/projects/mealpilot/rezept-mobile.png",
+          alt: "Mobile MealPilot Rezeptansicht mit Gericht, Nährwerten und Tabs",
           type: "image",
-          width: 1897,
-          height: 967,
-          fit: "contain",
+          width: 1320,
+          height: 2868,
+          fit: "cover",
+          objectPosition: "center 34%",
+          viewportAspectRatio: "4 / 5",
         },
       },
       {
-        title: "Kochansicht mit Bildschritten",
+        title: "Geführtes Kochen mit Bildschritten",
         body: [
-          "Die Kochansicht reduziert ein Rezept auf das, was während der Zubereitung wirklich zählt: große Schrittbilder, klare Nummerierung und ausreichend Abstand zwischen den Anweisungen.",
-          "Gerade importierte Rezeptdaten werden dadurch nutzbar, weil Bildmaterial und Text nicht nur gespeichert, sondern in einen ruhigen Kochmodus übersetzt werden.",
+          "In der Anleitung wird jeder Arbeitsschritt als eigene Karte mit großem Bild, Nummer und gut lesbarem Text dargestellt. Mengen passen sich dabei direkt an die gewählte Portionszahl an.",
+          "Der Kochmodus bleibt bewusst linear und ruhig: Statt zwischen Daten zu springen, kann das Rezept Schritt für Schritt abgearbeitet werden.",
         ],
         media: {
-          src: "/projects/mealpilot/kochansicht.png",
-          alt: "MealPilot Kochansicht mit nummerierten Zubereitungsschritten und Bildern",
+          src: "/projects/mealpilot/anleitung-mobile.png",
+          alt: "Mobile MealPilot Anleitung mit nummerierten Kochschritten und Bildern",
           type: "image",
-          width: 1897,
-          height: 969,
-          fit: "contain",
+          width: 1320,
+          height: 2868,
+          fit: "cover",
+          objectPosition: "center 38%",
+          viewportAspectRatio: "4 / 5",
         },
       },
       {
-        title: "Einkauf mit realistischen Packungen",
+        title: "Einkauf direkt aus dem Rezept",
         body: [
-          "Die Einkaufsliste rechnet nicht nur Rezeptmengen zusammen, sondern denkt in kaufbaren Einheiten. Statt 60 g Joghurt als isolierte Menge zu behandeln, wird die passende Packung vorgeschlagen und der Rest nachvollziehbar ausgewiesen.",
-          "Zutaten sind nach Kategorien gruppiert und lassen sich als Zuhause markieren. So entsteht aus der Rezeptplanung direkt eine Einkaufsansicht, die im Laden verwendbar bleibt.",
+          "Für ein einzelnes Gericht zeigt MealPilot Fortschritt, geschätzten Preis und die benötigte Portionszahl. Zutaten werden nach Kategorien gruppiert und in benötigte Menge sowie kaufbare Packungsgröße übersetzt.",
+          "Vorhandene Lebensmittel lassen sich als Zuhause markieren. Dadurch bleibt die Liste im Supermarkt kurz und zeigt nur, was tatsächlich noch fehlt.",
         ],
         media: {
-          src: "/projects/mealpilot/einkauf.png",
-          alt: "MealPilot Einkaufsliste mit packungsoptimierten Zutaten und Kategorien",
+          src: "/projects/mealpilot/einkauf-mobile.png",
+          alt: "Mobile MealPilot Einkaufsliste mit Preis, Portionen und Zutatenkategorien",
           type: "image",
-          width: 1900,
-          height: 967,
-          fit: "contain",
+          width: 1320,
+          height: 2868,
+          fit: "cover",
+          objectPosition: "center 38%",
+          viewportAspectRatio: "4 / 5",
+        },
+      },
+      {
+        title: "Wochenplanung mit Tageswerten",
+        body: [
+          "Der Wochenplan verbindet die ausgewählten Gerichte mit Kalorien- und Proteinzielen. Pro Tag sind Mahlzeiten, Dauer und Nährwerte sichtbar, ohne die Übersicht mit Detaildaten zu überladen.",
+          "Gerichte können direkt getauscht werden. Tagesgesamtwerte, Einkaufsliste und Druckansicht schließen den Planungsworkflow an derselben Stelle ab.",
+        ],
+        media: {
+          src: "/projects/mealpilot/wochenplan-mobile.png",
+          alt: "Mobile MealPilot Wochenplanung mit Gerichten und Tageswerten",
+          type: "image",
+          width: 1320,
+          height: 2868,
+          fit: "cover",
+          objectPosition: "center 34%",
+          viewportAspectRatio: "4 / 5",
         },
       },
     ],

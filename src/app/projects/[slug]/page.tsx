@@ -70,6 +70,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const hasEmbed = Boolean(project.detailVideo?.embedUrl);
   const hasTechContent = Boolean(project.techIcons?.length || hasLinks);
   const heroImageFit = project.heroImageFit ?? (project.heroImage ? "cover" : "contain");
+  const hasPortraitHero = project.heroLayout === "portrait";
+  const projectCategoryLabel = getProjectCategoryLabel(project.category);
 
   return (
     <main style={styles.page}>
@@ -83,7 +85,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <ProjectEmbedSection project={project} />
           ) : null}
 
-          <div style={styles.heroCard}>
+          <div
+            className={hasPortraitHero ? "projectHeroCardPortrait" : undefined}
+            style={{
+              ...styles.heroCard,
+              ...(hasPortraitHero ? styles.heroCardPortrait : null),
+            }}
+          >
             <ProjectVisual
               media={{
                 src: project.heroImage ?? project.logoImage ?? "/window.svg",
@@ -91,11 +99,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 width: 1600,
                 height: 900,
                 fit: heroImageFit,
+                objectPosition: project.heroImagePosition,
+                viewportAspectRatio: project.heroAspectRatio,
               }}
               priority
-              style={heroImageFit === "contain" ? styles.heroVisualContain : styles.heroVisual}
+              style={
+                hasPortraitHero
+                  ? styles.heroVisualPortrait
+                  : heroImageFit === "contain"
+                    ? styles.heroVisualContain
+                    : styles.heroVisual
+              }
+              frameClassName={hasPortraitHero ? "projectHeroVisualPortraitWrap" : undefined}
               frameStyle={
-                heroImageFit === "contain"
+                hasPortraitHero
+                  ? { ...styles.heroVisualWrap, ...styles.heroVisualWrapPortrait }
+                  : heroImageFit === "contain"
                   ? { ...styles.heroVisualWrap, ...styles.heroVisualWrapContain }
                   : styles.heroVisualWrap
               }
@@ -104,9 +123,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div style={styles.heroBody}>
               <div style={styles.eyebrowRow}>
                 <span style={styles.categoryPill}>
-                  {getProjectCategoryLabel(project.category)}
+                  {projectCategoryLabel}
                 </span>
-                {project.period ? <span style={styles.periodPill}>{project.period}</span> : null}
+                {project.period && project.period !== projectCategoryLabel ? (
+                  <span style={styles.periodPill}>{project.period}</span>
+                ) : null}
                 {project.status && project.status !== "Demo verfügbar" ? (
                   <span style={styles.periodPill}>{project.status}</span>
                 ) : null}
@@ -220,6 +241,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <style>{`
         @media (max-width: 700px) {
+          .projectHeroCardPortrait {
+            grid-template-columns: minmax(0, 1fr) !important;
+          }
+
+          .projectHeroVisualPortraitWrap {
+            width: 100% !important;
+            max-width: none !important;
+          }
+
           .projectDetailTextColumn {
             order: 1 !important;
             min-width: 0 !important;
@@ -359,7 +389,15 @@ function ProjectVisual({
   const isSvg = normalizedSrc.endsWith(".svg");
 
   return (
-    <div className={frameClassName} style={frameStyle}>
+    <div
+      className={frameClassName}
+      style={{
+        ...frameStyle,
+        ...(media.viewportAspectRatio
+          ? { aspectRatio: media.viewportAspectRatio }
+          : null),
+      }}
+    >
       <Image
         src={media.src}
         alt={media.alt}
@@ -370,6 +408,10 @@ function ProjectVisual({
         style={{
           ...style,
           objectFit: media.fit ?? "cover",
+          objectPosition: media.objectPosition ?? "center center",
+          ...(media.viewportAspectRatio
+            ? { width: "100%", height: "100%", display: "block" }
+            : null),
         }}
       />
     </div>
@@ -523,6 +565,10 @@ const styles: Record<string, React.CSSProperties> = {
     background: stylesVars.cardBg,
     boxShadow: "0 20px 44px rgba(0, 0, 0, 0.22)",
   },
+  heroCardPortrait: {
+    gridTemplateColumns: "minmax(300px, 0.82fr) minmax(0, 1.18fr)",
+    alignItems: "center",
+  },
   heroVisualWrap: {
     aspectRatio: "18 / 4",
     borderRadius: 20,
@@ -537,6 +583,12 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     justifyContent: "center",
   },
+  heroVisualWrapPortrait: {
+    aspectRatio: "4 / 5",
+    width: "min(100%, 430px)",
+    maxHeight: 560,
+    justifySelf: "center",
+  },
   heroVisual: {
     width: "100%",
     height: "115%",
@@ -549,6 +601,11 @@ const styles: Record<string, React.CSSProperties> = {
     height: "100%",
     display: "block",
     objectPosition: "center center",
+  },
+  heroVisualPortrait: {
+    width: "100%",
+    height: "100%",
+    display: "block",
   },
   heroBody: {
     display: "grid",
