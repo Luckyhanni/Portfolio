@@ -477,8 +477,8 @@ function createImageIcon(src: string, viewBox: string, imageWidth: number, image
   return ImageIcon;
 }
 
-const CodexLogoIcon = createImageIcon("/skills/codex.png", "0 0 28 28", 28, 28);
-const ClaudeCodeLogoIcon = createImageIcon("/skills/claude-code.png", "0 0 50 33", 50, 33);
+const CodexLogoIcon = createImageIcon("/skills/codex.png", "0 0 1024 1024", 1024, 1024);
+const ClaudeCodeLogoIcon = createImageIcon("/skills/claude-code.png", "0 0 1024 1024", 1024, 1024);
 
 const techIconMap: Record<string, { icon: IconType; color: string; label: string }> = {
   csharp: { icon: TbBrandCSharp, color: "#9b4f96", label: "C#" },

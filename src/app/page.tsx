@@ -813,8 +813,8 @@ function createImageIcon(src: string, viewBox: string, imageWidth: number, image
   return ImageIcon;
 }
 
-const CodexLogoIcon = createImageIcon("/skills/codex.png", "0 0 28 28", 28, 28);
-const ClaudeCodeLogoIcon = createImageIcon("/skills/claude-code.png", "0 0 50 33", 50, 33);
+const CodexLogoIcon = createImageIcon("/skills/codex.png", "0 0 1024 1024", 1024, 1024);
+const ClaudeCodeLogoIcon = createImageIcon("/skills/claude-code.png", "0 0 1024 1024", 1024, 1024);
 
 const projectTechIconMap: Record<
   string,
@@ -1255,9 +1255,10 @@ const styles: Record<string, React.CSSProperties> = {
   },
   skillsGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+    gridAutoRows: "1fr",
     gap: 18,
-    alignItems: "start",
+    alignItems: "stretch",
   },
   skillLogoItem: {
     display: "flex",
@@ -1265,7 +1266,10 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
-    padding: "12px 8px",
+    minHeight: 154,
+    height: "100%",
+    boxSizing: "border-box",
+    padding: "14px 8px",
     borderRadius: 18,
     border: `1px solid rgba(122, 145, 177, 0.14)`,
     background: "rgba(16, 23, 32, 0.56)",
@@ -1283,10 +1287,15 @@ const styles: Record<string, React.CSSProperties> = {
     boxShadow: "inset 0 1px 0 rgba(237, 244, 255, 0.04)",
   },
   skillLogoLabel: {
+    minHeight: 52,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     fontSize: 14,
     fontWeight: 700,
     color: stylesVars.text,
     lineHeight: 1.25,
+    overflowWrap: "anywhere",
   },
 
   projectRow: {
