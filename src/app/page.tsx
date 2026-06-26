@@ -765,6 +765,21 @@ function SkillLogoItem({
 }
 
 function getPortfolioSkills(): { name: string; icon: IconType; color: string }[] {
+  const preferredSkillOrder = [
+    "csharp",
+    "dotnet",
+    "visualstudio",
+    "vscode",
+    "openai",
+    "codex",
+    "claude-code",
+    "database",
+    "github",
+    "excel",
+    "supabase-postgresql",
+    "react-typescript",
+    "node-express",
+  ];
   const usedSkillKeys = new Set<string>();
 
   for (const project of [BACHELOR_PROJECT, ...PROJECTS]) {
@@ -773,7 +788,12 @@ function getPortfolioSkills(): { name: string; icon: IconType; color: string }[]
     }
   }
 
-  return Array.from(usedSkillKeys).flatMap((skillKey) => {
+  const orderedSkillKeys = [
+    ...preferredSkillOrder.filter((skillKey) => usedSkillKeys.has(skillKey)),
+    ...Array.from(usedSkillKeys).filter((skillKey) => !preferredSkillOrder.includes(skillKey)),
+  ];
+
+  return orderedSkillKeys.flatMap((skillKey) => {
     const skill = projectTechIconMap[skillKey];
     return skill ? [{ name: skill.label, icon: skill.icon, color: skill.color }] : [];
   });
